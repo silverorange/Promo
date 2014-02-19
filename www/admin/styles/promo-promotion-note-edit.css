@@ -1,0 +1,11 @@
+.admin-note {
+	margin: -16px -16px 16px;
+	border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+	border: none;
+	border-bottom: 1px solid #f0dca1;
+	background-image: none;
+	padding: 8px 12px;
+	min-height: 0;
+}

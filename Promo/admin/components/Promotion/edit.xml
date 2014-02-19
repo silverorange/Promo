@@ -1,0 +1,90 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE swatml SYSTEM "http://swat.silverorange.com/swatml1.dtd">
+<swatml>
+	<widget class="SwatMessageDisplay" id="message_display" />
+	<widget class="SwatFrame" id="edit_frame">
+		<property name="title" translatable="yes">Promotion</property>
+		<widget class="SwatForm" id="edit_form">
+			<widget class="SwatDisplayableContainer" id="general_fields">
+				<widget class="SwatFormField" id="title_field">
+					<property name="title" translatable="yes">Title</property>
+					<widget class="SwatEntry" id="title">
+						<property name="required" type="boolean">true</property>
+						<property name="maxlength" type="integer">255</property>
+						<property name="size" type="integer">30</property>
+					</widget>
+				</widget>
+				<widget class="SwatFormField" id="instance_field">
+					<property name="title" translatable="yes">Site</property>
+					<widget class="SwatFlydown" id="instance">
+						<property name="show_blank" type="boolean">false</property>
+						<property name="required" type="boolean">true</property>
+					</widget>
+				</widget>
+				<widget class="SwatFormField" id="public_note_field">
+					<property name="title" translatable="yes">Public Note</property>
+					<property name="note" translatable="yes">
+						Optional note shown to customers. Can be used to
+						describe something unusual about the promotion
+					</property>
+					<widget class="SwatTextarea" id="public_note">
+						<property name="rows" type="integer">3</property>
+					</widget>
+				</widget>
+				<widget class="SwatFormField" id="maximum_quantity_field">
+					<property name="title" translatable="yes">Maximum Quantity of Items</property>
+					<widget class="SwatIntegerEntry" id="maximum_quantity">
+						<property name="minimum_value" type="float">1</property>
+					</widget>
+				</widget>
+			</widget>
+			<widget class="SwatGroupingFormField" id="active_period_container">
+				<property name="title" translatable="yes">Active Period</property>
+				<property name="display_messages" type="boolean">false</property>
+				<widget class="SwatFormField" id="start_date_field">
+				<property name="title" translatable="yes">Start Date</property>
+					<widget class="SwatDateEntry" id="start_date">
+						<property name="display_parts" type="constant">YEAR|MONTH|DAY|TIME|CALENDAR</property>
+						<property name="use_current_date" type="boolean">false</property>
+					</widget>
+				</widget>
+				<widget class="SwatFormField" id="end_date_field">
+					<property name="title" translatable="yes">End Date</property>
+					<widget class="SwatDateEntry" id="end_date">
+						<property name="display_parts" type="constant">YEAR|MONTH|DAY|TIME|CALENDAR</property>
+						<property name="use_current_date" type="boolean">false</property>
+					</widget>
+				</widget>
+			</widget>
+			<widget class="SwatGroupingFormField" id="discount_container">
+				<property name="title" translatable="yes">Discount</property>
+				<property name="note" translatable="yes">
+					<![CDATA[
+						<p>For free redemptions enter a 100% discount.</p>
+						<p>If both a fixed amount discount and a percentage
+						discount are set, only the fixed amount discount will
+						be applied.</p>
+					]]>
+				</property>
+				<property name="note_content_type">text/xml</property>
+				<property name="display_messages" type="boolean">false</property>
+				<widget class="SwatFormField" id="discount_amount_field">
+					<property name="title" translatable="yes">Fixed Amount Discount</property>
+					<widget class="SwatMoneyEntry" id="discount_amount">
+						<property name="minimum_value" type="float">0</property>
+					</widget>
+				</widget>
+				<widget class="SwatFormField" id="discount_percentage_field">
+					<property name="title" translatable="yes">Percentage Discount</property>
+					<widget class="SwatPercentageEntry" id="discount_percentage">
+						<property name="minimum_value" type="float">0</property>
+						<property name="maximum_value" type="float">1</property>
+					</widget>
+				</widget>
+			</widget>
+			<widget class="SwatFooterFormField">
+				<widget class="SwatButton" id="submit_button" />
+			</widget>
+		</widget>
+	</widget>
+</swatml>

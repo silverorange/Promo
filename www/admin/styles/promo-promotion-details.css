@@ -1,0 +1,43 @@
+#promotion_code_summary .swat-disclosure-container {
+	background: #f8f6f0;
+	border-color: #dcceb2;
+}
+
+#promotion_code_summary p {
+	margin: 0;
+}
+
+#promotion_code_frame .swat-none,
+#results_message {
+	color: #333;
+	margin: 1em 0;
+}
+
+#details_view .details-note {
+	display: block;
+	font-size: 11px;
+	color: #888;
+}
+
+#warning_message_display {
+	margin: -16px -16px 16px;
+}
+
+#warning_message_display .swat-message {
+	margin: 0;
+	border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+	border: none;
+	border-bottom: 1px solid #facd00;
+}
+
+#promotion_details_field th,
+#promotion_use_field th {
+	font-size: 122%;
+	color: #333;
+}
+
+#promotion_use_field th {
+	padding-top: 10px;
+}

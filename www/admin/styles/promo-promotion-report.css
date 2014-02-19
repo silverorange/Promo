@@ -1,0 +1,7 @@
+#index_view tr.last {
+	background: #f8f8f8;
+}
+
+#index_view tr.last td {
+	font-weight: bold;
+}

@@ -1,4 +1,4 @@
 Promo
 =====
 
-Promotion Code for the silverorange/Store e-commerce platform
+Promotion Code discount system for the silverorange/Store e-commerce platform.

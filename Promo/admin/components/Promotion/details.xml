@@ -1,0 +1,174 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE swatml SYSTEM "http://swat.silverorange.com/swatml1.dtd">
+<swatml>
+	<widget class="SwatMessageDisplay" id="message_display" />
+	<widget class="SwatFrame" id="details_frame">
+		<property name="title" translatable="yes">Promotion</property>
+		<widget class="SwatToolbar" id="details_toolbar">
+			<widget class="SwatToolLink" id="edit_link">
+				<property name="title" translatable="yes">Edit Promotion</property>
+				<property name="link">Promotion/Edit?id=%s</property>
+				<property name="stock_id">edit</property>
+			</widget>
+		</widget>
+
+		<widget class="SwatMessageDisplay" id="warning_message_display" />
+
+		<!-- {{{ Promotion Details -->
+
+		<widget class="SwatDetailsView" id="details_view">
+			<object class="SwatDetailsViewField" id="promotion_details_field">
+				<property name="title" translatable="yes">Promotion Details</property>
+				<property name="show_colon" type="boolean">false</property>
+				<object class="SwatTextCellRenderer" />
+			</object>
+			<object class="SwatDetailsViewField" id="title_field">
+				<property name="title" translatable="yes">Title</property>
+				<object class="SwatTextCellRenderer">
+					<property name="text" type="data">title</property>
+				</object>
+			</object>
+			<object class="SwatDetailsViewField" id="public_note_field">
+				<property name="title" translatable="yes">Public Note</property>
+				<object class="SwatNullTextCellRenderer">
+					<property name="text" type="data">public_note</property>
+				</object>
+			</object>
+			<object class="SwatDetailsViewField" id="instance_field">
+				<property name="title" translatable="yes">Site</property>
+				<property name="visible" type="boolean">false</property>
+				<object class="SwatTextCellRenderer">
+					<property name="text" type="data">instance.title</property>
+				</object>
+			</object>
+			<object class="SwatDetailsViewField" id="active_period_field">
+				<property name="title" translatable="yes">Active Period</property>
+				<object class="SwatTextCellRenderer">
+					<property name="text" type="data">valid_dates</property>
+				</object>
+				<object class="SwatTextCellRenderer" id="active_period_note_renderer">
+					<property name="visible" type="boolean">false</property>
+					<property name="text" translatable="yes">
+						<![CDATA[
+							<span class="details-note">This promotion can only
+							be used during the above time period.</span>
+						]]>
+					</property>
+					<property name="content_type">text/xml</property>
+				</object>
+			</object>
+			<object class="SwatDetailsViewField" id="discount_field">
+				<property name="title" translatable="yes">Discount</property>
+				<object class="StoreMoneyCellRenderer">
+					<property name="value" type="data">discount_amount</property>
+					<property name="visible" type="data">show_discount_amount</property>
+				</object>
+				<object class="SwatPercentageCellRenderer">
+					<property name="value" type="data">discount_percentage</property>
+					<property name="visible" type="data">!show_discount_amount</property>
+				</object>
+			</object>
+			<object class="SwatDetailsViewField" id="notes">
+				<property name="title" translatable="yes">Administrative Notes</property>
+				<object class="SwatNullTextCellRenderer">
+					<property name="text" type="data">notes</property>
+				</object>
+				<object class="SwatWidgetCellRenderer">
+					<widget class="SwatToolLink">
+						<property name="title" translatable="yes">Edit</property>
+						<property name="link" type="data">note_edit_link</property>
+						<property name="stock_id">edit</property>
+					</widget>
+				</object>
+			</object>
+			<object class="SwatDetailsViewField" id="promotion_use_field">
+				<property name="title" translatable="yes">Promotion Use</property>
+				<property name="show_colon" type="boolean">false</property>
+				<object class="SwatTextCellRenderer" />
+			</object>
+			<object class="SwatDetailsViewField" id="orders_field">
+				<property name="title" translatable="yes">Orders</property>
+				<object class="SwatNullTextCellRenderer">
+					<property name="text" type="data">order_summary</property>
+				</object>
+				<object class="SwatLinkCellRenderer">
+					<property name="text" translatable="yes">Details</property>
+					<property name="link">Promotion/Report?id=%s</property>
+					<property name="link_value" type="data">id</property>
+					<property name="visible" type="data">has_orders</property>
+				</object>
+			</object>
+		</widget>
+
+		<!-- }}} -->
+		<!-- {{{ Promotion Codes -->
+
+		<widget class="SwatFrame" id="promotion_code_frame">
+			<property name="title" translatable="yes">Promotion Codes</property>
+			<property name="classes[]">swat-clear</property>
+			<widget class="SwatForm" id="promotion_code_form">
+				<widget class="SwatToolbar" id="promotion_code_toolbar">
+					<widget class="SwatToolLink">
+						<property name="title" translatable="yes">Add a Code</property>
+						<property name="link">Promotion/PromotionCodeEdit?promotion=%s</property>
+						<property name="stock_id">add</property>
+					</widget>
+					<widget class="SwatToolLink">
+						<property name="title" translatable="yes">Generate Codes</property>
+						<property name="link">Promotion/GenerateCodes?promotion=%s</property>
+						<property name="stock_id">add</property>
+					</widget>
+				</widget>
+				<widget class="SwatDisclosure" id="promotion_code_summary">
+					<property name="title" translatable="yes">Promotion Codes Summary</property>
+					<property name="open" type="boolean">false</property>
+					<property name="visible" type="boolean">false</property>
+					<widget class="SwatContentBlock" id="promotion_code_summary_text" />
+				</widget>
+				<widget class="SwatContentBlock" id="results_message" />
+				<widget class="SwatTableView" id="promotion_code_view">
+					<property name="no_records_message" translatable="yes">No Promotion Codes.</property>
+					<object class="SwatTableViewCheckboxColumn" id="checkbox">
+						<object class="SwatCheckboxCellRenderer" id="items">
+							<property name="value" type="data">id</property>
+						</object>
+					</object>
+					<object class="AdminTableViewOrderableColumn" id="code">
+						<property name="title" translatable="yes">Code</property>
+						<object class="AdminTitleLinkCellRenderer">
+							<property name="text" type="data">code</property>
+							<property name="link">Promotion/PromotionCodeEdit?id=%s</property>
+							<property name="link_value[]" type="data">id</property>
+							<property name="stock_id">edit</property>
+						</object>
+					</object>
+					<object class="AdminTableViewOrderableColumn" id="limited_use">
+						<property name="title" translatable="yes">One-Time Use</property>
+						<object class="SwatBooleanCellRenderer">
+							<property name="value" type="data">limited_use</property>
+						</object>
+					</object>
+					<object class="AdminTableViewOrderableColumn" id="used_date">
+						<property name="title" translatable="yes">Used</property>
+						<object class="SwatDateCellRenderer">
+							<property name="date" type="data">used_date</property>
+							<property name="time_zone_format" type="constant">SwatDate::TZ_SHORT</property>
+						</object>
+					</object>
+				</widget>
+				<widget class="AdminPagination" id="promotion_code_pager">
+					<property name="link">Promotion/Details</property>
+					<property name="page_size" type="integer">50</property>
+				</widget>
+				<widget class="SwatActions" id="promotion_code_actions">
+					<widget class="SwatActionItem" id="promotion_code_delete">
+						<property name="title" translatable="yes">delete…</property>
+					</widget>
+				</widget>
+			</widget>
+		</widget>
+
+		<!-- }}} -->
+
+	</widget>
+</swatml>
