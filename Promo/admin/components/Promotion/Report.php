@@ -341,7 +341,7 @@ class PromoPromotionReport extends AdminIndex
 			$months[$key]->{'promotion_total_'.$row->region} =
 				$row->promotion_total;
 
-			if ($row->promotion_total === 0) {
+			if ($row->promotion_total == 0) {
 				$months[$key]->{'roi_infinite_'.$row->region} = true;
 			} else {
 				$months[$key]->{'roi_'.$row->region} =
@@ -356,7 +356,7 @@ class PromoPromotionReport extends AdminIndex
 
 		// calculate total ROI per region
 		foreach ($regions as $region) {
-			if ($total->{'promotion_total_'.$region->id} === 0) {
+			if ($total->{'promotion_total_'.$region->id} == 0) {
 				$total->{'roi_infinite_'.$region->id} = true;
 			} else {
 				$total->{'roi_'.$region->id} =

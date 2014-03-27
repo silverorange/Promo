@@ -141,7 +141,7 @@ class PromoPromotionIndex extends AdminIndex
 		if ($ds->promotion_total === null) {
 			$ds->roi_infinite = false;
 			$ds->roi = null;
-		} elseif ($ds->promotion_total === 0) {
+		} elseif ($ds->promotion_total == 0) {
 			$ds->roi_infinite = true;
 			$ds->roi = 0;
 		} else {
