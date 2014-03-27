@@ -2,6 +2,7 @@
 
 require_once 'Store/StoreApplication.php';
 require_once 'Promo/Promo.php';
+require_once 'Promo/dataobjects/PromoPromotion.php';
 
 /**
  * @package   Promo
@@ -13,8 +14,6 @@ class PromoApplication extends StoreApplication
 
 	protected function initModules()
 	{
-		require_once 'Promo/dataobjects/PromoPromotion.php';
-
 		$this->session->registerObject(
 			'promotion',
 			SwatDBClassMap::get('PromoPromotion')
