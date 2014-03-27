@@ -261,10 +261,10 @@ class PromoPromotion extends SwatDBDataObject
 		$now->toUTC();
 
 		$active = (
-				$this->start_date === null ||
+				!$this->start_date instanceof SwatDate ||
 				SwatDate::compare($now, $this->start_date) >= 0
 			) && (
-				$this->end_date === null ||
+				!$this->end_date instanceof SwatDate ||
 				SwatDate::compare($now, $this->end_date) <= 0
 			);
 
@@ -273,7 +273,7 @@ class PromoPromotion extends SwatDBDataObject
 				$this->code instanceof PromoPromotionCode &&
 				(
 					!$this->code->limited_use ||
-					$this->code->used_date === null
+					!$this->code->used_date instanceof SwatDate
 				)
 			);
 		}
@@ -295,8 +295,9 @@ class PromoPromotion extends SwatDBDataObject
 		$wrapper = SwatDBClassMap::get('PromoPromotionCodeWrapper');
 		$promotion_code = SwatDB::query($this->db, $sql, $wrapper)->getFirst();
 
-		if ($promotion_code === null)
+		if ($promotion_code == '') {
 			return false;
+		}
 
 		$this->code = $promotion_code;
 
