@@ -1,9 +1,6 @@
 <?php
 
-require_once 'Admin/pages/AdminDBEdit.php';
-require_once 'Admin/exceptions/AdminNotFoundException.php';
-require_once 'SwatDB/SwatDB.php';
-require_once 'Swat/SwatMessage.php';
+require_once 'Admin/pages/AdminObjectEdit.php';
 require_once 'Promo/dataobjects/PromoPromotion.php';
 require_once 'Promo/dataobjects/PromoPromotionCode.php';
 
@@ -13,7 +10,7 @@ require_once 'Promo/dataobjects/PromoPromotionCode.php';
  * @package   Promo
  * @copyright 2011-2014 silverorange
  */
-class PromoPromotionPromotionCodeEdit extends AdminDBEdit
+class PromoPromotionPromotionCodeEdit extends AdminObjectEdit
 {
 	// {{{ protected properties
 
@@ -22,10 +19,13 @@ class PromoPromotionPromotionCodeEdit extends AdminDBEdit
 	 */
 	protected $promotion;
 
-	/**
-	 * @var PromoPromotionCode
-	 */
-	protected $promotion_code;
+	// }}}
+	// {{{ protected function getUiXml()
+
+	protected function getObjectClass()
+	{
+		return 'PromoPromotionCode';
+	}
 
 	// }}}
 	// {{{ protected function getUiXml()
@@ -44,44 +44,8 @@ class PromoPromotionPromotionCodeEdit extends AdminDBEdit
 	{
 		parent::initInternal();
 
-		$this->ui->loadFromXML($this->getUiXml());
-
-		$this->initPromotionCode();
 		$this->initPromotion();
-	}
-
-	// }}}
-	// {{{ protected function initPromotionCode()
-
-	protected function initPromotionCode()
-	{
-		$class_name = SwatDBClassMap::get('PromoPromotionCode');
-		$this->promotion_code = new $class_name();
-		$this->promotion_code->setDatabase($this->app->db);
-
-		if ($this->id !== null) {
-			if (!$this->promotion_code->load($this->id)) {
-				throw new AdminNotFoundException(
-					sprintf(
-						'A promotion code with the id of ‘%s’ does not exist',
-						$this->id
-					)
-				);
-			}
-
-			$this->promotion = $this->promotion_code->promotion;
-
-			$instance_id = $this->app->getInstanceId();
-			if ($instance_id !== null &&
-				$this->promotion->instance->id !== $instance_id) {
-				throw new AdminNotFoundException(
-					sprintf(
-						'Incorrect instance for promotion code ‘%s’.',
-						$this->id
-					)
-				);
-			}
-		}
+		$this->checkInstance();
 	}
 
 	// }}}
@@ -89,8 +53,9 @@ class PromoPromotionPromotionCodeEdit extends AdminDBEdit
 
 	protected function initPromotion()
 	{
-		// check to see if promotion is set by loading promotion code first.
-		if (!$this->promotion instanceof PromoPromotion) {
+		if ($this->getObject()->promotion instanceof PromoPromotion) {
+			$this->promotion = $this->getObject()->promotion;
+		} else {
 			$promotion_id = SiteApplication::initVar('promotion');
 
 			$class_name = SwatDBClassMap::get('PromoPromotion');
@@ -116,6 +81,24 @@ class PromoPromotionPromotionCodeEdit extends AdminDBEdit
 					)
 				);
 			}
+		}
+	}
+
+	// }}}
+	// {{{ protected function checkInstance()
+
+	protected function checkInstance()
+	{
+		$instance_id = $this->app->getInstanceId();
+
+		if ($instance_id !== null &&
+			$this->promotion->instance->id !== $instance_id) {
+			throw new AdminNotFoundException(
+				sprintf(
+					'Incorrect instance for promotion ‘%s’.',
+					$this->promotion->id
+				)
+			);
 		}
 	}
 
@@ -153,7 +136,7 @@ class PromoPromotionPromotionCodeEdit extends AdminDBEdit
 			)
 			: '1 = 1';
 
-		$sql = 'select code from PromotionCode
+		$sql = 'select count(1) from PromotionCode
 			inner join Promotion on Promotion.id = PromotionCode.promotion
 			where %s and lower(PromotionCode.code) = lower(%s) and
 				PromotionCode.id %s %s';
@@ -166,56 +149,52 @@ class PromoPromotionPromotionCodeEdit extends AdminDBEdit
 			$this->app->db->quote($this->id, 'integer')
 		);
 
-		$rs = SwatDB::query($this->app->db, $sql);
+		$count = SwatDB::queryOne($this->app->db, $sql);
 
-		return (count($rs) === 0);
+		return ($count === 0);
 	}
 
 	// }}}
-	// {{{ protected function saveDBData()
+	// {{{ protected function updateObject()
 
-	protected function saveDBData()
+	protected function updateObject()
 	{
-		$this->updatePromotionCode();
-		$this->promotion_code->save();
+		parent::updateObject();
 
-		$this->app->messages->add(
-			new SwatMessage(
-				sprintf(
-					'Promotion Code ‘%s’ has been saved.',
-					$this->promotion_code->code
-				)
-			)
-		);
-	}
-
-	// }}}
-	// {{{ protected function updatePromotionCode()
-
-	protected function updatePromotionCode()
-	{
-		$values = $this->ui->getValues(
+		$this->assignUiValues(
 			array(
 				'code',
 				'limited_use',
 			)
 		);
 
-		if ($this->promotion_code->id === null) {
-			$this->promotion_code->promotion = $this->promotion;
-
-			$now = new SwatDate();
-			$now->toUTC();
-			$this->promotion_code->createdate = $now;
+		$promotion_code = $this->getObject();
+		if ($this->isNew()) {
+			$promotion_code->promotion = $this->promotion;
 		}
 
-		$this->promotion_code->code        = strtolower($values['code']);
-		$this->promotion_code->limited_use = $values['limited_use'];
+		// force all codes to be lowercase
+		$promotion_code->code = strtolower($promotion_code->code);
 
 		// unset the used date if the promotion is no longer limited use.
-		if ($this->promotion_code->limited_use === false) {
-			$this->promotion_code->used_date = null;
+		if ($promotion_code->limited_use === false) {
+			$promotion_code->used_date = null;
 		}
+	}
+
+	// }}}
+	// {{{ protected function addSavedMessage()
+
+	protected function addSavedMessage()
+	{
+		$this->app->messages->add(
+			new SwatMessage(
+				sprintf(
+					'Promotion Code ‘%s’ has been saved.',
+					$this->getObject()->code
+				)
+			)
+		);
 	}
 
 	// }}}
@@ -248,7 +227,7 @@ class PromoPromotionPromotionCodeEdit extends AdminDBEdit
 		parent::buildForm();
 
 		// if it's new, add the promotion id to the form.
-		if ($this->promotion_code->id === null) {
+		if ($this->isNew()) {
 			$this->ui->getWidget('edit_form')->addHiddenField(
 				'promotion',
 				$this->promotion->id
@@ -275,7 +254,7 @@ class PromoPromotionPromotionCodeEdit extends AdminDBEdit
 			)
 		);
 
-		if ($this->promotion_code->id === null) {
+		if ($this->isNew()) {
 			$title = Promo::_('New Promotion Code');
 		} else {
 			$title = Promo::_('Edit Promotion Code');
@@ -289,7 +268,12 @@ class PromoPromotionPromotionCodeEdit extends AdminDBEdit
 
 	protected function loadDBData()
 	{
-		$this->ui->setValues(get_object_vars($this->promotion_code));
+		$this->assignValuesToUi(
+			array(
+				'code',
+				'limited_use',
+			)
+		);
 	}
 
 	// }}}

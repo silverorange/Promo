@@ -1,21 +1,20 @@
 <?php
 
-require_once 'Admin/pages/AdminDBEdit.php';
-require_once 'SwatDB/SwatDB.php';
+require_once 'Admin/pages/AdminObjectEdit.php';
 require_once 'Promo/dataobjects/PromoPromotion.php';
 
 /**
  * @package   Promo
  * @copyright 2011-2014 silverorange
  */
-class PromoPromotionNoteEdit extends AdminDBEdit
+class PromoPromotionNoteEdit extends AdminObjectEdit
 {
-	// {{{ protected properties
+	// {{{ protected function getObjectClass()
 
-	/**
-	 * @var PromoPromotion
-	 */
-	protected $promotion;
+	protected function getObjectClass()
+	{
+		return 'PromoPromotion';
+	}
 
 	// }}}
 	// {{{ protected function getUiXml()
@@ -34,38 +33,23 @@ class PromoPromotionNoteEdit extends AdminDBEdit
 	{
 		parent::initInternal();
 
-		$this->ui->loadFromXML($this->getUiXml());
-
-		$this->initPromotion();
+		$this->checkInstance();
 	}
 
 	// }}}
-	// {{{ protected function initPromotion()
+	// {{{ protected function checkInstance()
 
-	protected function initPromotion()
+	protected function checkInstance()
 	{
-		$this->id = SiteApplication::initVar('id');
-		$promotion_class = SwatDBClassMap::get('PromoPromotion');
-
-		$this->promotion = new $promotion_class();
-		$this->promotion->setDatabase($this->app->db);
-
-		if (!$this->promotion->load($this->id)) {
-			throw new AdminNotFoundException(
-				sprintf(
-					'A promotion with an id of ‘%d’ does not exist.',
-					$this->id
-				)
-			);
-		}
-
 		$instance_id = $this->app->getInstanceId();
+		$promotion = $this->getObject();
+
 		if ($instance_id !== null &&
-			$this->promotion->instance->id !== $instance_id) {
+			$promotion->instance->id !== $instance_id) {
 			throw new AdminNotFoundException(
 				sprintf(
 					'Incorrect instance for promotion ‘%s’.',
-					$this->id
+					$promotion->id
 				)
 			);
 		}
@@ -74,36 +58,43 @@ class PromoPromotionNoteEdit extends AdminDBEdit
 	// }}}
 
 	// process phase
-	// {{{ protected function saveDBData()
+	// {{{ protected function updateObject()
 
-	protected function saveDBData()
+	protected function updateObject()
 	{
-		$notes = $this->ui->getWidget('notes');
-		$this->promotion->notes = $notes->value;
-		$this->promotion->save();
+		parent::updateObject();
 
-		$this->app->messages->add($this->getSaveMessage());
+		$this->assignUiValues(
+			array(
+				'notes',
+			)
+		);
 	}
 
 	// }}}
-	// {{{ protected function getSaveMessage()
+	// {{{ protected function addSavedMessage()
 
-	protected function getSaveMessage()
+	protected function addSavedMessage()
 	{
-		return new SwatMessage(
-			Promo::_('Note has been saved.')
+		$this->app->messages->add(
+			new SwatMessage(
+				Promo::_('Note has been saved.')
+			)
 		);
 	}
 
 	// }}}
 
 	// build phase
-	// {{{ protected function loadDBData()
+	// {{{ protected function loadObject()
 
-	protected function loadDBData()
+	protected function loadObject()
 	{
-		$notes = $this->ui->getWidget('notes');
-		$notes->value = $this->promotion->notes;
+		$this->assignValuesToUi(
+			array(
+				'notes',
+			)
+		);
 	}
 
 	// }}}
@@ -113,12 +104,13 @@ class PromoPromotionNoteEdit extends AdminDBEdit
 	{
 		parent::buildNavBar();
 
+		$promotion = $this->getObject();
 		$this->navbar->popEntry();
 		$this->navbar->createEntry(
-			$this->promotion->title,
+			$promotion->title,
 			sprintf(
 				'Promotion/Details?id=%s',
-				$this->promotion->id
+				$promotion->id
 			)
 		);
 
