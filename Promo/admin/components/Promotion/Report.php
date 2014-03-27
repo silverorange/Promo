@@ -59,7 +59,7 @@ class PromoPromotionReport extends AdminIndex
 
 	protected function getRegions()
 	{
-		if ($this->regions === null) {
+		if (!$this->regions instanceof StoreRegionWrapper) {
 			$sql = 'select Region.id, Region.title
 				from Region
 				order by Region.id';

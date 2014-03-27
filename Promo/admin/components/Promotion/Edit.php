@@ -115,7 +115,8 @@ class PromoPromotionEdit extends AdminDBEdit
 		$start_date = $this->ui->getWidget('start_date')->value;
 		$end_date   = $this->ui->getWidget('end_date')->value;
 
-		if ($start_date !== null && $end_date !== null &&
+		if ($start_date instanceof SwatDate &&
+			$end_date instanceof SwatDate &&
 			SwatDate::compare($start_date, $end_date) > 0) {
 
 			$message = new SwatMessage(
@@ -200,14 +201,14 @@ class PromoPromotionEdit extends AdminDBEdit
 			)
 		);
 
-		if ($values['start_date'] !== null) {
+		if ($values['start_date'] instanceof SwatDate) {
 			$start_date = $values['start_date'];
 			$start_date->setTZ($this->app->default_time_zone);
 			$start_date->toUTC();
 			$values['start_date'] = $start_date->getDate();
 		}
 
-		if ($values['end_date'] !== null) {
+		if ($values['end_date'] instanceof SwatDate) {
 			$end_date = $values['end_date'];
 			$end_date->setTZ($this->app->default_time_zone);
 			$end_date->toUTC();
@@ -290,12 +291,12 @@ class PromoPromotionEdit extends AdminDBEdit
 			$this->promotion->getInternalValue('instance');
 
 		$start_date = $this->ui->getWidget('start_date');
-		if ($start_date->value !== null) {
+		if ($start_date->value instanceof SwatDate) {
 			$start_date->value->convertTZ($this->app->default_time_zone);
 		}
 
 		$end_date = $this->ui->getWidget('end_date');
-		if ($end_date->value !== null) {
+		if ($end_date->value instanceof SwatDate) {
 			$end_date->value->convertTZ($this->app->default_time_zone);
 		}
 

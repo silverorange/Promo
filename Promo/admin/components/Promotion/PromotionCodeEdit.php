@@ -143,15 +143,15 @@ class PromoPromotionPromotionCodeEdit extends AdminDBEdit
 
 	protected function validateCode($code)
 	{
-		$instance_where = ($this->promotion->instance === null)
-			? '1 = 1'
-			: sprintf(
+		$instance_where = ($this->promotion->instance instanceof SiteInstance)
+			? sprintf(
 				'Promotion.instance = %s',
 				$this->app->db->quote(
 					$this->promotion->instance->id,
 					'integer'
 				)
-			);
+			)
+			: '1 = 1';
 
 		$sql = 'select code from PromotionCode
 			inner join Promotion on Promotion.id = PromotionCode.promotion
@@ -168,7 +168,7 @@ class PromoPromotionPromotionCodeEdit extends AdminDBEdit
 
 		$rs = SwatDB::query($this->app->db, $sql);
 
-		return (count($rs) == 0);
+		return (count($rs) === 0);
 	}
 
 	// }}}

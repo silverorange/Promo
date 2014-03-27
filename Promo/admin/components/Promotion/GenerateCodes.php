@@ -167,15 +167,15 @@ class PromoPromotionGenerateCodes extends AdminDBEdit
 	{
 		$lower_codes = array_map('strtolower', $codes);
 
-		$instance_where = ($this->promotion->instance === null)
-			? '1 = 1'
-			: sprintf(
+		$instance_where = ($this->promotion->instance instanceof SiteInstance)
+			? sprintf(
 				'Promotion.instance = %s',
 				$this->app->db->quote(
 					$this->promotion->instance->id,
 					'integer'
 				)
-			);
+			)
+			: '1 = 1';
 
 		$sql = sprintf(
 			'select PromotionCode.code

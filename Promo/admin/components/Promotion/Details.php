@@ -111,7 +111,7 @@ class PromoPromotionDetails extends AdminIndex
 				break;
 		}
 
-		if ($message !== null) {
+		if ($message instanceof SwatMessage) {
 			$this->app->messages->add($message);
 		}
 	}
@@ -217,7 +217,7 @@ class PromoPromotionDetails extends AdminIndex
 		);
 
 		$ds->order_summary = $this->getOrderSummary();
-		$ds->has_orders = ($ds->order_summary !== null);
+		$ds->has_orders = ($ds->order_summary != '');
 
 		return $ds;
 	}
