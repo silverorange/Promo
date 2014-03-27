@@ -301,8 +301,10 @@ class PromoPromotion extends SwatDBDataObject
 
 		$this->code = $promotion_code;
 
-		return $this->load($promotion_code->getInternalValue('promotion'),
-			$instance);
+		return $this->load(
+			$promotion_code->getInternalValue('promotion'),
+			$instance
+		);
 	}
 
 	// }}}
