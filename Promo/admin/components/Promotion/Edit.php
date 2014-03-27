@@ -311,8 +311,7 @@ class PromoPromotionEdit extends AdminDBEdit
 		parent::finalize();
 
 		$this->layout->addHtmlHeadEntry(
-			'packages/promo/admin/styles/promo-promotion-edit.css',
-			Promo::PACKAGE_ID
+			'packages/promo/admin/styles/promo-promotion-edit.css'
 		);
 	}
 

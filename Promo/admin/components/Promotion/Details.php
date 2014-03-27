@@ -425,8 +425,7 @@ class PromoPromotionDetails extends AdminIndex
 		parent::finalize();
 
 		$this->layout->addHtmlHeadEntry(
-			'packages/promo/admin/styles/promo-promotion-details.css',
-			Promo::PACKAGE_ID
+			'packages/promo/admin/styles/promo-promotion-details.css'
 		);
 	}
 

@@ -77,8 +77,7 @@ class PromoOrderIndex extends StoreOrderIndex
 		parent::finalize();
 
 		$this->layout->addHtmlHeadEntry(
-			'packages/promo/admin/styles/promo-order-index.css',
-			Promo::PACKAGE_ID
+			'packages/promo/admin/styles/promo-order-index.css'
 		);
 	}
 

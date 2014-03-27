@@ -13,11 +13,6 @@ class Promo
 {
 	// {{{ constants
 
-	/**
-	 * The package identifier
-	 */
-	const PACKAGE_ID = 'Promo';
-
 	const GETTEXT_DOMAIN = 'promo';
 
 	// }}}
