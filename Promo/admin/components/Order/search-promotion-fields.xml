@@ -1,0 +1,11 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE swatml SYSTEM "http://swat.silverorange.com/swatml1.dtd">
+<swatml>
+	<widget class="SwatFieldset" id="promotion_fields">
+		<property name="title" translatable="yes">Promotions</property>
+		<widget class="SwatFormField" id="promotion_code">
+			<property name="title" translatable="yes">Promotion Code</property>
+			<widget class="SwatEntry" id="search_promotion_code" />
+		</widget>
+	</widget>
+</swatml>

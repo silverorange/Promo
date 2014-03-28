@@ -27,23 +27,35 @@ class PromoOrderIndex extends StoreOrderIndex
 	{
 		parent::initInternal();
 
-		$this->promotion_code = new SwatEntry('search_promotion_code');
+		$this->addAdditionalSearchFields();
+	}
 
-		$code_field = new SwatFormField();
-		$code_field->title = Promo::_('Promotion Code');
-		$code_field->id = 'promo_code';
-		$code_field->add($this->promotion_code);
+	// }}}
+	// {{{ protected function addAdditionalSearchFields()
 
-		$promotion_fieldset = new SwatFieldset('promotion_fields');
-		$promotion_fieldset->title = Promo::_('Promotion');
-		$promotion_fieldset->add($code_field);
+	protected function addAdditionalSearchFields()
+	{
+		$ui_xml = $this->getAdditionalSearchFieldsUiXml();
 
-		$this->ui->getWidget('search_form')->insertBefore(
-			$promotion_fieldset,
-			$this->ui->getWidget('search_form')->getFirstDescendant(
-				'SwatFooterFormField'
-			)
-		);
+		if ($ui_xml != '') {
+			$additional_search_fields = new AdminUI();
+			$additional_search_fields->loadFromXML($ui_xml);
+
+			$this->ui->getWidget('search_form')->insertBefore(
+				$additional_search_fields->getRoot(),
+				$this->ui->getWidget('search_form')->getFirstDescendant(
+					'SwatFooterFormField'
+				)
+			);
+		}
+	}
+
+	// }}}
+	// {{{ protected function getAdditionalSearchFieldsUiXml()
+
+	protected function getAdditionalSearchFieldsUiXml()
+	{
+		return 'Promo/admin/components/Order/search-promotion-fields.xml';
 	}
 
 	// }}}
