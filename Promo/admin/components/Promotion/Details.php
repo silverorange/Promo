@@ -147,18 +147,19 @@ class PromoPromotionDetails extends AdminIndex
 			$message->secondary_content = sprintf(
 				Promo::_(
 					'This promotion doesn’t have any available promotion '.
-					'codes. <a href="%s">Add</a> or <a href="%s">generate</a> '.
-					'promotion codes so this promotion can be entered by '.
-					'customers.'
+					'codes. %sAdd%s or %sgenerate%s promotion codes so this '.
+					'promotion can be entered by customers.'
 				),
 				sprintf(
-					'Promotion/PromotionCodeEdit?promotion=%s',
+					'<a href="Promotion/PromotionCodeEdit?promotion=%s">',
 					$this->id
 				),
+				'</a>',
 				sprintf(
-					'Promotion/GenerateCodes?promotion=%s',
+					'<a href="Promotion/GenerateCodes?promotion=%s">',
 					$this->id
-				)
+				),
+				'</a>'
 			);
 
 			$message->content_type = 'text/xml';
