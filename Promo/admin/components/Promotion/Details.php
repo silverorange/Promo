@@ -315,13 +315,7 @@ class PromoPromotionDetails extends AdminIndex
 			);
 		}
 
-		$store = new SwatTableStore();
-		foreach ($promotion_codes as $code) {
-			$ds = new SwatDetailsStore($code);
-			$store->add($ds);
-		}
-
-		return $store;
+		return $promotion_codes;
 	}
 
 	// }}}
