@@ -156,15 +156,15 @@
 						</object>
 					</object>
 				</widget>
-				<widget class="AdminPagination" id="promotion_code_pager">
-					<property name="link">Promotion/Details</property>
-					<property name="page_size" type="integer">50</property>
-				</widget>
 				<widget class="SwatActions" id="promotion_code_actions">
 					<widget class="SwatActionItem" id="promotion_code_delete">
 						<property name="title" translatable="yes">delete…</property>
 					</widget>
 				</widget>
+			</widget>
+			<widget class="AdminPagination" id="promotion_code_pager">
+				<property name="link">Promotion/Details</property>
+				<property name="page_size" type="integer">50</property>
 			</widget>
 		</widget>
 

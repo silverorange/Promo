@@ -87,16 +87,6 @@ class PromoPromotionDetails extends AdminIndex
 	// }}}
 
 	// process phase
-	// {{{ protected function processInternal()
-
-	protected function processInternal()
-	{
-		parent::processInternal();
-
-		$this->ui->getWidget('promotion_code_pager')->process();
-	}
-
-	// }}}
 	// {{{ protected function processActions()
 
 	protected function processActions(SwatTableView $view, SwatActions $actions)
