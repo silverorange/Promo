@@ -101,18 +101,11 @@ class PromoPromotionDetails extends AdminIndex
 
 	protected function processActions(SwatTableView $view, SwatActions $actions)
 	{
-		$num = count($view->checked_items);
-		$message = null;
-
 		switch ($actions->selected->id) {
 			case 'promotion_code_delete':
 				$this->app->replacePage('Promotion/DeletePromotionCode');
 				$this->app->getPage()->setItems($view->checked_items);
 				break;
-		}
-
-		if ($message instanceof SwatMessage) {
-			$this->app->messages->add($message);
 		}
 	}
 
