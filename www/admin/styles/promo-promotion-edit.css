@@ -1,0 +1,24 @@
+#title_field,
+#instance_field,
+#start_date_field,
+#end_date_field,
+#discount_amount_field,
+#discount_percentage_field {
+	float: left;
+	margin-right: 24px;
+	width: 230px;
+}
+
+#public_note_field,
+.swat-note,
+.swat-grouping-form-field {
+	clear: left;
+}
+
+.swat-note p {
+	margin: 0;
+}
+
+#general_fields {
+	padding: 0 16px 16px;
+}

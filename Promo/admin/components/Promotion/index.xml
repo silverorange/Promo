@@ -1,0 +1,103 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE swatml SYSTEM "http://swat.silverorange.com/swatml1.dtd">
+<swatml>
+	<widget class="SwatMessageDisplay" id="message_display" />
+	<widget class="SwatFrame" id="index_frame">
+		<property name="title" translatable="yes">Promotions</property>
+		<widget class="SwatToolbar" id="index_toolbar">
+			<widget class="SwatToolLink">
+				<property name="title" translatable="yes">New Promotion</property>
+				<property name="link">Promotion/Edit</property>
+				<property name="stock_id">create</property>
+			</widget>
+		</widget>
+		<widget class="SwatForm" id="index_form">
+			<widget class="SwatTableView" id="index_view">
+				<object class="SwatTableViewCheckboxColumn" id="checkbox">
+					<object class="SwatCheckboxCellRenderer" id="items">
+						<property name="value" type="data">id</property>
+					</object>
+				</object>
+				<object class="SwatTableViewGroup" id="instance_group">
+					<property name="group_by">instance.id</property>
+					<object class="SwatTextCellRenderer" id="instance_renderer">
+						<property name="text" type="data">instance.title</property>
+					</object>
+				</object>
+				<object class="AdminTableViewOrderableColumn" id="title">
+					<property name="title" translatable="yes">Title</property>
+					<object class="AdminTitleLinkCellRenderer">
+						<property name="link">Promotion/Details?id=%s</property>
+						<property name="link_value" type="data">id</property>
+						<property name="text" type="data">title</property>
+					</object>
+				</object>
+				<object class="SwatTableViewColumn">
+					<property name="title" translatable="yes">Active Period</property>
+					<object class="SwatTextCellRenderer">
+						<property name="text" type="data">valid_dates</property>
+					</object>
+				</object>
+				<object class="SwatTableViewColumn">
+					<property name="title" translatable="yes">Discount</property>
+					<object class="StoreMoneyCellRenderer">
+						<property name="value" type="data">discount_amount</property>
+						<property name="visible" type="data">show_discount_amount</property>
+					</object>
+					<object class="SwatPercentageCellRenderer">
+						<property name="value" type="data">discount_percentage</property>
+						<property name="visible" type="data">!show_discount_amount</property>
+					</object>
+				</object>
+				<object class="AdminTableViewOrderableColumn" id="num_orders">
+					<property name="title" translatable="yes">Orders</property>
+					<object class="SwatNumericCellRenderer">
+						<property name="value" type="data">num_orders</property>
+					</object>
+				</object>
+				<object class="AdminTableViewOrderableColumn" id="promotion_total">
+					<property name="title" translatable="yes">Promotion Cost</property>
+					<property name="abbreviated_title" translatable="yes">Cost</property>
+					<object class="SwatMoneyCellRenderer">
+						<property name="value" type="data">promotion_total</property>
+						<property name="null_display_value">—</property>
+					</object>
+				</object>
+				<object class="AdminTableViewOrderableColumn" id="total">
+					<property name="title" translatable="yes">Order Total</property>
+					<property name="abbreviated_title" translatable="yes">Total</property>
+					<object class="SwatMoneyCellRenderer">
+						<property name="value" type="data">total</property>
+						<property name="null_display_value">—</property>
+					</object>
+				</object>
+				<object class="SwatTableViewColumn" id="roi">
+					<property name="title" translatable="yes">Return on Investment</property>
+					<object class="SwatPercentageCellRenderer">
+						<property name="value" type="data">roi</property>
+						<property name="precision" type="integer">2</property>
+						<property name="visible" type="data">!roi_infinite</property>
+						<property name="null_display_value">—</property>
+					</object>
+					<object class="SwatTextCellRenderer">
+						<property name="text" translatable="yes">∞</property>
+						<property name="visible" type="data">roi_infinite</property>
+					</object>
+				</object>
+				<object class="SwatTableViewSpanningColumn" id="has_notes">
+					<property name="offset" type="integer">1</property>
+					<object class="SwatTextCellRenderer">
+						<property name="visible" type="data">has_notes</property>
+						<property name="text" type="data">notes</property>
+						<property name="content_type">text/xml</property>
+					</object>
+				</object>
+			</widget>
+			<widget class="SwatActions" id="index_actions">
+				<widget class="SwatActionItem" id="delete">
+					<property name="title" translatable="yes">delete…</property>
+				</widget>
+			</widget>
+		</widget>
+	</widget>
+</swatml>

@@ -1,0 +1,19 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE swatml SYSTEM "http://swat.silverorange.com/swatml1.dtd">
+<swatml>
+	<widget class="SwatMessageDisplay" id="message_display" />
+	<widget class="SwatFrame" id="index_frame">
+		<property name="title" translatable="yes">Promotion Use Details</property>
+		<widget class="SwatForm" id="index_form">
+			<widget class="SwatTableView" id="index_view">
+				<object class="SwatTableViewColumn" id="date">
+					<property name="title" translatable="yes">Date</property>
+					<object class="SwatDateCellRenderer">
+						<property name="date" type="data">date</property>
+						<property name="format" type="constant">SwatDate::DF_MY</property>
+					</object>
+				</object>
+			</widget>
+		</widget>
+	</widget>
+</swatml>

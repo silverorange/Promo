@@ -1,0 +1,35 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE swatml SYSTEM "http://swat.silverorange.com/swatml1.dtd">
+<swatml>
+	<widget class="SwatMessageDisplay" id="message_display" />
+	<widget class="SwatFrame" id="edit_frame">
+		<property name="title" translatable="yes">Promotion Code</property>
+		<widget class="SwatForm" id="edit_form">
+			<widget class="SwatFormField">
+				<property name="title" translatable="yes">Code</property>
+				<property name="note" translatable="yes">
+					This is the code the customer enters to receive the
+					promotion. Not case-sensitive.
+				</property>
+				<widget class="AdminUniqueEntry" id="code">
+					<property name="required" type="boolean">true</property>
+					<property name="maxlength" type="integer">20</property>
+					<property name="size" type="integer">20</property>
+					<property name="alphanum" type="boolean">false</property>
+				</widget>
+			</widget>
+			<widget class="SwatFormField">
+				<property name="title" translatable="yes">One-time Use</property>
+				<widget class="SwatCheckbox" id="limited_use">
+					<property name="value" type="boolean">true</property>
+				</widget>
+			</widget>
+			<widget class="SwatFooterFormField">
+				<widget class="SwatButton" id="submit_button" />
+				<widget class="SwatButton" id="submit_another_button">
+					<property name="title" translatable="yes">Create and Add Another</property>
+				</widget>
+			</widget>
+		</widget>
+	</widget>
+</swatml>
