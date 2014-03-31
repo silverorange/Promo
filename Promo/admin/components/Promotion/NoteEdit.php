@@ -72,15 +72,11 @@ class PromoPromotionNoteEdit extends AdminObjectEdit
 	}
 
 	// }}}
-	// {{{ protected function addSavedMessage()
+	// {{{ protected function getSavedMessageText()
 
-	protected function addSavedMessage()
+	protected function getSavedMessageText()
 	{
-		$this->app->messages->add(
-			new SwatMessage(
-				Promo::_('Note has been saved.')
-			)
-		);
+		return Promo::_('Note has been saved.');
 	}
 
 	// }}}
