@@ -221,13 +221,11 @@ class PromoPromotionEdit extends AdminObjectEdit
 			$promotion = $this->getObject();
 			$last = $this->navbar->popEntry();
 
-			$this->navbar->addEntry(
-				new SwatNavBarEntry(
-					$promotion->title,
-					sprintf(
-						'Promotion/Details?id=%s',
-						$promotion->id
-					)
+			$this->navbar->createEntry(
+				$promotion->title,
+				sprintf(
+					'Promotion/Details?id=%s',
+					$promotion->id
 				)
 			);
 
