@@ -327,15 +327,11 @@ class PromoPromotion extends SwatDBDataObject
 				$this->db->quote($id, $id_field->type)
 			);
 
-			$instance_id = ($instance === null)
-				? null
-				: $instance->id;
-
-			if ($instance_id !== null) {
+			if ($instance instanceof SiteInstance) {
 				$sql.= sprintf(
 					' and instance %s %s',
-					SwatDB::equalityOperator($instance_id),
-					$this->db->quote($instance_id, 'integer')
+					SwatDB::equalityOperator($instance->id),
+					$this->db->quote($instance->id, 'integer')
 				);
 			}
 
