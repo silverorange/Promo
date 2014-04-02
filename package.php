@@ -106,7 +106,7 @@ $package->addPackageDepWithChannel(
 	'required',
 	'Swat',
 	'pear.silverorange.com',
-	'2.0.17'
+	'2.1.0'
 );
 
 $package->addPackageDepWithChannel(

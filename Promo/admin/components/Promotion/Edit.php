@@ -27,6 +27,23 @@ class PromoPromotionEdit extends AdminObjectEdit
 	}
 
 	// }}}
+	// {{{ protected function getObjectPropertyWidgetMapping()
+
+	protected function getObjectPropertyWidgetMapping()
+	{
+		return array(
+			'title',
+			'public_note',
+			'start_date',
+			'end_date',
+			'discount_amount',
+			'discount_percentage',
+			'maximum_quantity',
+			'instance',
+		);
+	}
+
+	// }}}
 
 	// init phase
 	// {{{ protected function initInternal()
@@ -148,30 +165,9 @@ class PromoPromotionEdit extends AdminObjectEdit
 	}
 
 	// }}}
-	// {{{ protected function updateObject()
+	// {{{ protected function getSavedMessagePrimaryContent()
 
-	protected function updateObject()
-	{
-		parent::updateObject();
-
-		$this->assignUiValues(
-			array(
-				'title',
-				'public_note',
-				'start_date',
-				'end_date',
-				'discount_amount',
-				'discount_percentage',
-				'maximum_quantity',
-				'instance',
-			)
-		);
-	}
-
-	// }}}
-	// {{{ protected function getSavedMessageText()
-
-	protected function getSavedMessageText()
+	protected function getSavedMessagePrimaryContent()
 	{
 		return sprintf(
 			Promo::_('Promotion “%s” has been saved.'),
@@ -231,25 +227,6 @@ class PromoPromotionEdit extends AdminObjectEdit
 
 			$this->navbar->addEntry($last);
 		}
-	}
-
-	// }}}
-	// {{{ protected function loadObject()
-
-	protected function loadObject()
-	{
-		$this->assignValuesToUi(
-			array(
-				'title',
-				'public_note',
-				'start_date',
-				'end_date',
-				'discount_amount',
-				'discount_percentage',
-				'maximum_quantity',
-				'instance',
-			)
-		);
 	}
 
 	// }}}

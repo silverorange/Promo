@@ -36,6 +36,17 @@ class PromoPromotionPromotionCodeEdit extends AdminObjectEdit
 	}
 
 	// }}}
+	// {{{ protected function getObjectPropertyWidgetMapping()
+
+	protected function getObjectPropertyWidgetMapping()
+	{
+		return array(
+			'code',
+			'limited_use',
+		);
+	}
+
+	// }}}
 
 	// init phase
 	// {{{ protected function initInternal()
@@ -161,13 +172,6 @@ class PromoPromotionPromotionCodeEdit extends AdminObjectEdit
 	{
 		parent::updateObject();
 
-		$this->assignUiValues(
-			array(
-				'code',
-				'limited_use',
-			)
-		);
-
 		$promotion_code = $this->getObject();
 		if ($this->isNew()) {
 			$promotion_code->promotion = $this->promotion;
@@ -183,9 +187,9 @@ class PromoPromotionPromotionCodeEdit extends AdminObjectEdit
 	}
 
 	// }}}
-	// {{{ protected function getSavedMessageText()
+	// {{{ protected function getSavedMessagePrimaryContent()
 
-	protected function getSavedMessageText()
+	protected function getSavedMessagePrimaryContent()
 	{
 		return sprintf(
 			Promo::_('Promotion Code ‘%s’ has been saved.'),
@@ -257,19 +261,6 @@ class PromoPromotionPromotionCodeEdit extends AdminObjectEdit
 		}
 
 		$this->navbar->createEntry($title);
-	}
-
-	// }}}
-	// {{{ protected function loadDBData()
-
-	protected function loadDBData()
-	{
-		$this->assignValuesToUi(
-			array(
-				'code',
-				'limited_use',
-			)
-		);
 	}
 
 	// }}}

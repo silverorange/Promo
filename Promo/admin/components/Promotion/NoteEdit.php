@@ -25,6 +25,16 @@ class PromoPromotionNoteEdit extends AdminObjectEdit
 	}
 
 	// }}}
+	// {{{ protected function getObjectPropertyWidgetMapping()
+
+	protected function getObjectPropertyWidgetMapping()
+	{
+		return array(
+			'notes',
+		);
+	}
+
+	// }}}
 
 	// init phase
 	// {{{ protected function initInternal()
@@ -58,23 +68,9 @@ class PromoPromotionNoteEdit extends AdminObjectEdit
 	// }}}
 
 	// process phase
-	// {{{ protected function updateObject()
+	// {{{ protected function getSavedMessagePrimaryContent()
 
-	protected function updateObject()
-	{
-		parent::updateObject();
-
-		$this->assignUiValues(
-			array(
-				'notes',
-			)
-		);
-	}
-
-	// }}}
-	// {{{ protected function getSavedMessageText()
-
-	protected function getSavedMessageText()
+	protected function getSavedMessagePrimaryContent()
 	{
 		return Promo::_('Note has been saved.');
 	}
@@ -82,18 +78,6 @@ class PromoPromotionNoteEdit extends AdminObjectEdit
 	// }}}
 
 	// build phase
-	// {{{ protected function loadObject()
-
-	protected function loadObject()
-	{
-		$this->assignValuesToUi(
-			array(
-				'notes',
-			)
-		);
-	}
-
-	// }}}
 	// {{{ protected function buildNavBar()
 
 	protected function buildNavBar()
