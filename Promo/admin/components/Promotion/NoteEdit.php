@@ -43,7 +43,20 @@ class PromoPromotionNoteEdit extends AdminObjectEdit
 	{
 		parent::initInternal();
 
+		$this->checkPromotion();
 		$this->checkInstance();
+	}
+
+	// }}}
+	// {{{ protected function checkInstance()
+
+	protected function checkInstance()
+	{
+		if ($this->isNew()) {
+			throw new AdminNotFoundException(
+				'Promotion note editing requires an existing promotion.'
+			);
+		}
 	}
 
 	// }}}
