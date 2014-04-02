@@ -11,51 +11,13 @@ require_once 'Store/admin/components/Order/Index.php';
  */
 class PromoOrderIndex extends StoreOrderIndex
 {
-	// {{{ protected properties
+	// {{{ protected function getAdditionalSearchFieldsUiXmlFiles()
 
-	/**
-	 * @var SwatEntry
-	 */
-	protected $promotion_code;
-
-	// }}}
-
-	// init phase
-	// {{{ protected function initInternal()
-
-	protected function initInternal()
+	protected function getAdditionalSearchFieldsUiXmlFiles()
 	{
-		parent::initInternal();
-
-		$this->addAdditionalSearchFields();
-	}
-
-	// }}}
-	// {{{ protected function addAdditionalSearchFields()
-
-	protected function addAdditionalSearchFields()
-	{
-		$ui_xml = $this->getAdditionalSearchFieldsUiXml();
-
-		if ($ui_xml != '') {
-			$additional_search_fields = new AdminUI();
-			$additional_search_fields->loadFromXML($ui_xml);
-
-			$this->ui->getWidget('search_form')->insertBefore(
-				$additional_search_fields->getRoot(),
-				$this->ui->getWidget('search_form')->getFirstDescendant(
-					'SwatFooterFormField'
-				)
-			);
-		}
-	}
-
-	// }}}
-	// {{{ protected function getAdditionalSearchFieldsUiXml()
-
-	protected function getAdditionalSearchFieldsUiXml()
-	{
-		return 'Promo/admin/components/Order/search-promotion-fields.xml';
+		return array(
+			'Promo/admin/components/Order/search-promotion-fields.xml',
+		);
 	}
 
 	// }}}
@@ -67,7 +29,7 @@ class PromoOrderIndex extends StoreOrderIndex
 	{
 		$where = parent::getWhereClause();
 
-		$promotion_code = $this->promotion_code->value;
+		$promotion_code = $this->ui->getWidget('search_promotion_code')->value;
 		if (trim($promotion_code) != '') {
 			$clause = new AdminSearchClause('text:promotion_code');
 			$clause->table = 'Orders';
