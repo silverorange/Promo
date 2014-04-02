@@ -20,7 +20,7 @@ class PromoPromotionPromotionCodeEdit extends AdminObjectEdit
 	protected $promotion;
 
 	// }}}
-	// {{{ protected function getUiXml()
+	// {{{ protected function getObjectClass()
 
 	protected function getObjectClass()
 	{

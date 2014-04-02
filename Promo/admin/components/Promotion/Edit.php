@@ -11,7 +11,7 @@ require_once 'Promo/dataobjects/PromoPromotion.php';
  */
 class PromoPromotionEdit extends AdminObjectEdit
 {
-	// {{{ protected function getUiXml()
+	// {{{ protected function getObjectClass()
 
 	protected function getObjectClass()
 	{
