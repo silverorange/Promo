@@ -217,7 +217,7 @@ class PromoPromotionEdit extends AdminObjectEdit
 	{
 		parent::buildNavBar();
 
-		if ($this->isNew()) {
+		if (!$this->isNew()) {
 			$promotion = $this->getObject();
 			$last = $this->navbar->popEntry();
 
