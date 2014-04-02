@@ -80,23 +80,14 @@ class PromoPromotionEdit extends AdminObjectEdit
 
 	protected function initFlydowns()
 	{
-		if ($this->app->hasModule('SiteMultipleInstanceModule')) {
-			$instance_id = $this->app->getInstanceId();
-			if ($instance_id !== null) {
-				$where = sprintf(
-					'id = %s',
-					$this->app->db->quote($instance_id, 'integer')
-				);
-			}
-
+		if ($this->app->isMultipleInstanceAdmin()) {
 			$this->ui->getWidget('instance')->addOptionsByArray(
 				SwatDB::getOptionArray(
 					$this->app->db,
 					'Instance',
 					'title',
 					'id',
-					'title',
-					$where
+					'title'
 				)
 			);
 		} else {
@@ -161,6 +152,19 @@ class PromoPromotionEdit extends AdminObjectEdit
 			$container = $this->ui->getWidget('discount_container');
 			$container->display_messages = true;
 			$container->addMessage($message);
+		}
+	}
+
+	// }}}
+	// {{{ protected function updateObject()
+
+	protected function updateObject()
+	{
+		parent::updateObject();
+
+		if ($this->isNew() &&
+			$this->app->getInstance() instanceof SiteInstance) {
+			$this->getObject()->instance = $this->app->getInstance();
 		}
 	}
 
