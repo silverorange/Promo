@@ -284,7 +284,7 @@ class PromoPromotion extends SwatDBDataObject
 	// }}}
 	// {{{ public function loadByCode()
 
-	public function loadByCode($code, PromoInstance $instance = null)
+	public function loadByCode($code, SiteInstance $instance = null)
 	{
 		$this->checkDB();
 
@@ -310,7 +310,7 @@ class PromoPromotion extends SwatDBDataObject
 	// }}}
 	// {{{ public function load()
 
-	public function load($id, PromoInstance $instance = null)
+	public function load($id, SiteInstance $instance = null)
 	{
 		$this->checkDB();
 
@@ -549,8 +549,10 @@ class PromoPromotion extends SwatDBDataObject
 		$this->registerDateProperty('start_date');
 		$this->registerDateProperty('end_date');
 
-		$this->registerInternalProperty('instance',
-			SwatDBClassMap::get('PromoInstance'));
+		$this->registerInternalProperty(
+			'instance',
+			SwatDBClassMap::get('SiteInstance')
+		);
 	}
 
 	// }}}
