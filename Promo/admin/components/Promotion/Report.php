@@ -136,9 +136,9 @@ class PromoPromotionReport extends AdminIndex
 			);
 		}
 
-		$instance_id = $this->app->getInstanceId();
-		if ($instance_id !== null &&
-			$this->promotion->instance->id !== $instance_id) {
+		$instance = $this->app->getInstance();
+		if ($instance instanceof SiteInstance &&
+			$this->promotion->instance->id !== $instance->id) {
 			throw new AdminNotFoundException(
 				sprintf(
 					'Incorrect instance for promotion ‘%s’.',
@@ -380,15 +380,14 @@ class PromoPromotionReport extends AdminIndex
 
 	protected function queryOrderStats()
 	{
-		$instance_id = $this->app->getInstanceId();
-
 		$where_clause = '1 = 1';
 
-		if ($instance_id !== null) {
+		$instance = $this->app->getInstance();
+		if ($instance instanceof SiteInstance) {
 			$where_clause.= sprintf(
 				' and Orders.instance %s %s',
-				SwatDB::equalityOperator($instance_id),
-				$this->app->db->quote($instance_id, 'integer')
+				SwatDB::equalityOperator($instance->id),
+				$this->app->db->quote($instance->id, 'integer')
 			);
 		}
 

@@ -82,11 +82,11 @@ class PromoPromotionIndex extends AdminIndex
 			left outer join PromotionROIView on
 				Promotion.id = PromotionROIView.promotion';
 
-		$instance_id = $this->app->getInstanceId();
-		if ($instance_id !== null) {
+		$instance = $this->app->getInstance();
+		if ($instance instanceof SiteInstance) {
 			$sql.= sprintf(
 				' where Promotion.instance = %s',
-				$this->app->db->quote($instance_id, 'integer')
+				$this->app->db->quote($instance->id, 'integer')
 			);
 		}
 

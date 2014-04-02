@@ -64,11 +64,11 @@ class PromoPromotionNoteEdit extends AdminObjectEdit
 
 	protected function checkInstance()
 	{
-		$instance_id = $this->app->getInstanceId();
+		$instance = $this->app->getInstance();
 		$promotion = $this->getObject();
 
-		if ($instance_id !== null &&
-			$promotion->instance->id !== $instance_id) {
+		if ($instance instanceof SiteInstance &&
+			$promotion->instance->id !== $instance->id) {
 			throw new AdminNotFoundException(
 				sprintf(
 					'Incorrect instance for promotion ‘%s’.',
