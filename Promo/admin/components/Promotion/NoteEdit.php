@@ -137,7 +137,7 @@ class PromoPromotionNoteEdit extends AdminDBEdit
 		parent::finalize();
 
 		$this->layout->addHtmlHeadEntry(
-			'packages/promo/admin/styles/promo-promotion-note-edit.css'
+			'packages/promo/admin/styles/promo-admin-notices.css'
 		);
 	}
 

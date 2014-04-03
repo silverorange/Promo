@@ -403,6 +403,10 @@ class PromoPromotionDetails extends AdminIndex
 		parent::finalize();
 
 		$this->layout->addHtmlHeadEntry(
+			'packages/promo/admin/styles/promo-admin-notices.css'
+		);
+
+		$this->layout->addHtmlHeadEntry(
 			'packages/promo/admin/styles/promo-promotion-details.css'
 		);
 	}
