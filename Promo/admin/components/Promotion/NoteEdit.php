@@ -48,9 +48,9 @@ class PromoPromotionNoteEdit extends AdminObjectEdit
 	}
 
 	// }}}
-	// {{{ protected function checkInstance()
+	// {{{ protected function checkPromotion()
 
-	protected function checkInstance()
+	protected function checkPromotion()
 	{
 		if ($this->isNew()) {
 			throw new AdminNotFoundException(
