@@ -36,9 +36,9 @@ class PromoPromotionPromotionCodeEdit extends AdminObjectEdit
 	}
 
 	// }}}
-	// {{{ protected function getObjectPropertyWidgetMapping()
+	// {{{ protected function getObjectUiValueNames()
 
-	protected function getObjectPropertyWidgetMapping()
+	protected function getObjectUiValueNames()
 	{
 		return array(
 			'code',
