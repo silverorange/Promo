@@ -23,3 +23,7 @@
 #promotion_code_summary p {
 	margin: 0;
 }
+
+#results_message {
+	margin: 1em 0;
+}
