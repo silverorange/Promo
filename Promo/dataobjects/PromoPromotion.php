@@ -284,7 +284,7 @@ class PromoPromotion extends SwatDBDataObject
 	// }}}
 	// {{{ public function loadByCode()
 
-	public function loadByCode($code, PromoInstance $instance = null)
+	public function loadByCode($code, SiteInstance $instance = null)
 	{
 		$this->checkDB();
 
@@ -310,7 +310,7 @@ class PromoPromotion extends SwatDBDataObject
 	// }}}
 	// {{{ public function load()
 
-	public function load($id, PromoInstance $instance = null)
+	public function load($id, SiteInstance $instance = null)
 	{
 		$this->checkDB();
 
@@ -327,15 +327,11 @@ class PromoPromotion extends SwatDBDataObject
 				$this->db->quote($id, $id_field->type)
 			);
 
-			$instance_id = ($instance === null)
-				? null
-				: $instance->id;
-
-			if ($instance_id !== null) {
+			if ($instance instanceof SiteInstance) {
 				$sql.= sprintf(
 					' and instance %s %s',
-					SwatDB::equalityOperator($instance_id),
-					$this->db->quote($instance_id, 'integer')
+					SwatDB::equalityOperator($instance->id),
+					$this->db->quote($instance->id, 'integer')
 				);
 			}
 
@@ -549,8 +545,10 @@ class PromoPromotion extends SwatDBDataObject
 		$this->registerDateProperty('start_date');
 		$this->registerDateProperty('end_date');
 
-		$this->registerInternalProperty('instance',
-			SwatDBClassMap::get('PromoInstance'));
+		$this->registerInternalProperty(
+			'instance',
+			SwatDBClassMap::get('SiteInstance')
+		);
 	}
 
 	// }}}
