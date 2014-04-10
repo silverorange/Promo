@@ -86,6 +86,7 @@ class PromoPromotionReport extends AdminIndex
 		$this->ui->loadFromXML($this->getUiXml());
 
 		$this->initPromotion();
+		$this->checkInstance();
 
 		$regions = $this->getRegions();
 		$view = $this->ui->getWidget('index_view');
@@ -135,7 +136,13 @@ class PromoPromotionReport extends AdminIndex
 				)
 			);
 		}
+	}
 
+	// }}}
+	// {{{ protected function checkInstance()
+
+	protected function checkInstance()
+	{
 		$instance = $this->app->getInstance();
 		if (
 			$instance instanceof SiteInstance &&

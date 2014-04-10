@@ -50,6 +50,7 @@ class PromoPromotionDetails extends AdminIndex
 		$this->ui->loadFromXML($this->getUiXml());
 
 		$this->initPromotion();
+		$this->checkInstance();
 	}
 
 	// }}}
@@ -71,7 +72,13 @@ class PromoPromotionDetails extends AdminIndex
 				)
 			);
 		}
+	}
 
+	// }}}
+	// {{{ protected function checkInstance()
+
+	protected function checkInstance()
+	{
 		$instance = $this->app->getInstance();
 		if (
 			$instance instanceof SiteInstance &&
