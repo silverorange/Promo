@@ -137,8 +137,13 @@ class PromoPromotionReport extends AdminIndex
 		}
 
 		$instance = $this->app->getInstance();
-		if ($instance instanceof SiteInstance &&
-			$this->promotion->instance->id !== $instance->id) {
+		if (
+			$instance instanceof SiteInstance &&
+			!(
+				$this->promotion->instance instanceof SiteInstance &&
+				$this->promotion->instance->id === $instance->id
+			)
+		) {
 			throw new AdminNotFoundException(
 				sprintf(
 					'Incorrect instance for promotion ‘%s’.',

@@ -64,8 +64,13 @@ class PromoPromotionEdit extends AdminObjectEdit
 		$instance = $this->app->getInstance();
 		$promotion = $this->getObject();
 
-		if ($instance instanceof SiteInstance &&
-			$promotion->instance->id !== $instance->id) {
+		if (
+			$instance instanceof SiteInstance &&
+			!(
+				$promotion->instance instanceof SiteInstance &&
+				$promotion->instance->id === $instance->id
+			)
+		) {
 			throw new AdminNotFoundException(
 				sprintf(
 					'Incorrect instance for promotion ‘%s’.',
