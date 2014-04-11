@@ -106,7 +106,7 @@ $package->addPackageDepWithChannel(
 	'required',
 	'Swat',
 	'pear.silverorange.com',
-	'2.0.16'
+	'2.1.0'
 );
 
 $package->addPackageDepWithChannel(
@@ -114,6 +114,13 @@ $package->addPackageDepWithChannel(
 	'Site',
 	'pear.silverorange.com',
 	'2.1.6'
+);
+
+$package->addPackageDepWithChannel(
+	'required',
+	'Admin',
+	'pear.php.net',
+	'2.0.9'
 );
 
 $package->addPackageDepWithChannel(
@@ -126,7 +133,7 @@ $package->addPackageDepWithChannel(
 $package->addPackageDepWithChannel(
 	'required',
 	'Text_Password',
-	 'pear.php.net',
+	'pear.php.net',
 	'1.1.0'
 );
 

@@ -1,9 +1,6 @@
 <?php
 
-require_once 'Admin/pages/AdminDBEdit.php';
-require_once 'Admin/exceptions/AdminNotFoundException.php';
-require_once 'SwatDB/SwatDB.php';
-require_once 'Swat/SwatMessage.php';
+require_once 'Admin/pages/AdminObjectEdit.php';
 require_once 'Promo/dataobjects/PromoPromotion.php';
 
 /**
@@ -12,14 +9,14 @@ require_once 'Promo/dataobjects/PromoPromotion.php';
  * @package   Promo
  * @copyright 2011-2014 silverorange
  */
-class PromoPromotionEdit extends AdminDBEdit
+class PromoPromotionEdit extends AdminObjectEdit
 {
-	// {{{ protected properties
+	// {{{ protected function getObjectClass()
 
-	/**
-	 * @var PromoPromotion
-	 */
-	protected $promotion;
+	protected function getObjectClass()
+	{
+		return 'PromoPromotion';
+	}
 
 	// }}}
 	// {{{ protected function getUiXml()
@@ -27,6 +24,23 @@ class PromoPromotionEdit extends AdminDBEdit
 	protected function getUiXml()
 	{
 		return 'Promo/admin/components/Promotion/edit.xml';
+	}
+
+	// }}}
+	// {{{ protected function getObjectUiValueNames()
+
+	protected function getObjectUiValueNames()
+	{
+		return array(
+			'title',
+			'public_note',
+			'start_date',
+			'end_date',
+			'discount_amount',
+			'discount_percentage',
+			'maximum_quantity',
+			'instance',
+		);
 	}
 
 	// }}}
@@ -38,41 +52,31 @@ class PromoPromotionEdit extends AdminDBEdit
 	{
 		parent::initInternal();
 
-		$this->ui->loadFromXML($this->getUiXml());
-
-		$this->initPromotion();
+		$this->checkInstance();
 		$this->initFlydowns();
 	}
 
 	// }}}
-	// {{{ protected function initPromotion()
+	// {{{ protected function checkInstance()
 
-	protected function initPromotion()
+	protected function checkInstance()
 	{
-		$class_name = SwatDBClassMap::get('PromoPromotion');
-		$this->promotion = new $class_name();
-		$this->promotion->setDatabase($this->app->db);
+		$instance = $this->app->getInstance();
+		$promotion = $this->getObject();
 
-		if ($this->id !== null) {
-			if (!$this->promotion->load($this->id)) {
-				throw new AdminNotFoundException(
-					sprintf(
-						'A promotion with the id of ‘%s’ does not exist',
-						$this->id
-					)
-				);
-			}
-
-			$instance_id = $this->app->getInstanceId();
-			if ($instance_id !== null &&
-				$this->promotion->instance->id !== $instance_id) {
-				throw new AdminNotFoundException(
-					sprintf(
-						'Incorrect instance for promotion ‘%s’.',
-						$this->id
-					)
-				);
-			}
+		if (
+			$instance instanceof SiteInstance &&
+			!(
+				$promotion->instance instanceof SiteInstance &&
+				$promotion->instance->id === $instance->id
+			)
+		) {
+			throw new AdminNotFoundException(
+				sprintf(
+					'Incorrect instance for promotion ‘%s’.',
+					$promotion->id
+				)
+			);
 		}
 	}
 
@@ -81,23 +85,14 @@ class PromoPromotionEdit extends AdminDBEdit
 
 	protected function initFlydowns()
 	{
-		if ($this->app->hasModule('SiteMultipleInstanceModule')) {
-			$instance_id = $this->app->getInstanceId();
-			if ($instance_id !== null) {
-				$where = sprintf(
-					'id = %s',
-					$this->app->db->quote($instance_id, 'integer')
-				);
-			}
-
+		if ($this->app->isMultipleInstanceAdmin()) {
 			$this->ui->getWidget('instance')->addOptionsByArray(
 				SwatDB::getOptionArray(
 					$this->app->db,
 					'Instance',
 					'title',
 					'id',
-					'title',
-					$where
+					'title'
 				)
 			);
 		} else {
@@ -166,63 +161,27 @@ class PromoPromotionEdit extends AdminDBEdit
 	}
 
 	// }}}
-	// {{{ protected function saveDBData()
+	// {{{ protected function updateObject()
 
-	protected function saveDBData()
+	protected function updateObject()
 	{
-		$this->updatePromotion();
-		$this->promotion->save();
+		parent::updateObject();
 
-		$this->app->messages->add(
-			new SwatMessage(
-				sprintf(
-					Promo::_('Promotion “%s” has been saved.'),
-					$this->promotion->title
-				)
-			)
-		);
+		if ($this->isNew() &&
+			$this->app->getInstance() instanceof SiteInstance) {
+			$this->getObject()->instance = $this->app->getInstance();
+		}
 	}
 
 	// }}}
-	// {{{ protected function updatePromotion()
+	// {{{ protected function getSavedMessagePrimaryContent()
 
-	protected function updatePromotion()
+	protected function getSavedMessagePrimaryContent()
 	{
-		$values = $this->ui->getValues(
-			array(
-				'title',
-				'public_note',
-				'start_date',
-				'end_date',
-				'discount_amount',
-				'discount_percentage',
-				'maximum_quantity',
-				'instance',
-			)
+		return sprintf(
+			Promo::_('Promotion “%s” has been saved.'),
+			$this->getObject()->title
 		);
-
-		if ($values['start_date'] instanceof SwatDate) {
-			$start_date = $values['start_date'];
-			$start_date->setTZ($this->app->default_time_zone);
-			$start_date->toUTC();
-			$values['start_date'] = $start_date->getDate();
-		}
-
-		if ($values['end_date'] instanceof SwatDate) {
-			$end_date = $values['end_date'];
-			$end_date->setTZ($this->app->default_time_zone);
-			$end_date->toUTC();
-			$values['end_date'] = $end_date->getDate();
-		}
-
-		$this->promotion->title               = $values['title'];
-		$this->promotion->public_note         = $values['public_note'];
-		$this->promotion->instance            = $values['instance'];
-		$this->promotion->start_date          = $values['start_date'];
-		$this->promotion->end_date            = $values['end_date'];
-		$this->promotion->discount_amount     = $values['discount_amount'];
-		$this->promotion->discount_percentage = $values['discount_percentage'];
-		$this->promotion->maximum_quantity    = $values['maximum_quantity'];
 	}
 
 	// }}}
@@ -233,7 +192,7 @@ class PromoPromotionEdit extends AdminDBEdit
 		$this->app->relocate(
 			sprintf(
 				'Promotion/Details?id=%s',
-				$this->promotion->id
+				$this->getObject()->id
 			)
 		);
 	}
@@ -263,43 +222,20 @@ class PromoPromotionEdit extends AdminDBEdit
 	{
 		parent::buildNavBar();
 
-		if ($this->promotion->id !== null) {
+		if (!$this->isNew()) {
+			$promotion = $this->getObject();
 			$last = $this->navbar->popEntry();
 
-			$this->navbar->addEntry(
-				new SwatNavBarEntry(
-					$this->promotion->title,
-					sprintf(
-						'Promotion/Details?id=%s',
-						$this->promotion->id
-					)
+			$this->navbar->createEntry(
+				$promotion->title,
+				sprintf(
+					'Promotion/Details?id=%s',
+					$promotion->id
 				)
 			);
 
 			$this->navbar->addEntry($last);
 		}
-	}
-
-	// }}}
-	// {{{ protected function loadDBData()
-
-	protected function loadDBData()
-	{
-		$this->ui->setValues(get_object_vars($this->promotion));
-
-		$this->ui->getWidget('instance')->value =
-			$this->promotion->getInternalValue('instance');
-
-		$start_date = $this->ui->getWidget('start_date');
-		if ($start_date->value instanceof SwatDate) {
-			$start_date->value->convertTZ($this->app->default_time_zone);
-		}
-
-		$end_date = $this->ui->getWidget('end_date');
-		if ($end_date->value instanceof SwatDate) {
-			$end_date->value->convertTZ($this->app->default_time_zone);
-		}
-
 	}
 
 	// }}}

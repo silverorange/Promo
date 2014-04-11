@@ -50,6 +50,7 @@ class PromoPromotionDetails extends AdminIndex
 		$this->ui->loadFromXML($this->getUiXml());
 
 		$this->initPromotion();
+		$this->checkInstance();
 	}
 
 	// }}}
@@ -71,10 +72,21 @@ class PromoPromotionDetails extends AdminIndex
 				)
 			);
 		}
+	}
 
-		$instance_id = $this->app->getInstanceId();
-		if ($instance_id !== null &&
-			$this->promotion->instance->id !== $instance_id) {
+	// }}}
+	// {{{ protected function checkInstance()
+
+	protected function checkInstance()
+	{
+		$instance = $this->app->getInstance();
+		if (
+			$instance instanceof SiteInstance &&
+			!(
+				$this->promotion->instance instanceof SiteInstance &&
+				$this->promotion->instance->id === $instance->id
+			)
+		) {
 			throw new AdminNotFoundException(
 				sprintf(
 					'Incorrect instance for promotion ‘%s’.',
