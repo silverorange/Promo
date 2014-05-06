@@ -119,7 +119,7 @@ $package->addPackageDepWithChannel(
 $package->addPackageDepWithChannel(
 	'required',
 	'Admin',
-	'pear.php.net',
+	'pear.silverorange.com',
 	'2.0.9'
 );
 
