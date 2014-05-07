@@ -17,11 +17,6 @@
 		<!-- {{{ Promotion Details -->
 
 		<widget class="SwatDetailsView" id="details_view">
-			<object class="SwatDetailsViewField" id="promotion_details_field">
-				<property name="title" translatable="yes">Promotion Details</property>
-				<property name="show_colon" type="boolean">false</property>
-				<object class="SwatTextCellRenderer" />
-			</object>
 			<object class="SwatDetailsViewField" id="title_field">
 				<property name="title" translatable="yes">Title</property>
 				<object class="SwatTextCellRenderer">
@@ -68,8 +63,12 @@
 					<property name="visible" type="data">!show_discount_amount</property>
 				</object>
 			</object>
-			<object class="SwatDetailsViewField" id="notes">
+			<object class="SwatDetailsViewVerticalField" id="notes_field">
 				<property name="title" translatable="yes">Administrative Notes</property>
+				<property name="show_colon" type="boolean">false</property>
+				<object class="SwatTextCellRenderer" />
+			</object>
+			<object class="SwatDetailsViewField" id="notes">
 				<object class="SwatNullTextCellRenderer">
 					<property name="text" type="data">notes</property>
 				</object>
@@ -81,7 +80,7 @@
 					</widget>
 				</object>
 			</object>
-			<object class="SwatDetailsViewField" id="promotion_use_field">
+			<object class="SwatDetailsViewVerticalField" id="promotion_use_field">
 				<property name="title" translatable="yes">Promotion Use</property>
 				<property name="show_colon" type="boolean">false</property>
 				<object class="SwatTextCellRenderer" />
