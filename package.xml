@@ -19,10 +19,10 @@
   <email>keith@silverorange.com</email>
   <active>yes</active>
  </lead>
- <date>2014-05-06</date>
- <time>13:33:05</time>
+ <date>2014-05-08</date>
+ <time>11:05:50</time>
  <version>
-  <release>0.1.1</release>
+  <release>0.1.2</release>
   <api>0.1.0</api>
  </version>
  <stability>
@@ -94,11 +94,11 @@ initial release
    <dir name="www">
     <dir name="admin">
      <dir name="styles">
+      <file name="promo-admin-notices.css" role="data" />
       <file name="promo-order-index.css" role="data" />
       <file name="promo-promotion-details.css" role="data" />
       <file name="promo-promotion-edit.css" role="data" />
       <file name="promo-promotion-index.css" role="data" />
-      <file name="promo-promotion-note-edit.css" role="data" />
       <file name="promo-promotion-report.css" role="data" />
      </dir> <!-- /www/admin/styles -->
     </dir> <!-- /www/admin -->
@@ -146,14 +146,14 @@ initial release
  <changelog>
   <release>
    <version>
-    <release>0.1.1</release>
+    <release>0.1.2</release>
     <api>0.1.0</api>
    </version>
    <stability>
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2014-05-06</date>
+   <date>2014-05-08</date>
    <license uri="http://www.opensource.org/licenses/mit-license.html">MIT License</license>
    <notes>
 initial release
