@@ -233,7 +233,7 @@ class PromoPromotionDetails extends AdminIndex
 			$summary = null;
 		} else {
 			if ($row->promotion_total == 0) {
-				$formatted_roi = Promotion::_('∞');
+				$formatted_roi = Promo::_('∞');
 			} else {
 				$formatted_roi = sprintf(
 					Promo::_('%s%%'),
