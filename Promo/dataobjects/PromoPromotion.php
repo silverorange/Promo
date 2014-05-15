@@ -167,7 +167,7 @@ class PromoPromotion extends SwatDBDataObject
 	{
 		$locale = SwatI18NLocale::get();
 
-		$message = $this->getDiscountMessageText();
+		$message = $this->getDiscountMessageText($app);
 
 		if ($this->isFixedDiscount()) {
 			$message = sprintf(
@@ -498,7 +498,7 @@ class PromoPromotion extends SwatDBDataObject
 	// }}}
 	// {{{ protected function getDiscountMessageText()
 
-	protected function getDiscountMessageText()
+	protected function getDiscountMessageText(SiteApplication $app)
 	{
 		if ($this->isFixedDiscount()) {
 			$message = Promo::_('up to %s off your order');
