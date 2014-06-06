@@ -71,37 +71,22 @@ class PromoPromotionIndex extends AdminIndex
 
 	protected function getTableModel(SwatView $view)
 	{
-		// Need to coalesce here to handle promotions with no codes or no
-		// orders that are not reflected in the PromotionROI view.
-		$sql = 'select Promotion.*,
-				coalesce(PromotionROIView.num_orders, 0) as num_orders,
-				PromotionROIView.promotion_total, PromotionROIView.total,
-				Instance.title as instance_title
-			from Promotion
-			left outer join Instance on Promotion.instance = Instance.id
-			left outer join PromotionROIView on
-				Promotion.id = PromotionROIView.promotion';
-
-		$instance = $this->app->getInstance();
-		if ($instance instanceof SiteInstance) {
-			$sql.= sprintf(
-				' where Promotion.instance = %s',
-				$this->app->db->quote($instance->id, 'integer')
-			);
-		}
-
-		$sql.= sprintf(
-			' order by instance_title nulls first,
-				Promotion.instance nulls first, %s',
-			$this->getOrderByClause($view, 'title')
+		$sql = sprintf(
+			$this->getSQL(),
+			$this->getWhereClause(),
+			$this->getOrderByClause(
+				$view,
+				'instance_title nulls first, Promotion.instance nulls first, '.
+				'title'
+			)
 		);
 
-		$rs = SwatDB::query($this->app->db, $sql);
+		$promotions = SwatDB::query($this->app->db, $sql);
 
 		$class_name = SwatDBClassMap::get('PromoPromotion');
 
 		$store = new SwatTableStore();
-		foreach ($rs as $row) {
+		foreach ($promotions as $row) {
 			$promotion = new $class_name($row);
 			$promotion->setDatabase($this->app->db);
 
@@ -114,6 +99,45 @@ class PromoPromotionIndex extends AdminIndex
 		}
 
 		return $store;
+	}
+
+	// }}}
+	// {{{ protected function getSql()
+
+	protected function getSql()
+	{
+		// Need to coalesce here to handle promotions with no codes or no
+		// orders that are not reflected in the PromotionROI view.
+		$sql = 'select Promotion.*,
+				coalesce(PromotionROIView.num_orders, 0) as num_orders,
+				PromotionROIView.promotion_total, PromotionROIView.total,
+				Instance.title as instance_title
+			from Promotion
+			left outer join Instance on Promotion.instance = Instance.id
+			left outer join PromotionROIView on
+				Promotion.id = PromotionROIView.promotion
+			where %s
+			order by %s';
+
+		return $sql;
+	}
+
+	// }}}
+	// {{{ protected function getWhereClause()
+
+	protected function getWhereClause()
+	{
+		$where = '1 = 1';
+
+		$instance = $this->app->getInstance();
+		if ($instance instanceof SiteInstance) {
+			$where.= sprintf(
+				' and Promotion.instance = %s',
+				$this->app->db->quote($instance->id, 'integer')
+			);
+		}
+
+		return $where;
 	}
 
 	// }}}
