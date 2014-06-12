@@ -102,9 +102,9 @@ class PromoPromotionIndex extends AdminIndex
 	}
 
 	// }}}
-	// {{{ protected function getSql()
+	// {{{ protected function getSQL()
 
-	protected function getSql()
+	protected function getSQL()
 	{
 		// Need to coalesce here to handle promotions with no codes or no
 		// orders that are not reflected in the PromotionROI view.
