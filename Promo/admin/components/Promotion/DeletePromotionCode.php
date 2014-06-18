@@ -11,6 +11,7 @@ require_once 'Promo/dataobjects/PromoPromotionWrapper.php';
  *
  * @package   Promo
  * @copyright 2011-2014 silverorange
+ * @license   http://www.opensource.org/licenses/mit-license.html MIT License
  * @todo      Enforce instance security.
  */
 class PromoPromotionDeletePromotionCode extends AdminDBDelete

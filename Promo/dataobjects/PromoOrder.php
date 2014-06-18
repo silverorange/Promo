@@ -9,6 +9,7 @@ require_once 'Promo/dataobjects/PromoOrderItem.php';
  *
  * @package   Promo
  * @copyright 2011-2014 silverorange
+ * @license   http://www.opensource.org/licenses/mit-license.html MIT License
  */
 class PromoOrder extends StoreOrder
 {
