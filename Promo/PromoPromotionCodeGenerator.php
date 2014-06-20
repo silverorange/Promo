@@ -43,15 +43,20 @@ class PromoPromotionCodeGenerator
 			self::LENGTH
 		);
 
-		$codes_out = array();
-		foreach ($codes as $code) {
-			if ($prefix != '') {
-				$code = sprintf('%s-%s', $prefix, $code);
-			}
-			$codes_out[] = $code;
+		if ($prefix != '') {
+			$codes = array_map(
+				function ($code) use ($prefix) {
+					return sprintf(
+						'%s-%s',
+						$prefix,
+						$code
+					);
+				},
+				$codes
+			);
 		}
 
-		return $this->verifyUniqueness($promotion, $codes_out, $prefix);
+		return $this->verifyUniqueness($promotion, $codes, $prefix);
 	}
 
 	// }}}
