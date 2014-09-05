@@ -162,19 +162,14 @@ class PromoPromotion extends SwatDBDataObject
 	}
 
 	// }}}
-	// {{{ public function getDiscountMessage()
+	// {{{ public function getFormattedDiscount()
 
-	public function getDiscountMessage(SiteApplication $app)
+	public function getFormattedDiscount(SiteApplication $app)
 	{
 		$locale = SwatI18NLocale::get();
 
-		$message = $this->getDiscountMessageText($app);
-
 		if ($this->isFixedDiscount()) {
-			$message = sprintf(
-				$message,
-				$locale->formatCurrency($this->discount_amount)
-			);
+			$formatted_amount = $locale->formatCurrency($this->discount_amount);
 		} else {
 			// Since percentage discount is the fallback cover the edge case
 			// where the stored value is null and treat as a 0% discount.
@@ -182,11 +177,22 @@ class PromoPromotion extends SwatDBDataObject
 				? 0
 				: ($this->discount_percentage * 100);
 
-			$message = sprintf(
-				$message,
-				$locale->formatNumber($displayed_percentage).'%'
-			);
+			$formatted_amount = $locale->formatNumber($displayed_percentage).
+				'%';
 		}
+
+		return $formatted_amount;
+	}
+
+	// }}}
+	// {{{ public function getDiscountMessage()
+
+	public function getDiscountMessage(SiteApplication $app)
+	{
+		$message = sprintf(
+			$this->getDiscountMessageText($app),
+			$this->getFormattedDiscount($app)
+		);
 
 		$rules = $this->getPromotionRulesArray();
 		if (count($rules) > 0) {
