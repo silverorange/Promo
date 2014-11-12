@@ -108,7 +108,7 @@ class PromoPromotionCodeGenerator
 		$codes = array_merge($codes, $new_codes);
 
 		if (count($new_codes) > 0) {
-			$codes = $this->verifyUniqueness($codes, $prefix);
+			$codes = $this->verifyUniqueness($promotion, $codes, $prefix);
 		}
 
 		return $codes;
