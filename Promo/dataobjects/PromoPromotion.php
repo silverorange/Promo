@@ -189,9 +189,11 @@ class PromoPromotion extends SwatDBDataObject
 
 	public function getDiscountMessage(SiteApplication $app)
 	{
-		$message = sprintf(
-			$this->getDiscountMessageText($app),
-			$this->getFormattedDiscount($app)
+		$message = SwatString::minimizeEntities(
+			sprintf(
+				$this->getDiscountMessageText($app),
+				$this->getFormattedDiscount($app)
+			)
 		);
 
 		$rules = $this->getPromotionRulesArray();
