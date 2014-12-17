@@ -106,6 +106,17 @@ class PromoPromotion extends SwatDBDataObject
 	}
 
 	// }}}
+	// {{{ public function is100PercentDiscount()
+
+	public function is100PercentDiscount()
+	{
+		return (
+			$this->isPercentageDiscount() &&
+			abs($this->discount_percentage - 1.00) < 0.009
+		);
+	}
+
+	// }}}
 	// {{{ public function isCartEntryDiscountable()
 
 	public function isCartEntryDiscountable(PromoCartEntry $cart_entry)
