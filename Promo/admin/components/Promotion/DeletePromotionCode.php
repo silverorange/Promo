@@ -10,7 +10,7 @@ require_once 'Promo/dataobjects/PromoPromotionWrapper.php';
  * Delete confirmation page for Promotion Codes
  *
  * @package   Promo
- * @copyright 2011-2014 silverorange
+ * @copyright 2011-2015 silverorange
  * @license   http://www.opensource.org/licenses/mit-license.html MIT License
  * @todo      Enforce instance security.
  */

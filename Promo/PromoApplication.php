@@ -6,7 +6,7 @@ require_once 'Promo/dataobjects/PromoPromotion.php';
 
 /**
  * @package   Promo
- * @copyright 2011-2014 silverorange
+ * @copyright 2011-2015 silverorange
  * @license   http://www.opensource.org/licenses/mit-license.html MIT License
  */
 class PromoApplication extends StoreApplication

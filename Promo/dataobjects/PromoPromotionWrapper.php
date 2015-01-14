@@ -7,7 +7,7 @@ require_once 'Promo/dataobjects/PromoPromotion.php';
  * A recordset wrapper class for PromoPromotion objects
  *
  * @package   Promo
- * @copyright 2011-2014 silverorange
+ * @copyright 2011-2015 silverorange
  * @license   http://www.opensource.org/licenses/mit-license.html MIT License
  * @see       PromoPromotion
  */

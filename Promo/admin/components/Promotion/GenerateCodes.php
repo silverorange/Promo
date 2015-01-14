@@ -13,7 +13,7 @@ require_once 'Promo/dataobjects/PromoPromotionCode.php';
  * Page to generate a set of promotion codes
  *
  * @package   Promo
- * @copyright 2011-2014 silverorange
+ * @copyright 2011-2015 silverorange
  * @license   http://www.opensource.org/licenses/mit-license.html MIT License
  */
 class PromoPromotionGenerateCodes extends AdminDBEdit
