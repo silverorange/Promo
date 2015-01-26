@@ -15,9 +15,15 @@
 	color: #888;
 }
 
+#promotion_code_summary .swat-disclosure-anchor-opened,
+#promotion_code_summary .swat-disclosure-anchor-closed {
+	background-color: transparent;
+}
+
 #promotion_code_summary .swat-disclosure-container {
-	background: #f8f6f0;
-	border-color: #dcceb2;
+	background: #ECEFF1;
+	box-shadow: 0 0 2px rgba(0,0,0,0.12), 0 2px 2px rgba(0,0,0,0.24);
+	border: 0;
 }
 
 #promotion_code_summary p {
