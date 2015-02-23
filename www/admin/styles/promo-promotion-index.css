@@ -1,11 +1,11 @@
-.swat-table-view td.has-notes {
-	padding: 1px 0 2px;
+.swat-table-view .swat-table-view-spanning-column td {
+	padding: 0 0 4px;
+	border-top: 0;
 }
 
 .has-notes .admin-notes {
 	display: block;
-	color: #947140;
-	background: #fffbc9;
-	padding: 2px 4px;
-	border: 1px solid #f0dca1;
+	color: rgba(0,0,0,0.54);
+	background: #fff9c4;
+	padding: 4px 6px;
 }
