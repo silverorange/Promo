@@ -1,9 +1,9 @@
 ##
-## Static Web-resource dependencies for the Academy package
+## Static Web-resource dependencies for the Promo package
 ##
-## Copyright (c) 2012 silverorange
+## Copyright (c) 2015 silverorange
 ##
-Academy:
+Promo:
   Depends:
     # Package Dependencies
     - Swat
@@ -11,52 +11,12 @@ Academy:
     - Store
 
   Provides:
-
-    # JavaScript resources
-    packages/academy/javascript/academy-account-evaluation.js:
-    packages/academy/javascript/academy-account-lightbox.js:
-    packages/academy/javascript/academy-account-quiz-page.js:
-    packages/academy/javascript/academy-agreement-lightbox.js:
-    packages/academy/javascript/academy-media-player.js:
-    packages/academy/javascript/academy-media-bookmark-button.js:
-    packages/academy/javascript/academy-video-lightbox.js:
-    packages/academy/javascript/academy-video-playlist.js:
-    packages/academy/javascript/academy-lecture-comment-form.js:
-    packages/academy/javascript/academy-lecture-comment-reply-form.js:
-      Depends:
-        - packages/academy/javascript/academy-lecture-comment-form.js
-    packages/academy/javascript/academy-lecture-feedback-form.js:
-
     # Style-sheet resources
-    packages/academy/styles/academy-account-addresses-page.css:
-      Conflicts:
-        - packages/academy/styles/academy-account-evaluation-page.css
-        - packages/academy/styles/academy-account-quiz-page.css
-    packages/academy/styles/academy-account-evaluation-page.css:
-      Conflicts:
-        - packages/academy/styles/academy-account-quiz-page.css
-    packages/academy/styles/academy-account-lightbox.css:
-    packages/academy/styles/academy-account-login-page.css:
-      Conflicts:
-        - packages/academy/styles/academy-account-evaluation-page.css
-        - packages/academy/styles/academy-account-quiz-page.css
-    packages/academy/styles/academy-account-order-page.css:
-      Conflicts:
-        - packages/academy/styles/academy-account-evaluation-page.css
-        - packages/academy/styles/academy-account-quiz-page.css
-    packages/academy/styles/academy-account-orders-page.css:
-      Conflicts:
-        - packages/academy/styles/academy-account-evaluation-page.css
-        - packages/academy/styles/academy-account-quiz-page.css
-    packages/academy/styles/academy-account-quiz-page.css:
-      Conflicts:
-        - packages/academy/styles/academy-account-evaluation-page.css
-    packages/academy/styles/academy-agreement-lightbox.css:
-    packages/academy/styles/academy-video-lightbox.css:
-    packages/academy/styles/academy-video-playlist.css:
-    packages/academy/styles/academy-lecture-feedback-view.css:
-    packages/academy/styles/academy-lecture-feedback-form.css:
-      Depends:
-        - packages/academy/styles/academy-lecture-feedback-view.css
+    admin/packages/promo/promo-admin-notices.css:
+    admin/packages/promo/promo-order-index.css:
+    admin/packages/promo/promo-promotion-details.css:
+    admin/packages/promo/promo-promotion-edit.css:
+    admin/packages/promo/promo-promotion-index.css:
+    admin/packages/promo/promo-promotion-report.css:
 
 # vim: set expandtab tabstop=2 shiftwidth=2 softtabstop=2:
