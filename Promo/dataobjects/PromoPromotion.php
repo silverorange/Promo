@@ -524,7 +524,7 @@ class PromoPromotion extends SwatDBDataObject
 	// {{{ protected function getDiscountMessageText()
 
 	/**
-	 * Gets a text description of this promotion
+	 * Gets a text description of this promotion's discount
 	 *
 	 * This is a helper method used by the public
 	 * {@link PromoPromotion::getDiscountMessage()} method.
