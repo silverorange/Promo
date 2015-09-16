@@ -198,6 +198,11 @@ class PromoPromotion extends SwatDBDataObject
 	// }}}
 	// {{{ public function getDiscountMessage()
 
+	/**
+	 * Gets an XHTML snippet describing this promotion's discount
+	 *
+	 * @return string an XHTML formatted snippet.
+	 */
 	public function getDiscountMessage(SiteApplication $app)
 	{
 		$message = SwatString::minimizeEntities(
@@ -518,6 +523,14 @@ class PromoPromotion extends SwatDBDataObject
 	// }}}
 	// {{{ protected function getDiscountMessageText()
 
+	/**
+	 * Gets a text description of this promotion's discount
+	 *
+	 * This is a helper method used by the public
+	 * {@link PromoPromotion::getDiscountMessage()} method.
+	 *
+	 * @return string
+	 */
 	protected function getDiscountMessageText(SiteApplication $app)
 	{
 		if ($this->isFixedDiscount()) {
