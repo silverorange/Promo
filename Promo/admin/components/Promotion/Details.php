@@ -14,7 +14,7 @@ require_once 'Promo/dataobjects/PromoPromotionCodeWrapper.php';
  * Details page for a promotion
  *
  * @package   Promo
- * @copyright 2011-2015 silverorange
+ * @copyright 2011-2016 silverorange
  * @license   http://www.opensource.org/licenses/mit-license.html MIT License
  */
 class PromoPromotionDetails extends AdminIndex

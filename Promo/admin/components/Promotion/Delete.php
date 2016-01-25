@@ -9,7 +9,7 @@ require_once 'Admin/AdminSummaryDependency.php';
  * Delete confirmation page for Promotions
  *
  * @package   Promo
- * @copyright 2011-2015 silverorange
+ * @copyright 2011-2016 silverorange
  * @license   http://www.opensource.org/licenses/mit-license.html MIT License
  * @todo      Enforce instance
  */

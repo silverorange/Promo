@@ -7,7 +7,7 @@ require_once 'Store/StoreCheckoutCart.php';
  * Promo specific checkout cart
  *
  * @package   Promo
- * @copyright 2011-2015 silverorange
+ * @copyright 2011-2016 silverorange
  * @license   http://www.opensource.org/licenses/mit-license.html MIT License
  * @todo      The pro-rating of promotion and quantity discounts hasn't been
  *            tested with sale discounts, and probably is broken if we start
