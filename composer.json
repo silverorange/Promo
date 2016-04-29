@@ -29,11 +29,10 @@
 		"silverorange/admin": "^2.0.23",
 		"silverorange/site": "^2.1.45",
 		"silverorange/store": "^2.1.17",
-		"silverorange/swat": "^2.2.10",
-		"silverorange/silverorange_autoloader": "*"
+		"silverorange/swat": "^2.2.10"
 	},
 	"autoload": {
-		"files": [ "autoload.php" ]
+		"classmap": [ "Promo/" ]
 	},
 	"include-path": [
 		"./"
