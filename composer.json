@@ -28,7 +28,7 @@
 		"pear/text_password": "^1.1.0",
 		"silverorange/admin": "^2.1.5",
 		"silverorange/site": "^3.0.0",
-		"silverorange/store": "^2.1.24",
+		"silverorange/store": "^2.1.24 || ^3.0.0",
 		"silverorange/swat": "^2.2.10"
 	},
 	"autoload": {
