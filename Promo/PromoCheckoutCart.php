@@ -1,8 +1,5 @@
 <?php
 
-require_once 'Swat/SwatNumber.php';
-require_once 'Store/StoreCheckoutCart.php';
-
 /**
  * Promo specific checkout cart
  *

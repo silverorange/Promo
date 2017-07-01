@@ -1,7 +1,5 @@
 <?php
 
-require_once 'Store/dataobjects/StoreOrderItem.php';
-
 /**
  * Promo specific order item
  *

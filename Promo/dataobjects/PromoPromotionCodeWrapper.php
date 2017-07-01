@@ -1,8 +1,5 @@
 <?php
 
-require_once 'SwatDB/SwatDBRecordsetWrapper.php';
-require_once 'Promo/dataobjects/PromoPromotionCode.php';
-
 /**
  * A recordset wrapper class for PromoPromotionCode objects
  *

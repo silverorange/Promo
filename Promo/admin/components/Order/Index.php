@@ -1,10 +1,5 @@
 <?php
 
-require_once 'Swat/SwatEntry.php';
-require_once 'Swat/SwatFormField.php';
-require_once 'Swat/SwatFieldset.php';
-require_once 'Store/admin/components/Order/Index.php';
-
 /**
  * @package   Promo
  * @copyright 2011-2016 silverorange

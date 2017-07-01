@@ -1,12 +1,5 @@
 <?php
 
-require_once 'SwatI18N/SwatI18NLocale.php';
-require_once 'Swat/SwatDate.php';
-require_once 'Swat/SwatNumber.php';
-require_once 'SwatDB/SwatDBDataObject.php';
-require_once 'Site/dataobjects/SiteInstance.php';
-require_once 'Promo/dataobjects/PromoPromotionCodeWrapper.php';
-
 /**
  * @package   Promo
  * @copyright 2011-2016 silverorange

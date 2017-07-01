@@ -1,8 +1,5 @@
 <?php
 
-require_once 'Admin/pages/AdminObjectEdit.php';
-require_once 'Promo/dataobjects/PromoPromotion.php';
-
 /**
  * @package   Promo
  * @copyright 2011-2016 silverorange

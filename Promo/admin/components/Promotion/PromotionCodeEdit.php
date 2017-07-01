@@ -1,9 +1,5 @@
 <?php
 
-require_once 'Admin/pages/AdminObjectEdit.php';
-require_once 'Promo/dataobjects/PromoPromotion.php';
-require_once 'Promo/dataobjects/PromoPromotionCode.php';
-
 /**
  * Edit page for promotion codes
  *
