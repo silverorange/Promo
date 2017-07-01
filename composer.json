@@ -55,8 +55,5 @@
 	},
 	"autoload": {
 		"classmap": [ "Promo/" ]
-	},
-	"include-path": [
-		"./"
-	]
+	}
 }
