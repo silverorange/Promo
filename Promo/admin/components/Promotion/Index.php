@@ -13,7 +13,7 @@ class PromoPromotionIndex extends AdminIndex
 
 	protected function getUiXml()
 	{
-		return 'Promo/admin/components/Promotion/index.xml';
+		return __DIR__.'/index.xml';
 	}
 
 	// }}}

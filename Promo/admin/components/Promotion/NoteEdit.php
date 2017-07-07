@@ -19,7 +19,7 @@ class PromoPromotionNoteEdit extends AdminObjectEdit
 
 	protected function getUiXml()
 	{
-		return 'Promo/admin/components/Promotion/note-edit.xml';
+		return __DIR__.'/note-edit.xml';
 	}
 
 	// }}}

@@ -26,7 +26,7 @@ class PromoPromotionDetails extends AdminIndex
 
 	protected function getUiXml()
 	{
-		return 'Promo/admin/components/Promotion/details.xml';
+		return __DIR__.'/details.xml';
 	}
 
 	// }}}

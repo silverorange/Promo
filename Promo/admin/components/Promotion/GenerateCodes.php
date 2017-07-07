@@ -21,7 +21,7 @@ class PromoPromotionGenerateCodes extends AdminDBEdit
 
 	protected function getUiXml()
 	{
-		return 'Promo/admin/components/Promotion/generate-codes.xml';
+		return __DIR__.'/generate-codes.xml';
 	}
 
 	// }}}

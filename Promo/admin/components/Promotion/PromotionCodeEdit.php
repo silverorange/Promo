@@ -29,7 +29,7 @@ class PromoPromotionPromotionCodeEdit extends AdminObjectEdit
 
 	protected function getUiXml()
 	{
-		return 'Promo/admin/components/Promotion/promotion-code-edit.xml';
+		return __DIR__.'/promotion-code-edit.xml';
 	}
 
 	// }}}

@@ -38,7 +38,7 @@ class PromoPromotionReport extends AdminIndex
 
 	protected function getUiXml()
 	{
-		return 'Promo/admin/components/Promotion/report.xml';
+		return __DIR__.'/report.xml';
 	}
 
 	// }}}

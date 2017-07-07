@@ -12,7 +12,7 @@ class PromoOrderIndex extends StoreOrderIndex
 	protected function getAdditionalSearchFieldsUiXmlFiles()
 	{
 		return array(
-			'Promo/admin/components/Order/search-promotion-fields.xml',
+			__DIR__.'/search-promotion-fields.xml',
 		);
 	}
 
