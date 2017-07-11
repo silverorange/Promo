@@ -24,12 +24,12 @@
 		}
 	],
 	"require": {
-		"php": ">=7.0.0",
+		"php": ">=5.3.0",
 		"pear/text_password": "^1.1.0",
-		"silverorange/admin": "^3.0.0",
-		"silverorange/site": "^5.0.0",
-		"silverorange/store": "^4.0.0",
-		"silverorange/swat": "^3.0.0"
+		"silverorange/admin": "^2.5.0",
+		"silverorange/site": "^4.11.0",
+		"silverorange/store": "^3.10.0",
+		"silverorange/swat": "^2.7.0"
 	},
 	"autoload": {
 		"classmap": [ "Promo/" ]
