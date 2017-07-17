@@ -45,17 +45,17 @@
 		"silverorange/store": "^3.10.0",
 		"silverorange/swat": "^2.7.0"
 	},
+	"require-dev": {
+		"silverorange/coding-standard": "^0.1.0"
+	},
+	"scripts": {
+		"post-install-cmd": "./vendor/bin/phpcs --config-set installed_paths vendor/silverorange/coding-standard/src",
+		"post-update-cmd": "./vendor/bin/phpcs --config-set installed_paths vendor/silverorange/coding-standard/src"
+	},
 	"autoload": {
 		"classmap": [ "Promo/" ]
 	},
 	"include-path": [
 		"./"
-	],
-	"scripts": {
-		"post-install-cmd": "./vendor/bin/phpcs --config-set installed_paths vendor/silverorange/coding-standard/src",
-		"post-update-cmd": "./vendor/bin/phpcs --config-set installed_paths vendor/silverorange/coding-standard/src"
-	},
-	"require-dev": {
-		"silverorange/coding-standard": "^0.1.0"
-	}
+	]
 }
