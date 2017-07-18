@@ -102,13 +102,13 @@ class PromoPromotionDetails extends AdminIndex
 	// process phase
 	// {{{ protected function processActions()
 
-	protected function processActions(SwatTableView $view, SwatActions $actions)
+	protected function processActions(SwatView $view, SwatActions $actions)
 	{
 		switch ($actions->selected->id) {
-			case 'promotion_code_delete':
-				$this->app->replacePage('Promotion/DeletePromotionCode');
-				$this->app->getPage()->setItems($view->checked_items);
-				break;
+		case 'promotion_code_delete':
+			$this->app->replacePage('Promotion/DeletePromotionCode');
+			$this->app->getPage()->setItems($view->checked_items);
+			break;
 		}
 	}
 
