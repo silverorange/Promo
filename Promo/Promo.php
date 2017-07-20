@@ -82,7 +82,7 @@ class Promo
 
 		SwatDBClassMap::addPath('Promo/dataobjects');
 		SwatDBClassMap::add('StoreCartEntry', 'PromoCartEntry');
-		SwatDBClassMap::add('StoreOrder',     'PromoOrder');
+		SwatDBClassMap::add('StoreOrder', 'PromoOrder');
 		SwatDBClassMap::add('StoreOrderItem', 'PromoOrderItem');
 
 		// class-mapped classes that are loaded with memcache need to be
