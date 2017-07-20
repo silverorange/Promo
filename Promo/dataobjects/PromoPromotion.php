@@ -45,14 +45,14 @@ class PromoPromotion extends SwatDBDataObject
 	public $end_date;
 
 	/**
- 	 * A fixed amount discount
+	  * A fixed amount discount
 	 *
 	 * @var float
 	 */
 	public $discount_amount;
 
 	/**
- 	 * A percentage based discount
+	  * A percentage based discount
 	 *
 	 * @var float
 	 */
@@ -453,7 +453,7 @@ class PromoPromotion extends SwatDBDataObject
 		}
 	}
 
- 	// }}}
+	 // }}}
 	// {{{ public function getValidDatesWithTz()
 
 	public function getValidDatesWithTz(DateTimeZone $time_zone,
