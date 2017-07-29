@@ -456,10 +456,11 @@ class PromoPromotion extends SwatDBDataObject
 	// }}}
 	// {{{ public function getValidDatesWithTz()
 
-	public function getValidDatesWithTz(DateTimeZone $time_zone,
+	public function getValidDatesWithTz(
+		DateTimeZone $time_zone,
 		$date_format = SwatDate::DF_DATE_TIME,
-		$tz_format = SwatDate::TZ_SHORT)
-	{
+		$tz_format = SwatDate::TZ_SHORT
+	) {
 		return $this->getValidDates(
 			$time_zone,
 			$date_format,
@@ -470,10 +471,11 @@ class PromoPromotion extends SwatDBDataObject
 	// }}}
 	// {{{ public function getValidDates()
 
-	public function getValidDates(DateTimeZone $time_zone,
+	public function getValidDates(
+		DateTimeZone $time_zone,
 		$date_format = SwatDate::DF_DATE_TIME,
-		$tz_format = null)
-	{
+		$tz_format = null
+	) {
 		$valid_dates = Promo::_('Always Active');
 
 		if ($this->start_date instanceof SwatDate ||

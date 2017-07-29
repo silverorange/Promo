@@ -164,9 +164,10 @@ class PromoPromotionReport extends AdminIndex
 	// }}}
 	// {{{ protected function appendRegionColumns()
 
-	protected function appendRegionColumns(SwatTableView $view,
-		StoreRegionWrapper $regions)
-	{
+	protected function appendRegionColumns(
+		SwatTableView $view,
+		StoreRegionWrapper $regions
+	) {
 		foreach ($regions as $region) {
 			$created_column = new SwatTableViewColumn('created_'.$region->id);
 

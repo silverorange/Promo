@@ -144,9 +144,10 @@ class PromoPromotionIndex extends AdminIndex
 	// }}}
 	// {{{ protected function getPromotionDetailsStore()
 
-	protected function getPromotionDetailsStore(PromoPromotion $promotion,
-		$row)
-	{
+	protected function getPromotionDetailsStore(
+		PromoPromotion $promotion,
+		$row
+	) {
 		$ds = new SwatDetailsStore($promotion);
 		$ds->show_discount_amount = $promotion->isFixedDiscount();
 		$ds->valid_dates = $promotion->getValidDates(

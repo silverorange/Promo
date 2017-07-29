@@ -62,9 +62,11 @@ class PromoPromotionCodeGenerator
 	// }}}
 	// {{{ protected function verifyUniqueness()
 
-	protected function verifyUniqueness(PromoPromotion $promotion, $codes,
-		$prefix = null)
-	{
+	protected function verifyUniqueness(
+		PromoPromotion $promotion,
+		$codes,
+		$prefix = null
+	) {
 		$lower_codes = array_map('strtolower', $codes);
 
 		$instance_where = ($promotion->instance instanceof SiteInstance)

@@ -50,11 +50,12 @@ abstract class PromoCheckoutCart extends StoreCheckoutCart
 	 *
 	 * @return double the cost of this cart's contents.
 	 */
-	public function getTotal(StoreAddress $billing_address = null,
+	public function getTotal(
+		StoreAddress $billing_address = null,
 		StoreAddress $shipping_address = null,
 		StoreShippingType $shipping_type = null,
-		StoreOrderPaymentMethodWrapper $payment_methods = null)
-	{
+		StoreOrderPaymentMethodWrapper $payment_methods = null
+	) {
 		if ($this->cachedValueExists('store-total')) {
 			$total = $this->getCachedValue('store-total');
 		} else {
@@ -219,9 +220,10 @@ abstract class PromoCheckoutCart extends StoreCheckoutCart
 	// }}}
 	// {{{ protected function compareEntriesByPrice()
 
-	protected function compareEntriesByPrice(StoreCartEntry $entry1,
-		StoreCartEntry $entry2)
-	{
+	protected function compareEntriesByPrice(
+		StoreCartEntry $entry1,
+		StoreCartEntry $entry2
+	) {
 		$price1 = $entry1->getCalculatedItemPrice();
 		$price2 = $entry2->getCalculatedItemPrice();
 
@@ -249,8 +251,10 @@ abstract class PromoCheckoutCart extends StoreCheckoutCart
 	 * @return double the discountable total of this cart's contents.
 	 */
 	protected function getPromotionDiscountableAmount(
-		PromoPromotion $promotion, $entry, $quantity = null)
-	{
+		PromoPromotion $promotion,
+		$entry,
+		$quantity = null
+	) {
 		if ($quantity === null) {
 			$total = $entry->getExtension();
 		} else {
