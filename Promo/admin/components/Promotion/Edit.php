@@ -1,8 +1,5 @@
 <?php
 
-require_once 'Admin/pages/AdminObjectEdit.php';
-require_once 'Promo/dataobjects/PromoPromotion.php';
-
 /**
  * Edit page for promotions
  *
@@ -24,7 +21,7 @@ class PromoPromotionEdit extends AdminObjectEdit
 
 	protected function getUiXml()
 	{
-		return 'Promo/admin/components/Promotion/edit.xml';
+		return __DIR__.'/edit.xml';
 	}
 
 	// }}}

@@ -1,19 +1,5 @@
 <?php
 
-require_once 'Swat/SwatDate.php';
-require_once 'Swat/SwatTableStore.php';
-require_once 'Swat/SwatDetailsStore.php';
-require_once 'Swat/SwatNumber.php';
-require_once 'Swat/SwatNumericCellRenderer.php';
-require_once 'Swat/SwatPercentageCellRenderer.php';
-require_once 'Swat/SwatMoneyCellRenderer.php';
-require_once 'Swat/SwatTextCellRenderer.php';
-require_once 'SwatDB/SwatDB.php';
-require_once 'SwatDB/SwatDBClassMap.php';
-require_once 'Admin/pages/AdminIndex.php';
-require_once 'Store/dataobjects/StoreRegionWrapper.php';
-require_once 'Promo/dataobjects/PromoPromotion.php';
-
 /**
  * Displays sales summaries for a promotion by month
  *
@@ -52,7 +38,7 @@ class PromoPromotionReport extends AdminIndex
 
 	protected function getUiXml()
 	{
-		return 'Promo/admin/components/Promotion/report.xml';
+		return __DIR__.'/report.xml';
 	}
 
 	// }}}

@@ -1,8 +1,5 @@
 <?php
 
-require_once 'Admin/pages/AdminObjectEdit.php';
-require_once 'Promo/dataobjects/PromoPromotion.php';
-
 /**
  * @package   Promo
  * @copyright 2011-2016 silverorange
@@ -22,7 +19,7 @@ class PromoPromotionNoteEdit extends AdminObjectEdit
 
 	protected function getUiXml()
 	{
-		return 'Promo/admin/components/Promotion/note-edit.xml';
+		return __DIR__.'/note-edit.xml';
 	}
 
 	// }}}

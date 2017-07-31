@@ -1,14 +1,5 @@
 <?php
 
-require_once 'Admin/pages/AdminDBEdit.php';
-require_once 'Admin/exceptions/AdminNotFoundException.php';
-require_once 'SwatDB/SwatDB.php';
-require_once 'SwatI18N/SwatI18NLocale.php';
-require_once 'Swat/SwatMessage.php';
-require_once 'Promo/PromoPromotionCodeGenerator.php';
-require_once 'Promo/dataobjects/PromoPromotion.php';
-require_once 'Promo/dataobjects/PromoPromotionCode.php';
-
 /**
  * Page to generate a set of promotion codes
  *
@@ -30,7 +21,7 @@ class PromoPromotionGenerateCodes extends AdminDBEdit
 
 	protected function getUiXml()
 	{
-		return 'Promo/admin/components/Promotion/generate-codes.xml';
+		return __DIR__.'/generate-codes.xml';
 	}
 
 	// }}}

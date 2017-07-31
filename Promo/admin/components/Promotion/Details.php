@@ -1,15 +1,5 @@
 <?php
 
-require_once 'SwatDB/SwatDB.php';
-require_once 'Swat/SwatTableStore.php';
-require_once 'Swat/SwatDetailsStore.php';
-require_once 'Admin/pages/AdminIndex.php';
-require_once 'Admin/exceptions/AdminNotFoundException.php';
-require_once 'SwatDB/SwatDBClassMap.php';
-require_once 'Site/dataobjects/SiteInstance.php';
-require_once 'Promo/dataobjects/PromoPromotion.php';
-require_once 'Promo/dataobjects/PromoPromotionCodeWrapper.php';
-
 /**
  * Details page for a promotion
  *
@@ -36,7 +26,7 @@ class PromoPromotionDetails extends AdminIndex
 
 	protected function getUiXml()
 	{
-		return 'Promo/admin/components/Promotion/details.xml';
+		return __DIR__.'/details.xml';
 	}
 
 	// }}}

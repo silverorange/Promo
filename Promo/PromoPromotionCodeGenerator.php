@@ -1,9 +1,5 @@
 <?php
 
-require_once 'Text/Password.php';
-require_once 'Site/SiteApplication.php';
-require_once 'SwatDB/SwatDB.php';
-
 /**
  * @package   Promo
  * @copyright 2011-2016 silverorange

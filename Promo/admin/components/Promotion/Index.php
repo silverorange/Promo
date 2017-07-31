@@ -1,12 +1,5 @@
 <?php
 
-require_once 'Admin/pages/AdminIndex.php';
-require_once 'SwatDB/SwatDB.php';
-require_once 'Swat/SwatTableStore.php';
-require_once 'Swat/SwatDetailsStore.php';
-require_once 'Store/dataobjects/StoreRegionWrapper.php';
-require_once 'Promo/dataobjects/PromoPromotionWrapper.php';
-
 /**
  * Index page for Promotions
  *
@@ -20,7 +13,7 @@ class PromoPromotionIndex extends AdminIndex
 
 	protected function getUiXml()
 	{
-		return 'Promo/admin/components/Promotion/index.xml';
+		return __DIR__.'/index.xml';
 	}
 
 	// }}}

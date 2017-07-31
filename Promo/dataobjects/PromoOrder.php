@@ -1,9 +1,5 @@
 <?php
 
-require_once 'Swat/SwatDate.php';
-require_once 'Store/dataobjects/StoreOrder.php';
-require_once 'Promo/dataobjects/PromoOrderItem.php';
-
 /**
  * Promo specific order
  *

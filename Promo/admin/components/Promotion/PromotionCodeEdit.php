@@ -1,9 +1,5 @@
 <?php
 
-require_once 'Admin/pages/AdminObjectEdit.php';
-require_once 'Promo/dataobjects/PromoPromotion.php';
-require_once 'Promo/dataobjects/PromoPromotionCode.php';
-
 /**
  * Edit page for promotion codes
  *
@@ -33,7 +29,7 @@ class PromoPromotionPromotionCodeEdit extends AdminObjectEdit
 
 	protected function getUiXml()
 	{
-		return 'Promo/admin/components/Promotion/promotion-code-edit.xml';
+		return __DIR__.'/promotion-code-edit.xml';
 	}
 
 	// }}}
