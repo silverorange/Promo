@@ -32,7 +32,7 @@ class PromoPromotionCodeGenerator
 
 	public function getCodes(PromoPromotion $promotion, $quantity, $prefix = '')
 	{
-		$prefix = strtolower($prefix);
+		$prefix = mb_strtolower($prefix);
 
 		$codes = Text_Password::createMultiple(
 			$quantity,
@@ -63,7 +63,7 @@ class PromoPromotionCodeGenerator
 		$codes,
 		$prefix = null
 	) {
-		$lower_codes = array_map('strtolower', $codes);
+		$lower_codes = array_map('mb_strtolower', $codes);
 
 		$instance_where = ($promotion->instance instanceof SiteInstance)
 			? sprintf(
