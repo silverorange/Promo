@@ -168,7 +168,7 @@ class PromoPromotionPromotionCodeEdit extends AdminObjectEdit
 		}
 
 		// force all codes to be lowercase
-		$promotion_code->code = strtolower($promotion_code->code);
+		$promotion_code->code = mb_strtolower($promotion_code->code);
 
 		// unset the used date if the promotion is no longer limited use.
 		if ($promotion_code->limited_use === false) {

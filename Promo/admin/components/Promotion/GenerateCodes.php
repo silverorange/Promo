@@ -90,7 +90,7 @@ class PromoPromotionGenerateCodes extends AdminDBEdit
 			)
 		);
 
-		$prefix = strtolower($values['prefix']);
+		$prefix = mb_strtolower($values['prefix']);
 
 		$now = new SwatDate();
 		$now->toUTC();
