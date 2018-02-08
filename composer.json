@@ -41,9 +41,9 @@
 		"php": ">=5.3.0",
 		"ext-mbstring": "*",
 		"pear/text_password": "^1.1.0",
-		"silverorange/admin": "^3.0.0",
-		"silverorange/site": "^5.0.0",
-		"silverorange/store": "^4.0.0",
+		"silverorange/admin": "^4.0.0",
+		"silverorange/site": "^6.0.0",
+		"silverorange/store": "^5.0.0",
 		"silverorange/swat": "^3.0.0"
 	},
 	"require-dev": {
