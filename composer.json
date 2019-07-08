@@ -38,7 +38,7 @@
 		"pear/text_password": "^1.1.0",
 		"silverorange/admin": "^5.1.0",
 		"silverorange/site": "^8.0.0",
-		"silverorange/store": "^6.1.0",
+		"silverorange/store": "^6.2.0",
 		"silverorange/swat": "^5.0.0"
 	},
 	"require-dev": {
