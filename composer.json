@@ -37,8 +37,8 @@
 		"ext-mbstring": "*",
 		"pear/text_password": "^1.1.0",
 		"silverorange/admin": "^5.2.0",
-		"silverorange/site": "^9.0.0",
-		"silverorange/store": "^7.2.0",
+		"silverorange/site": "^9.0.0 || ^10.0.0",
+		"silverorange/store": "^7.2.0 || ^8.0.0",
 		"silverorange/swat": "^5.0.0"
 	},
 	"require-dev": {
