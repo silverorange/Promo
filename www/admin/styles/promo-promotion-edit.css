@@ -1,9 +1,7 @@
 #title_field,
 #instance_field,
 #start_date_field,
-#end_date_field,
-#discount_amount_field,
-#discount_percentage_field {
+#end_date_field {
 	float: left;
 	margin-right: 24px;
 	width: 230px;

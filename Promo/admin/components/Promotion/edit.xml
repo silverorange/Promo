@@ -58,15 +58,6 @@
 			</widget>
 			<widget class="SwatGroupingFormField" id="discount_container">
 				<property name="title" translatable="yes">Discount</property>
-				<property name="note" translatable="yes">
-					<![CDATA[
-						<p>For free redemptions enter a 100% discount.</p>
-						<p>If both a fixed amount discount and a percentage
-						discount are set, only the fixed amount discount will
-						be applied.</p>
-					]]>
-				</property>
-				<property name="note_content_type">text/xml</property>
 				<property name="display_messages" type="boolean">false</property>
 				<widget class="SwatFormField" id="discount_amount_field">
 					<property name="title" translatable="yes">Fixed Amount Discount</property>
@@ -76,6 +67,15 @@
 				</widget>
 				<widget class="SwatFormField" id="discount_percentage_field">
 					<property name="title" translatable="yes">Percentage Discount</property>
+					<property name="note" translatable="yes">
+						<![CDATA[
+							<p>For free redemptions enter a 100% discount.</p>
+							<p>If both a fixed amount discount and a percentage
+							discount are set, only the fixed amount discount will
+							be applied.</p>
+						]]>
+					</property>
+					<property name="note_content_type">text/xml</property>
 					<widget class="SwatPercentageEntry" id="discount_percentage">
 						<property name="minimum_value" type="float">0</property>
 						<property name="maximum_value" type="float">1</property>
