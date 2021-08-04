@@ -4,7 +4,7 @@
  * Edit page for promotions
  *
  * @package   Promo
- * @copyright 2011-2016 silverorange
+ * @copyright 2011-2021 silverorange
  * @license   http://www.opensource.org/licenses/mit-license.html MIT License
  */
 class PromoPromotionEdit extends AdminObjectEdit
