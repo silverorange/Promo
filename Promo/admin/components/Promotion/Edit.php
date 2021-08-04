@@ -4,7 +4,7 @@
  * Edit page for promotions
  *
  * @package   Promo
- * @copyright 2011-2016 silverorange
+ * @copyright 2011-2021 silverorange
  * @license   http://www.opensource.org/licenses/mit-license.html MIT License
  */
 class PromoPromotionEdit extends AdminObjectEdit
@@ -105,6 +105,15 @@ class PromoPromotionEdit extends AdminObjectEdit
 
 	protected function validate()
 	{
+		$this->validateDates();
+		$this->validateValues();
+	}
+
+	// }}}
+	// {{{ protected function validateDates()
+
+	protected function validateDates()
+	{
 		$start_date = $this->ui->getWidget('start_date')->value;
 		$end_date   = $this->ui->getWidget('end_date')->value;
 
@@ -130,7 +139,13 @@ class PromoPromotionEdit extends AdminObjectEdit
 			$container->display_messages = true;
 			$container->addMessage($message);
 		}
+	}
 
+	// }}}
+	// {{{ protected function validateValues()
+
+	protected function validateValues()
+	{
 		$amount  = $this->ui->getWidget('discount_amount');
 		$percent = $this->ui->getWidget('discount_percentage');
 
