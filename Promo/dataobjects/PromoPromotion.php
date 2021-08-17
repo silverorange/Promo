@@ -198,12 +198,7 @@ class PromoPromotion extends SwatDBDataObject
 	 */
 	public function getDiscountMessage(SiteApplication $app)
 	{
-		$message = SwatString::minimizeEntities(
-			sprintf(
-				$this->getDiscountMessageText($app),
-				$this->getFormattedDiscount($app)
-			)
-		);
+		$message = $this->getFormattedDiscountMessage($app);
 
 		$rules = $this->getPromotionRulesArray();
 		if (count($rules) > 0) {
@@ -513,6 +508,25 @@ class PromoPromotion extends SwatDBDataObject
 		}
 
 		return $valid_dates;
+	}
+
+	// }}}
+	// {{{ protected function getFormattedDiscountMessage()
+
+	/**
+	 * Gets a string with the values for the promotion substituted
+	 *
+	 * @return string
+	 */
+	protected function getFormattedDiscountMessage(SiteApplication $app)
+	{
+		return SwatString::minimizeEntities(
+			sprintf(
+				$this->getDiscountMessageText($app),
+				$this->getFormattedDiscount($app)
+				$this->getFormatteduntMessageText($app),
+			)
+		);
 	}
 
 	// }}}
