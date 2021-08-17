@@ -524,7 +524,6 @@ class PromoPromotion extends SwatDBDataObject
 			sprintf(
 				$this->getDiscountMessageText($app),
 				$this->getFormattedDiscount($app)
-				$this->getFormatteduntMessageText($app),
 			)
 		);
 	}
