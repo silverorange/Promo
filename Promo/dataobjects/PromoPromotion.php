@@ -208,7 +208,7 @@ class PromoPromotion extends SwatDBDataObject
 		$rules = $this->getPromotionRulesArray();
 		if (count($rules) > 0) {
 			$rules_span = new SwatHtmlTag('span');
-			$rules_span->classes = 'promo-promotion-rules';
+			$rules_span->class = 'promo-promotion-rules';
 			$rules_span->setContent(
 				sprintf(
 					Promo::_('(* %s)'),
