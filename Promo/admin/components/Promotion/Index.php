@@ -4,16 +4,24 @@
  * Index page for Promotions
  *
  * @package   Promo
- * @copyright 2011-2016 silverorange
+ * @copyright 2011-2022 silverorange
  * @license   http://www.opensource.org/licenses/mit-license.html MIT License
  */
-class PromoPromotionIndex extends AdminIndex
+class PromoPromotionIndex extends AdminSearch
 {
 	// {{{ protected function getUiXml()
 
 	protected function getUiXml()
 	{
 		return __DIR__.'/index.xml';
+	}
+
+	// }}}
+	// {{{ protected function getSearchXml()
+
+	protected function getSearchXml()
+	{
+		return __DIR__.'/search.xml';
 	}
 
 	// }}}
@@ -25,7 +33,14 @@ class PromoPromotionIndex extends AdminIndex
 	{
 		parent::initInternal();
 
+		$this->ui->loadFromXML($this->getSearchXml());
 		$this->ui->loadFromXML($this->getUiXml());
+
+		$this->ui->getWidget('search_status')->value = 'active';
+		$this->ui->getWidget('search_status')->addOptionsByArray([
+			'active' => Promo::_('Active'),
+			'inactive' => Promo::_('Inactive')
+		]);
 	}
 
 	// }}}
@@ -128,6 +143,22 @@ class PromoPromotionIndex extends AdminIndex
 			$where.= sprintf(
 				' and Promotion.instance = %s',
 				$this->app->db->quote($instance->id, 'integer')
+			);
+		}
+
+		$now = new SwatDate();
+		$now->toUTC();
+
+		$status = $this->ui->getWidget('search_status')->value;
+		if ($status === 'active') {
+			$where.= sprintf(
+				' and (Promotion.end_date is null or Promotion.end_date >= %s)',
+				$this->app->db->quote($now->getDate(), 'date')
+			);
+		} else {
+			$where.= sprintf(
+				' and Promotion.end_date < %s',
+				$this->app->db->quote($now->getDate(), 'date')
 			);
 		}
 
