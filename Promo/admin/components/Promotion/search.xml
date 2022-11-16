@@ -1,0 +1,18 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE swatml SYSTEM "http://swat.silverorange.com/swatml1.dtd">
+<swatml>
+	<widget class="SwatMessageDisplay" id="message_display" />
+	<widget class="SwatFrame" id="search_frame">
+		<property name="title" translatable="yes">Filter Promotions</property>
+		<widget class="SwatForm" id="search_form">
+			<widget class="SwatFormField">
+				<widget class="SwatRadioList" id="search_status" />
+			</widget>
+			<widget class="SwatFooterFormField">
+				<widget class="SwatButton" id="submit_button">
+					<property name="title" translatable="yes">Filter</property>
+				</widget>
+			</widget>
+		</widget>
+	</widget>
+</swatml>
