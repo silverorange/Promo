@@ -124,7 +124,7 @@ class PromoPromotionGenerateCodes extends AdminDBEdit
 
 		$sql = sprintf(
 			$sql,
-			implode($values_out, ',')
+			implode(',', $values_out)
 		);
 
 		$count = SwatDB::exec($this->app->db, $sql);
