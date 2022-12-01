@@ -1,8 +1,7 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE swatml SYSTEM "http://swat.silverorange.com/swatml1.dtd">
 <swatml>
-	<widget class="SwatMessageDisplay" id="message_display" />
-	<widget class="SwatFrame" id="index_frame">
+	<widget class="SwatFrame" id="results_frame">
 		<property name="title" translatable="yes">Promotions</property>
 		<widget class="SwatToolbar" id="index_toolbar">
 			<widget class="SwatToolLink">
