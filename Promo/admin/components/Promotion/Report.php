@@ -33,6 +33,8 @@ class PromoPromotionReport extends AdminIndex
 	 */
 	protected $end_date;
 
+	protected int $id;
+
 	// }}}
 	// {{{ protected function getUiXml()
 
@@ -109,7 +111,7 @@ class PromoPromotionReport extends AdminIndex
 
 	protected function initPromotion()
 	{
-		$this->id = SiteApplication::initVar('id');
+		$this->id = (int)SiteApplication::initVar('id');
 		$promotion_class = SwatDBClassMap::get('PromoPromotion');
 
 		$this->promotion = new $promotion_class();
@@ -141,7 +143,7 @@ class PromoPromotionReport extends AdminIndex
 			throw new AdminNotFoundException(
 				sprintf(
 					'Incorrect instance for promotion ‘%s’.',
-					$this->id
+					$this->promotion->id
 				)
 			);
 		}
@@ -285,7 +287,7 @@ class PromoPromotionReport extends AdminIndex
 	// build phase
 	// {{{ protected function getTableModel()
 
-	protected function getTableModel(SwatView $view)
+	protected function getTableModel(SwatView $view): SwatTableStore
 	{
 		$date = clone $this->start_date;
 
