@@ -82,7 +82,6 @@ class Promo
 
 		SwatUI::mapClassPrefixToPath('Promo', 'Promo');
 
-		SwatDBClassMap::addPath('Promo/dataobjects');
 		SwatDBClassMap::add('StoreCartEntry', 'PromoCartEntry');
 		SwatDBClassMap::add('StoreOrder', 'PromoOrder');
 		SwatDBClassMap::add('StoreOrderItem', 'PromoOrderItem');
