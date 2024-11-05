@@ -108,7 +108,7 @@ class PromoPromotionPromotionCodeEdit extends AdminObjectEdit
 	// process phase
 	// {{{ protected function validate()
 
-	protected function validate()
+	protected function validate(): void
 	{
 		$code = $this->ui->getWidget('code')->value;
 

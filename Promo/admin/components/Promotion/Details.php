@@ -270,18 +270,19 @@ class PromoPromotionDetails extends AdminIndex
 	// }}}
 	// {{{ protected function getTableModel()
 
-	protected function getTableModel(SwatView $view)
+	protected function getTableModel(SwatView $view): ?PromoPromotionCodeWrapper
 	{
 		switch ($view->id) {
 		case 'promotion_code_view':
 			return $this->getPromotionCodeTableModel($view);
 		}
+		return null;
 	}
 
 	// }}}
 	// {{{ protected function getPromotionCodeTableModel()
 
-	protected function getPromotionCodeTableModel(SwatTableView $view)
+	protected function getPromotionCodeTableModel(SwatTableView $view): PromoPromotionCodeWrapper
 	{
 		$sql = sprintf(
 			'select count(id) from PromotionCode
@@ -305,7 +306,7 @@ class PromoPromotionDetails extends AdminIndex
 		$promotion_codes = SwatDB::query(
 			$this->app->db,
 			$sql,
-			SwatDBClassMap::get('PromoPromotionCodeWrapper')
+			SwatDBClassMap::get(PromoPromotionCodeWrapper::class)
 		);
 
 		if (count($promotion_codes) > 0) {

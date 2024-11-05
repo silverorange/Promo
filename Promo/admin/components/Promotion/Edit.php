@@ -103,7 +103,7 @@ class PromoPromotionEdit extends AdminObjectEdit
 	// process phase
 	// {{{ protected function validate()
 
-	protected function validate()
+	protected function validate(): void
 	{
 		$this->validateDates();
 		$this->validateValues();

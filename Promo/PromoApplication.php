@@ -13,7 +13,7 @@ class PromoApplication extends StoreApplication
 	{
 		$this->session->registerObject(
 			'promotion',
-			SwatDBClassMap::get('PromoPromotion')
+			PromoPromotion::class
 		);
 
 		parent::initModules();

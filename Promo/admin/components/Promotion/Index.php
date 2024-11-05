@@ -78,7 +78,7 @@ class PromoPromotionIndex extends AdminSearch
 	// }}}
 	// {{{ protected function getTableModel()
 
-	protected function getTableModel(SwatView $view)
+	protected function getTableModel(SwatView $view): SwatTableStore
 	{
 		$sql = sprintf(
 			$this->getSQL(),
