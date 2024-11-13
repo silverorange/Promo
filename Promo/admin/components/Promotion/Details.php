@@ -270,7 +270,7 @@ class PromoPromotionDetails extends AdminIndex
 	// }}}
 	// {{{ protected function getTableModel()
 
-	protected function getTableModel(SwatView $view): ?PromoPromotionCodeWrapper
+	protected function getTableModel(SwatView $view): ?SwatTableModel
 	{
 		switch ($view->id) {
 		case 'promotion_code_view':

@@ -287,7 +287,7 @@ class PromoPromotionReport extends AdminIndex
 	// build phase
 	// {{{ protected function getTableModel()
 
-	protected function getTableModel(SwatView $view): SwatTableStore
+	protected function getTableModel(SwatView $view): ?SwatTableModel
 	{
 		$date = clone $this->start_date;
 
