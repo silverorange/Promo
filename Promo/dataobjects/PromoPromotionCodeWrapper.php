@@ -14,7 +14,7 @@ class PromoPromotionCodeWrapper extends SwatDBRecordsetWrapper
     {
         parent::init();
 
-        $this->row_wrapper_class = SwatDBClassMap::get('PromoPromotionCode');
+        $this->row_wrapper_class = SwatDBClassMap::get(PromoPromotionCode::class);
         $this->index_field = 'id';
     }
 }

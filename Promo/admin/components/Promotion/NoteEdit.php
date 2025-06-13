@@ -8,7 +8,7 @@ class PromoPromotionNoteEdit extends AdminObjectEdit
 {
     protected function getObjectClass()
     {
-        return 'PromoPromotion';
+        return PromoPromotion::class;
     }
 
     protected function getUiXml()

@@ -53,7 +53,7 @@ class PromoPromotionCode extends SwatDBDataObject
 
         $this->registerInternalProperty(
             'promotion',
-            SwatDBClassMap::get('PromoPromotion')
+            SwatDBClassMap::get(PromoPromotion::class)
         );
     }
 }

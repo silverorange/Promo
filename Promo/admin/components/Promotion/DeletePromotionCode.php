@@ -113,7 +113,7 @@ class PromoPromotionDeletePromotionCode extends AdminDBDelete
         $promotions = SwatDB::query(
             $this->app->db,
             $sql,
-            SwatDBClassMap::get('PromoPromotionWrapper')
+            SwatDBClassMap::get(PromoPromotionWrapper::class)
         );
 
         if (count($promotions) === 1) {

@@ -47,7 +47,7 @@ class PromoPromotionReport extends AdminIndex
             $this->regions = SwatDB::query(
                 $this->app->db,
                 $sql,
-                SwatDBClassMap::get('StoreRegionWrapper')
+                SwatDBClassMap::get(StoreRegionWrapper::class)
             );
         }
 
@@ -97,7 +97,7 @@ class PromoPromotionReport extends AdminIndex
     protected function initPromotion()
     {
         $this->id = (int) SiteApplication::initVar('id');
-        $promotion_class = SwatDBClassMap::get('PromoPromotion');
+        $promotion_class = SwatDBClassMap::get(PromoPromotion::class);
 
         $this->promotion = new $promotion_class();
         $this->promotion->setDatabase($this->app->db);

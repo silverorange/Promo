@@ -33,7 +33,7 @@ class PromoPromotionGenerateCodes extends AdminDBEdit
     {
         $promotion_id = SiteApplication::initVar('promotion');
 
-        $class_name = SwatDBClassMap::get('PromoPromotion');
+        $class_name = SwatDBClassMap::get(PromoPromotion::class);
         $this->promotion = new $class_name();
         $this->promotion->setDatabase($this->app->db);
 

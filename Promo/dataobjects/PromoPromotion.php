@@ -269,7 +269,7 @@ class PromoPromotion extends SwatDBDataObject
             $this->db->quote($code, 'text')
         );
 
-        $wrapper = SwatDBClassMap::get('PromoPromotionCodeWrapper');
+        $wrapper = SwatDBClassMap::get(PromoPromotionCodeWrapper::class);
         $promotion_code = SwatDB::query($this->db, $sql, $wrapper)->getFirst();
 
         if ($promotion_code == '') {
@@ -499,7 +499,7 @@ class PromoPromotion extends SwatDBDataObject
 
         $this->registerInternalProperty(
             'instance',
-            SwatDBClassMap::get('SiteInstance')
+            SwatDBClassMap::get(SiteInstance::class)
         );
     }
 
@@ -523,7 +523,7 @@ class PromoPromotion extends SwatDBDataObject
         return SwatDB::query(
             $this->db,
             $sql,
-            SwatDBClassMap::get('PromoPromotionCodeWrapper')
+            SwatDBClassMap::get(PromoPromotionCodeWrapper::class)
         );
     }
 

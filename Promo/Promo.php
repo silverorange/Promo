@@ -61,14 +61,14 @@ class Promo
 
         SwatUI::mapClassPrefixToPath('Promo', 'Promo');
 
-        SwatDBClassMap::add('StoreCartEntry', 'PromoCartEntry');
-        SwatDBClassMap::add('StoreOrder', 'PromoOrder');
-        SwatDBClassMap::add('StoreOrderItem', 'PromoOrderItem');
+        SwatDBClassMap::add(StoreCartEntry::class, PromoCartEntry::class);
+        SwatDBClassMap::add(StoreOrder::class, PromoOrder::class);
+        SwatDBClassMap::add(StoreOrderItem::class, PromoOrderItem::class);
 
         // class-mapped classes that are loaded with memcache need to be
         // pre-required here to avoid "incomplete class" errors on
         // unserialization
-        SwatDBClassMap::get('PromoPromotion');
+        SwatDBClassMap::get(PromoPromotion::class);
 
         self::$is_initialized = true;
     }

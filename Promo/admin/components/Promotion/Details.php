@@ -38,7 +38,7 @@ class PromoPromotionDetails extends AdminIndex
     protected function initPromotion()
     {
         $this->id = SiteApplication::initVar('id');
-        $promotion_class = SwatDBClassMap::get('PromoPromotion');
+        $promotion_class = SwatDBClassMap::get(PromoPromotion::class);
 
         $this->promotion = new $promotion_class();
         $this->promotion->setDatabase($this->app->db);
@@ -301,7 +301,7 @@ class PromoPromotionDetails extends AdminIndex
         $codes = SwatDB::query(
             $this->app->db,
             $sql,
-            SwatDBClassMap::get('PromoPromotionCodeWrapper')
+            SwatDBClassMap::get(PromoPromotionCodeWrapper::class)
         );
 
         if (count($codes) > 0) {
