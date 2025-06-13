@@ -1,35 +1,37 @@
 .swat-details-view th {
-	min-width: 100px;
+  min-width: 100px;
 }
 
 .swat-details-view .swat-details-view-field-header {
-	margin-top: 20px;
-	width: 100%;
-	font-size: 122%;
-	color: #333;
+  margin-top: 20px;
+  width: 100%;
+  font-size: 122%;
+  color: #333;
 }
 
 #details_view #active_period_field .details-note {
-	display: block;
-	font-size: 11px;
-	color: #888;
+  display: block;
+  font-size: 11px;
+  color: #888;
 }
 
 #promotion_code_summary .swat-disclosure-anchor-opened,
 #promotion_code_summary .swat-disclosure-anchor-closed {
-	background-color: transparent;
+  background-color: transparent;
 }
 
 #promotion_code_summary .swat-disclosure-container {
-	background: #eceff1;
-	box-shadow: 0 0 2px rgba(0,0,0,0.12), 0 2px 2px rgba(0,0,0,0.24);
-	border: 0;
+  background: #eceff1;
+  box-shadow:
+    0 0 2px rgba(0, 0, 0, 0.12),
+    0 2px 2px rgba(0, 0, 0, 0.24);
+  border: 0;
 }
 
 #promotion_code_summary p {
-	margin: 0;
+  margin: 0;
 }
 
 #results_message {
-	margin: 1em 0;
+  margin: 1em 0;
 }

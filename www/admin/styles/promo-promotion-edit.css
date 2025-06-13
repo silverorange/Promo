@@ -2,21 +2,21 @@
 #instance_field,
 #start_date_field,
 #end_date_field {
-	float: left;
-	margin-right: 24px;
-	width: 230px;
+  float: left;
+  margin-right: 24px;
+  width: 230px;
 }
 
 #public_note_field,
 .swat-note,
 .swat-grouping-form-field {
-	clear: left;
+  clear: left;
 }
 
 .swat-note p {
-	margin: 0;
+  margin: 0;
 }
 
 #general_fields {
-	padding: 0 16px 16px;
+  padding: 0 16px 16px;
 }
