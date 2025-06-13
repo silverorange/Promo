@@ -1,69 +1,59 @@
 <?php
 
 /**
- * @package   Promo
  * @copyright 2011-2016 silverorange
  * @license   http://www.opensource.org/licenses/mit-license.html MIT License
  */
 class PromoPromotionCode extends SwatDBDataObject
 {
+    /**
+     * Unique identifier.
+     *
+     * @var int
+     */
+    public $id;
 
+    /**
+     * Code for lookup.
+     *
+     * @var string
+     */
+    public $code;
 
-	/**
-	 * Unique identifier
-	 *
-	 * @var integer
-	 */
-	public $id;
+    /**
+     * Date the code was created.
+     *
+     * @var SwtaDate
+     */
+    public $createdate;
 
-	/**
-	 * Code for lookup
-	 *
-	 * @var string
-	 */
-	public $code;
+    /**
+     * Used date of this code (limited only).
+     *
+     * @var SwatDate
+     */
+    public $used_date;
 
-	/**
-	 * Date the code was created
-	 *
-	 * @var SwtaDate
-	 */
-	public $createdate;
+    /**
+     * Whether this code can only be used once.
+     *
+     * @var bool
+     */
+    public $limited_use;
 
-	/**
-	 * Used date of this code (limited only)
-	 *
-	 * @var SwatDate
-	 */
-	public $used_date;
+    protected function init()
+    {
+        parent::init();
 
-	/**
-	 * Whether this code can only be used once
-	 *
-	 * @var boolean
-	 */
-	public $limited_use;
+        $this->table = 'PromotionCode';
+        $this->id_field = 'integer:id';
 
+        $this->registerDateProperty('createdate');
+        $this->registerDateProperty('used_date');
 
-
-
-	protected function init()
-	{
-		parent::init();
-
-		$this->table = 'PromotionCode';
-		$this->id_field = 'integer:id';
-
-		$this->registerDateProperty('createdate');
-		$this->registerDateProperty('used_date');
-
-		$this->registerInternalProperty(
-			'promotion',
-			SwatDBClassMap::get('PromoPromotion')
-		);
-	}
-
-
+        $this->registerInternalProperty(
+            'promotion',
+            SwatDBClassMap::get('PromoPromotion')
+        );
+    }
 }
-
-?>
