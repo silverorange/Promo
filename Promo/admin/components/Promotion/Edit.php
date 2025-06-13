@@ -9,23 +9,23 @@
  */
 class PromoPromotionEdit extends AdminObjectEdit
 {
-	// {{{ protected function getObjectClass()
+
 
 	protected function getObjectClass()
 	{
 		return 'PromoPromotion';
 	}
 
-	// }}}
-	// {{{ protected function getUiXml()
+
+
 
 	protected function getUiXml()
 	{
 		return __DIR__.'/edit.xml';
 	}
 
-	// }}}
-	// {{{ protected function getObjectUiValueNames()
+
+
 
 	protected function getObjectUiValueNames()
 	{
@@ -41,10 +41,10 @@ class PromoPromotionEdit extends AdminObjectEdit
 		);
 	}
 
-	// }}}
+
 
 	// init phase
-	// {{{ protected function initInternal()
+
 
 	protected function initInternal()
 	{
@@ -54,8 +54,8 @@ class PromoPromotionEdit extends AdminObjectEdit
 		$this->initFlydowns();
 	}
 
-	// }}}
-	// {{{ protected function checkInstance()
+
+
 
 	protected function checkInstance()
 	{
@@ -78,8 +78,8 @@ class PromoPromotionEdit extends AdminObjectEdit
 		}
 	}
 
-	// }}}
-	// {{{ protected function initFlydowns()
+
+
 
 	protected function initFlydowns()
 	{
@@ -98,10 +98,10 @@ class PromoPromotionEdit extends AdminObjectEdit
 		}
 	}
 
-	// }}}
+
 
 	// process phase
-	// {{{ protected function validate()
+
 
 	protected function validate(): void
 	{
@@ -109,8 +109,8 @@ class PromoPromotionEdit extends AdminObjectEdit
 		$this->validateValues();
 	}
 
-	// }}}
-	// {{{ protected function validateDates()
+
+
 
 	protected function validateDates()
 	{
@@ -141,8 +141,8 @@ class PromoPromotionEdit extends AdminObjectEdit
 		}
 	}
 
-	// }}}
-	// {{{ protected function validateValues()
+
+
 
 	protected function validateValues()
 	{
@@ -173,8 +173,8 @@ class PromoPromotionEdit extends AdminObjectEdit
 		}
 	}
 
-	// }}}
-	// {{{ protected function updateObject()
+
+
 
 	protected function updateObject()
 	{
@@ -186,8 +186,8 @@ class PromoPromotionEdit extends AdminObjectEdit
 		}
 	}
 
-	// }}}
-	// {{{ protected function getSavedMessagePrimaryContent()
+
+
 
 	protected function getSavedMessagePrimaryContent()
 	{
@@ -197,8 +197,8 @@ class PromoPromotionEdit extends AdminObjectEdit
 		);
 	}
 
-	// }}}
-	// {{{ protected function relocate()
+
+
 
 	protected function relocate()
 	{
@@ -210,10 +210,10 @@ class PromoPromotionEdit extends AdminObjectEdit
 		);
 	}
 
-	// }}}
+
 
 	// build phase
-	// {{{ protected function buildInternal()
+
 
 	protected function buildInternal()
 	{
@@ -228,8 +228,8 @@ class PromoPromotionEdit extends AdminObjectEdit
 		);
 	}
 
-	// }}}
-	// {{{ protected function buildNavBar()
+
+
 
 	protected function buildNavBar()
 	{
@@ -251,10 +251,10 @@ class PromoPromotionEdit extends AdminObjectEdit
 		}
 	}
 
-	// }}}
+
 
 	// finalize phase
-	// {{{ public function finalize()
+
 
 	public function finalize()
 	{
@@ -265,7 +265,7 @@ class PromoPromotionEdit extends AdminObjectEdit
 		);
 	}
 
-	// }}}
+
 }
 
 ?>

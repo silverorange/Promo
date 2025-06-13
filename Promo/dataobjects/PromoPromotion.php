@@ -7,7 +7,7 @@
  */
 class PromoPromotion extends SwatDBDataObject
 {
-	// {{{ public properties
+
 
 	/**
 	 * Unique identifier
@@ -72,8 +72,8 @@ class PromoPromotion extends SwatDBDataObject
 	 */
 	public $maximum_quantity;
 
-	// }}}
-	// {{{ protected properties
+
+
 
 	/**
 	 * Code used to look up the promotion
@@ -82,24 +82,24 @@ class PromoPromotion extends SwatDBDataObject
 	 */
 	protected $code;
 
-	// }}}
-	// {{{ public function isFixedDiscount()
+
+
 
 	public function isFixedDiscount()
 	{
 		return ($this->discount_amount !== null);
 	}
 
-	// }}}
-	// {{{ public function isPercentageDiscount()
+
+
 
 	public function isPercentageDiscount()
 	{
 		return (!$this->isFixedDiscount());
 	}
 
-	// }}}
-	// {{{ public function is100PercentDiscount()
+
+
 
 	public function is100PercentDiscount()
 	{
@@ -109,16 +109,16 @@ class PromoPromotion extends SwatDBDataObject
 		);
 	}
 
-	// }}}
-	// {{{ public function isCartEntryDiscountable()
+
+
 
 	public function isCartEntryDiscountable(PromoCartEntry $cart_entry)
 	{
 		return true;
 	}
 
-	// }}}
-	// {{{ public function getNote()
+
+
 
 	public function getNote()
 	{
@@ -134,8 +134,8 @@ class PromoPromotion extends SwatDBDataObject
 		return $note;
 	}
 
-	// }}}
-	// {{{ public function displayDetails()
+
+
 
 	public function displayDetails(SiteApplication $app)
 	{
@@ -148,8 +148,8 @@ class PromoPromotion extends SwatDBDataObject
 		$this->displayDiscount($app);
 	}
 
-	// }}}
-	// {{{ public function displayDiscount()
+
+
 
 	public function displayDiscount(SiteApplication $app)
 	{
@@ -165,8 +165,8 @@ class PromoPromotion extends SwatDBDataObject
 		}
 	}
 
-	// }}}
-	// {{{ public function getFormattedDiscount()
+
+
 
 	public function getFormattedDiscount(SiteApplication $app)
 	{
@@ -188,8 +188,8 @@ class PromoPromotion extends SwatDBDataObject
 		return $formatted_amount;
 	}
 
-	// }}}
-	// {{{ public function getDiscountMessage()
+
+
 
 	/**
 	 * Gets an XHTML snippet describing this promotion's discount
@@ -222,8 +222,8 @@ class PromoPromotion extends SwatDBDataObject
 		return $message;
 	}
 
-	// }}}
-	// {{{ public function getInactiveMessage()
+
+
 
 	public function getInactiveMessage(SiteApplication $app)
 	{
@@ -265,8 +265,8 @@ class PromoPromotion extends SwatDBDataObject
 		return $description;
 	}
 
-	// }}}
-	// {{{ public function isActive()
+
+
 
 	/**
 	 * Checks if this promotion is currently active
@@ -299,8 +299,8 @@ class PromoPromotion extends SwatDBDataObject
 		return $active;
 	}
 
-	// }}}
-	// {{{ public function loadByCode()
+
+
 
 	public function loadByCode($code, SiteInstance $instance = null)
 	{
@@ -325,8 +325,8 @@ class PromoPromotion extends SwatDBDataObject
 		);
 	}
 
-	// }}}
-	// {{{ public function load()
+
+
 
 	public function load($id, SiteInstance $instance = null)
 	{
@@ -366,8 +366,8 @@ class PromoPromotion extends SwatDBDataObject
 		return $loaded;
 	}
 
-	// }}}
-	// {{{ public function getCode()
+
+
 
 	public function getCode()
 	{
@@ -380,8 +380,8 @@ class PromoPromotion extends SwatDBDataObject
 		return $code;
 	}
 
-	// }}}
-	// {{{ public function getCodeCount()
+
+
 
 	public function getCodeCount()
 	{
@@ -395,8 +395,8 @@ class PromoPromotion extends SwatDBDataObject
 		return SwatDB::queryOne($this->db, $sql);
 	}
 
-	// }}}
-	// {{{ public function getUsedCodeCount()
+
+
 
 	public function getUsedCodeCount()
 	{
@@ -413,8 +413,8 @@ class PromoPromotion extends SwatDBDataObject
 		return SwatDB::queryOne($this->db, $sql);
 	}
 
-	// }}}
-	// {{{ public function getUnusedCodeCount()
+
+
 
 	public function getUnusedCodeCount()
 	{
@@ -432,8 +432,8 @@ class PromoPromotion extends SwatDBDataObject
 		return SwatDB::queryOne($this->db, $sql);
 	}
 
-	// }}}
-	// {{{ public function setUsed()
+
+
 
 	public function setUsed()
 	{
@@ -446,8 +446,8 @@ class PromoPromotion extends SwatDBDataObject
 		}
 	}
 
-	// }}}
-	// {{{ public function getValidDatesWithTz()
+
+
 
 	public function getValidDatesWithTz(
 		DateTimeZone $time_zone,
@@ -461,8 +461,8 @@ class PromoPromotion extends SwatDBDataObject
 		);
 	}
 
-	// }}}
-	// {{{ public function getValidDates()
+
+
 
 	public function getValidDates(
 		DateTimeZone $time_zone,
@@ -515,8 +515,8 @@ class PromoPromotion extends SwatDBDataObject
 		return $valid_dates;
 	}
 
-	// }}}
-	// {{{ protected function getDiscountMessageText()
+
+
 
 	/**
 	 * Gets a text description of this promotion's discount
@@ -537,8 +537,8 @@ class PromoPromotion extends SwatDBDataObject
 		return $message;
 	}
 
-	// }}}
-	// {{{ protected function getPromotionRulesArray()
+
+
 
 	protected function getPromotionRulesArray()
 	{
@@ -560,8 +560,8 @@ class PromoPromotion extends SwatDBDataObject
 		return $rules;
 	}
 
-	// }}}
-	// {{{ protected function init()
+
+
 
 	protected function init()
 	{
@@ -579,8 +579,8 @@ class PromoPromotion extends SwatDBDataObject
 		);
 	}
 
-	// }}}
-	// {{{ protected function getSerializablePrivateProperties()
+
+
 
 	protected function getSerializablePrivateProperties()
 	{
@@ -589,10 +589,10 @@ class PromoPromotion extends SwatDBDataObject
 		return $array;
 	}
 
-	// }}}
+
 
 	// loader methods
-	// {{{ protected function loadCodes()
+
 
 	protected function loadCodes()
 	{
@@ -605,10 +605,10 @@ class PromoPromotion extends SwatDBDataObject
 			SwatDBClassMap::get('PromoPromotionCodeWrapper'));
 	}
 
-	// }}}
+
 
 	// saver methods
-	// {{{ protected function saveCodes()
+
 
 	protected function saveCodes()
 	{
@@ -620,7 +620,7 @@ class PromoPromotion extends SwatDBDataObject
 		$this->codes->save();
 	}
 
-	// }}}
+
 }
 
 ?>

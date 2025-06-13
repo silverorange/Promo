@@ -9,11 +9,11 @@
  */
 class PromoOrderItem extends StoreOrderItem
 {
-	// {{{ public properties
+
 
 	public $promotion_discount;
 
-	// }}}
+
 }
 
 ?>

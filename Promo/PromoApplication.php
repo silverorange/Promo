@@ -7,7 +7,7 @@
  */
 class PromoApplication extends StoreApplication
 {
-	// {{{ protected function initModules()
+
 
 	protected function initModules()
 	{
@@ -19,7 +19,7 @@ class PromoApplication extends StoreApplication
 		parent::initModules();
 	}
 
-	// }}}
+
 }
 
 ?>

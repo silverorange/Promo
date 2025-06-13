@@ -9,7 +9,7 @@
  */
 class PromoOrder extends StoreOrder
 {
-	// {{{ public properties
+
 
 	/**
 	 * Promotion code.

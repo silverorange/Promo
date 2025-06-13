@@ -7,7 +7,7 @@
  */
 class PromoPromotionCode extends SwatDBDataObject
 {
-	// {{{ public properties
+
 
 	/**
 	 * Unique identifier
@@ -44,8 +44,8 @@ class PromoPromotionCode extends SwatDBDataObject
 	 */
 	public $limited_use;
 
-	// }}}
-	// {{{ protected function init()
+
+
 
 	protected function init()
 	{
@@ -63,7 +63,7 @@ class PromoPromotionCode extends SwatDBDataObject
 		);
 	}
 
-	// }}}
+
 }
 
 ?>

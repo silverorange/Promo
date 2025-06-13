@@ -9,12 +9,12 @@
  */
 class PromoCartEntry extends StoreCartEntry
 {
-	// {{{ public properties
+
 
 	public $promotion_discount;
 
-	// }}}
-	// {{{ public function createOrderItem()
+
+
 
 	/**
 	 * Creates a new order item dataobject that corresponds to this cart entry
@@ -30,7 +30,7 @@ class PromoCartEntry extends StoreCartEntry
 		return $order_item;
 	}
 
-	// }}}
+
 }
 
 ?>

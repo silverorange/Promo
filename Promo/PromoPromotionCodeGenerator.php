@@ -7,28 +7,28 @@
  */
 class PromoPromotionCodeGenerator
 {
-	// {{{ class constants
+
 
 	const LENGTH = 8;
 
-	// }}}
-	// {{{ protected properties
+
+
 
 	/**
 	 * @var SiteApplication
 	 */
 	protected $app;
 
-	// }}}
-	// {{{ public function __construct()
+
+
 
 	public function __construct(SiteApplication $app)
 	{
 		$this->app = $app;
 	}
 
-	// }}}
-	// {{{ public function getCodes()
+
+
 
 	public function getCodes(PromoPromotion $promotion, $quantity, $prefix = '')
 	{
@@ -55,8 +55,8 @@ class PromoPromotionCodeGenerator
 		return $this->verifyUniqueness($promotion, $codes, $prefix);
 	}
 
-	// }}}
-	// {{{ protected function verifyUniqueness()
+
+
 
 	protected function verifyUniqueness(
 		PromoPromotion $promotion,
@@ -112,8 +112,8 @@ class PromoPromotionCodeGenerator
 		return $codes;
 	}
 
-	// }}}
-	// {{{ protected function generateCode()
+
+
 
 	protected function generateCode($prefix = null)
 	{
@@ -125,7 +125,7 @@ class PromoPromotionCodeGenerator
 		return $code;
 	}
 
-	// }}}
+
 }
 
 ?>

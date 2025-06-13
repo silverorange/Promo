@@ -7,23 +7,23 @@
  */
 class PromoPromotionNoteEdit extends AdminObjectEdit
 {
-	// {{{ protected function getObjectClass()
+
 
 	protected function getObjectClass()
 	{
 		return 'PromoPromotion';
 	}
 
-	// }}}
-	// {{{ protected function getUiXml()
+
+
 
 	protected function getUiXml()
 	{
 		return __DIR__.'/note-edit.xml';
 	}
 
-	// }}}
-	// {{{ protected function getObjectUiValueNames()
+
+
 
 	protected function getObjectUiValueNames()
 	{
@@ -32,10 +32,10 @@ class PromoPromotionNoteEdit extends AdminObjectEdit
 		);
 	}
 
-	// }}}
+
 
 	// init phase
-	// {{{ protected function initInternal()
+
 
 	protected function initInternal()
 	{
@@ -45,8 +45,8 @@ class PromoPromotionNoteEdit extends AdminObjectEdit
 		$this->checkInstance();
 	}
 
-	// }}}
-	// {{{ protected function checkPromotion()
+
+
 
 	protected function checkPromotion()
 	{
@@ -57,8 +57,8 @@ class PromoPromotionNoteEdit extends AdminObjectEdit
 		}
 	}
 
-	// }}}
-	// {{{ protected function checkInstance()
+
+
 
 	protected function checkInstance()
 	{
@@ -81,20 +81,20 @@ class PromoPromotionNoteEdit extends AdminObjectEdit
 		}
 	}
 
-	// }}}
+
 
 	// process phase
-	// {{{ protected function getSavedMessagePrimaryContent()
+
 
 	protected function getSavedMessagePrimaryContent()
 	{
 		return Promo::_('Note has been saved.');
 	}
 
-	// }}}
+
 
 	// build phase
-	// {{{ protected function buildNavBar()
+
 
 	protected function buildNavBar()
 	{
@@ -115,10 +115,10 @@ class PromoPromotionNoteEdit extends AdminObjectEdit
 		);
 	}
 
-	// }}}
+
 
 	// finalize phase
-	// {{{ public function finalize()
+
 
 	public function finalize()
 	{
@@ -129,7 +129,7 @@ class PromoPromotionNoteEdit extends AdminObjectEdit
 		);
 	}
 
-	// }}}
+
 }
 
 ?>

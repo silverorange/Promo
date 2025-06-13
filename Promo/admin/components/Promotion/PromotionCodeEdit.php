@@ -9,31 +9,31 @@
  */
 class PromoPromotionPromotionCodeEdit extends AdminObjectEdit
 {
-	// {{{ protected properties
+
 
 	/**
 	 * @var PromoPromotion
 	 */
 	protected $promotion;
 
-	// }}}
-	// {{{ protected function getObjectClass()
+
+
 
 	protected function getObjectClass()
 	{
 		return 'PromoPromotionCode';
 	}
 
-	// }}}
-	// {{{ protected function getUiXml()
+
+
 
 	protected function getUiXml()
 	{
 		return __DIR__.'/promotion-code-edit.xml';
 	}
 
-	// }}}
-	// {{{ protected function getObjectUiValueNames()
+
+
 
 	protected function getObjectUiValueNames()
 	{
@@ -43,10 +43,10 @@ class PromoPromotionPromotionCodeEdit extends AdminObjectEdit
 		);
 	}
 
-	// }}}
+
 
 	// init phase
-	// {{{ protected function initInternal()
+
 
 	protected function initInternal()
 	{
@@ -56,8 +56,8 @@ class PromoPromotionPromotionCodeEdit extends AdminObjectEdit
 		$this->checkInstance();
 	}
 
-	// }}}
-	// {{{ protected function initPromotion()
+
+
 
 	protected function initPromotion()
 	{
@@ -81,8 +81,8 @@ class PromoPromotionPromotionCodeEdit extends AdminObjectEdit
 		}
 	}
 
-	// }}}
-	// {{{ protected function checkInstance()
+
+
 
 	protected function checkInstance()
 	{
@@ -103,10 +103,10 @@ class PromoPromotionPromotionCodeEdit extends AdminObjectEdit
 		}
 	}
 
-	// }}}
+
 
 	// process phase
-	// {{{ protected function validate()
+
 
 	protected function validate(): void
 	{
@@ -122,8 +122,8 @@ class PromoPromotionPromotionCodeEdit extends AdminObjectEdit
 		}
 	}
 
-	// }}}
-	// {{{ protected function validateCode()
+
+
 
 	protected function validateCode($code)
 	{
@@ -155,8 +155,8 @@ class PromoPromotionPromotionCodeEdit extends AdminObjectEdit
 		return ($count === 0);
 	}
 
-	// }}}
-	// {{{ protected function updateObject()
+
+
 
 	protected function updateObject()
 	{
@@ -176,8 +176,8 @@ class PromoPromotionPromotionCodeEdit extends AdminObjectEdit
 		}
 	}
 
-	// }}}
-	// {{{ protected function getSavedMessagePrimaryContent()
+
+
 
 	protected function getSavedMessagePrimaryContent()
 	{
@@ -187,8 +187,8 @@ class PromoPromotionPromotionCodeEdit extends AdminObjectEdit
 		);
 	}
 
-	// }}}
-	// {{{ protected function relocate()
+
+
 
 	protected function relocate()
 	{
@@ -207,10 +207,10 @@ class PromoPromotionPromotionCodeEdit extends AdminObjectEdit
 		$this->app->relocate($uri);
 	}
 
-	// }}}
+
 
 	// build phase
-	// {{{ protected function buildForm()
+
 
 	protected function buildForm()
 	{
@@ -228,8 +228,8 @@ class PromoPromotionPromotionCodeEdit extends AdminObjectEdit
 		}
 	}
 
-	// }}}
-	// {{{ protected function buildNavBar()
+
+
 
 	protected function buildNavBar()
 	{
@@ -253,7 +253,7 @@ class PromoPromotionPromotionCodeEdit extends AdminObjectEdit
 		$this->navbar->createEntry($title);
 	}
 
-	// }}}
+
 }
 
 ?>

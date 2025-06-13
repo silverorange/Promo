@@ -7,7 +7,7 @@
  */
 class PromoOrderIndex extends StoreOrderIndex
 {
-	// {{{ protected function getAdditionalSearchFieldsUiXmlFiles()
+
 
 	protected function getAdditionalSearchFieldsUiXmlFiles()
 	{
@@ -16,10 +16,10 @@ class PromoOrderIndex extends StoreOrderIndex
 		);
 	}
 
-	// }}}
+
 
 	// build phase
-	// {{{ protected function getWhereClause()
+
 
 	protected function getWhereClause()
 	{
@@ -37,10 +37,10 @@ class PromoOrderIndex extends StoreOrderIndex
 		return $where;
 	}
 
-	// }}}
+
 
 	// finalize phase
-	// {{{ public function finalize()
+
 
 	public function finalize()
 	{
@@ -51,7 +51,7 @@ class PromoOrderIndex extends StoreOrderIndex
 		);
 	}
 
-	// }}}
+
 }
 
 ?>

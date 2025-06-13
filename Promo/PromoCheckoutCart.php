@@ -15,25 +15,25 @@
  */
 abstract class PromoCheckoutCart extends StoreCheckoutCart
 {
-	// {{{ protected properties
+
 
 	/**
 	 * @var PromoPromotion
 	 */
 	protected $promotion;
 
-	// }}}
-	// {{{ public function setPromotion()
+
+
 
 	public function setPromotion(PromoPromotion $promotion)
 	{
 		$this->promotion = $promotion;
 	}
 
-	// }}}
+
 
 	// totalling
-	// {{{ public function getTotal()
+
 
 	/**
 	 * Gets the total cost for an order of the contents of this cart
@@ -77,8 +77,8 @@ abstract class PromoCheckoutCart extends StoreCheckoutCart
 		return $total;
 	}
 
-	// }}}
-	// {{{ public function getPromotionDiscount()
+
+
 
 	/**
 	 * Gets the promotion discount total of the contents of this cart
@@ -214,8 +214,8 @@ abstract class PromoCheckoutCart extends StoreCheckoutCart
 		return $discount;
 	}
 
-	// }}}
-	// {{{ protected function compareEntriesByPrice()
+
+
 
 	protected function compareEntriesByPrice(
 		StoreCartEntry $entry1,
@@ -235,8 +235,8 @@ abstract class PromoCheckoutCart extends StoreCheckoutCart
 		return $sort;
 	}
 
-	// }}}
-	// {{{ protected function getPromotionDiscountableAmount()
+
+
 
 	/**
 	 * Gets the discountable total of the contents of this cart
@@ -261,7 +261,7 @@ abstract class PromoCheckoutCart extends StoreCheckoutCart
 		return $total;
 	}
 
-	// }}}
+
 }
 
 ?>

@@ -9,7 +9,7 @@
  */
 class PromoPromotionReport extends AdminIndex
 {
-	// {{{ protected properties
+
 
 	/**
 	 * Cache of regions used by getRegions()
@@ -35,16 +35,16 @@ class PromoPromotionReport extends AdminIndex
 
 	protected int $id;
 
-	// }}}
-	// {{{ protected function getUiXml()
+
+
 
 	protected function getUiXml()
 	{
 		return __DIR__.'/report.xml';
 	}
 
-	// }}}
-	// {{{ protected function getRegions()
+
+
 
 	protected function getRegions()
 	{
@@ -63,10 +63,10 @@ class PromoPromotionReport extends AdminIndex
 		return $this->regions;
 	}
 
-	// }}}
+
 
 	// init phase
-	// {{{ protected function initInternal()
+
 
 	protected function initInternal()
 	{
@@ -106,8 +106,8 @@ class PromoPromotionReport extends AdminIndex
 		$this->end_date->setDay(1);
 	}
 
-	// }}}
-	// {{{ protected function initPromotion()
+
+
 
 	protected function initPromotion()
 	{
@@ -127,8 +127,8 @@ class PromoPromotionReport extends AdminIndex
 		}
 	}
 
-	// }}}
-	// {{{ protected function checkInstance()
+
+
 
 	protected function checkInstance()
 	{
@@ -149,8 +149,8 @@ class PromoPromotionReport extends AdminIndex
 		}
 	}
 
-	// }}}
-	// {{{ protected function appendRegionColumns()
+
+
 
 	protected function appendRegionColumns(
 		SwatTableView $view,
@@ -282,10 +282,10 @@ class PromoPromotionReport extends AdminIndex
 		}
 	}
 
-	// }}}
+
 
 	// build phase
-	// {{{ protected function getTableModel()
+
 
 	protected function getTableModel(SwatView $view): ?SwatTableModel
 	{
@@ -377,8 +377,8 @@ class PromoPromotionReport extends AdminIndex
 		return $store;
 	}
 
-	// }}}
-	// {{{ protected function queryOrderStats()
+
+
 
 	protected function queryOrderStats()
 	{
@@ -416,8 +416,8 @@ class PromoPromotionReport extends AdminIndex
 		return SwatDB::query($this->app->db, $sql);
 	}
 
-	// }}}
-	// {{{ protected function buildNavBar()
+
+
 
 	protected function buildNavBar()
 	{
@@ -436,10 +436,10 @@ class PromoPromotionReport extends AdminIndex
 		);
 	}
 
-	// }}}
+
 
 	// finalize phase
-	// {{{ public function finalize()
+
 
 	public function finalize()
 	{
@@ -450,7 +450,7 @@ class PromoPromotionReport extends AdminIndex
 		);
 	}
 
-	// }}}
+
 }
 
 ?>

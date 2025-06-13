@@ -9,25 +9,25 @@
  */
 class PromoPromotionIndex extends AdminSearch
 {
-	// {{{ protected function getUiXml()
+
 
 	protected function getUiXml()
 	{
 		return __DIR__.'/index.xml';
 	}
 
-	// }}}
-	// {{{ protected function getSearchXml()
+
+
 
 	protected function getSearchXml()
 	{
 		return __DIR__.'/search.xml';
 	}
 
-	// }}}
+
 
 	// init phase
-	// {{{ protected function initInternal()
+
 
 	protected function initInternal()
 	{
@@ -43,10 +43,10 @@ class PromoPromotionIndex extends AdminSearch
 		]);
 	}
 
-	// }}}
+
 
 	// process phase
-	// {{{ protected function processActions()
+
 
 	protected function processActions(SwatView $view, SwatActions $actions)
 	{
@@ -58,10 +58,10 @@ class PromoPromotionIndex extends AdminSearch
 		}
 	}
 
-	// }}}
+
 
 	// build phase
-	// {{{ protected function buildInternal()
+
 
 	protected function buildInternal()
 	{
@@ -75,8 +75,8 @@ class PromoPromotionIndex extends AdminSearch
 		}
 	}
 
-	// }}}
-	// {{{ protected function getTableModel()
+
+
 
 	protected function getTableModel(SwatView $view): ?SwatTableModel
 	{
@@ -110,8 +110,8 @@ class PromoPromotionIndex extends AdminSearch
 		return $store;
 	}
 
-	// }}}
-	// {{{ protected function getSQL()
+
+
 
 	protected function getSQL()
 	{
@@ -131,8 +131,8 @@ class PromoPromotionIndex extends AdminSearch
 		return $sql;
 	}
 
-	// }}}
-	// {{{ protected function getWhereClause()
+
+
 
 	protected function getWhereClause()
 	{
@@ -165,8 +165,8 @@ class PromoPromotionIndex extends AdminSearch
 		return $where;
 	}
 
-	// }}}
-	// {{{ protected function getPromotionDetailsStore()
+
+
 
 	protected function getPromotionDetailsStore(
 		PromoPromotion $promotion,
@@ -207,10 +207,10 @@ class PromoPromotionIndex extends AdminSearch
 		return $ds;
 	}
 
-	// }}}
+
 
 	// finalize phase
-	// {{{ public function finalize()
+
 
 	public function finalize()
 	{
@@ -221,7 +221,7 @@ class PromoPromotionIndex extends AdminSearch
 		);
 	}
 
-	// }}}
+
 }
 
 ?>

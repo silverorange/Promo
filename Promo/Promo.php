@@ -9,12 +9,12 @@
  */
 class Promo
 {
-	// {{{ constants
+
 
 	const GETTEXT_DOMAIN = 'promo';
 
-	// }}}
-	// {{{ private properties
+
+
 
 	/**
 	 * Whether or not this package is initialized
@@ -23,24 +23,24 @@ class Promo
 	 */
 	private static $is_initialized = false;
 
-	// }}}
-	// {{{ public static function _()
+
+
 
 	public static function _($message)
 	{
 		return self::gettext($message);
 	}
 
-	// }}}
-	// {{{ public static function gettext()
+
+
 
 	public static function gettext($message)
 	{
 		return dgettext(self::GETTEXT_DOMAIN, $message);
 	}
 
-	// }}}
-	// {{{ public static function ngettext()
+
+
 
 	public static function ngettext(
 		$singular_message,
@@ -55,8 +55,8 @@ class Promo
 		);
 	}
 
-	// }}}
-	// {{{ public static function setupGettext()
+
+
 
 	public static function setupGettext()
 	{
@@ -64,8 +64,8 @@ class Promo
 		bind_textdomain_codeset(self::GETTEXT_DOMAIN, 'UTF-8');
 	}
 
-	// }}}
-	// {{{ public static function init()
+
+
 
 	public static function init()
 	{
@@ -94,8 +94,8 @@ class Promo
 		self::$is_initialized = true;
 	}
 
-	// }}}
-	// {{{ private function __construct()
+
+
 
 	/**
 	 * Prevent instantiation of this static class
@@ -104,7 +104,7 @@ class Promo
 	{
 	}
 
-	// }}}
+
 }
 
 ?>

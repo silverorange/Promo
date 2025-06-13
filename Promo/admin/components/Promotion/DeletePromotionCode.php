@@ -11,7 +11,7 @@
 class PromoPromotionDeletePromotionCode extends AdminDBDelete
 {
 	// process phase
-	// {{{ protected function processDBData()
+
 
 	protected function processDBData(): void
 	{
@@ -38,8 +38,8 @@ class PromoPromotionDeletePromotionCode extends AdminDBDelete
 		$this->app->messages->add($message);
 	}
 
-	// }}}
-	// {{{ protected function relocate()
+
+
 
 	protected function relocate()
 	{
@@ -50,10 +50,10 @@ class PromoPromotionDeletePromotionCode extends AdminDBDelete
 		AdminDBConfirmation::relocate();
 	}
 
-	// }}}
+
 
 	// build phase
-	// {{{ protected function buildInternal()
+
 
 	protected function buildInternal()
 	{
@@ -87,8 +87,8 @@ class PromoPromotionDeletePromotionCode extends AdminDBDelete
 		}
 	}
 
-	// }}}
-	// {{{ protected function buildNavBar()
+
+
 
 	protected function buildNavBar()
 	{
@@ -110,8 +110,8 @@ class PromoPromotionDeletePromotionCode extends AdminDBDelete
 		);
 	}
 
-	// }}}
-	// {{{ protected function getPromotion()
+
+
 
 	protected function getPromotion()
 	{
@@ -138,7 +138,7 @@ class PromoPromotionDeletePromotionCode extends AdminDBDelete
 		return $promotion;
 	}
 
-	// }}}
+
 }
 
 ?>

@@ -9,25 +9,25 @@
  */
 class PromoPromotionGenerateCodes extends AdminDBEdit
 {
-	// {{{ protected properties
+
 
 	/**
 	 * @var PromoPromotion
 	 */
 	protected $promotion;
 
-	// }}}
-	// {{{ protected function getUiXml()
+
+
 
 	protected function getUiXml()
 	{
 		return __DIR__.'/generate-codes.xml';
 	}
 
-	// }}}
+
 
 	// init phase
-	// {{{ protected function initInternal()
+
 
 	protected function initInternal()
 	{
@@ -38,8 +38,8 @@ class PromoPromotionGenerateCodes extends AdminDBEdit
 		$this->initPromotion();
 	}
 
-	// }}}
-	// {{{ protected function initPromotion()
+
+
 
 	protected function initPromotion()
 	{
@@ -75,10 +75,10 @@ class PromoPromotionGenerateCodes extends AdminDBEdit
 		}
 	}
 
-	// }}}
+
 
 	// process phase
-	// {{{ protected function saveDBData()
+
 
 	protected function saveDBData(): void
 	{
@@ -144,18 +144,18 @@ class PromoPromotionGenerateCodes extends AdminDBEdit
 		);
 	}
 
-	// }}}
-	// {{{ protected function getPromotionCodeGenerator()
+
+
 
 	protected function getPromotionCodeGenerator()
 	{
 		return new PromoPromotionCodeGenerator($this->app);
 	}
 
-	// }}}
+
 
 	// build phase
-	// {{{ protected function buildInternal()
+
 
 	protected function buildInternal()
 	{
@@ -165,8 +165,8 @@ class PromoPromotionGenerateCodes extends AdminDBEdit
 			Promo::_('Generate Promotion Codes');
 	}
 
-	// }}}
-	// {{{ protected function buildForm()
+
+
 
 	protected function buildForm()
 	{
@@ -178,8 +178,8 @@ class PromoPromotionGenerateCodes extends AdminDBEdit
 		);
 	}
 
-	// }}}
-	// {{{ protected function buildNavBar()
+
+
 
 	protected function buildNavBar()
 	{
@@ -199,15 +199,15 @@ class PromoPromotionGenerateCodes extends AdminDBEdit
 		);
 	}
 
-	// }}}
-	// {{{ protected function loadDBData()
+
+
 
 	protected function loadDBData()
 	{
 		// do nothing;
 	}
 
-	// }}}
+
 }
 
 ?>

@@ -9,7 +9,7 @@
  */
 class PromoPromotionDetails extends AdminIndex
 {
-	// {{{ protected properties
+
 
 	/**
 	 * @var integer
@@ -21,18 +21,18 @@ class PromoPromotionDetails extends AdminIndex
 	 */
 	protected $promotion;
 
-	// }}}
-	// {{{ protected function getUiXml()
+
+
 
 	protected function getUiXml()
 	{
 		return __DIR__.'/details.xml';
 	}
 
-	// }}}
+
 
 	// init phase
-	// {{{ protected function initInternal()
+
 
 	protected function initInternal()
 	{
@@ -44,8 +44,8 @@ class PromoPromotionDetails extends AdminIndex
 		$this->checkInstance();
 	}
 
-	// }}}
-	// {{{ protected function initPromotion()
+
+
 
 	protected function initPromotion()
 	{
@@ -65,8 +65,8 @@ class PromoPromotionDetails extends AdminIndex
 		}
 	}
 
-	// }}}
-	// {{{ protected function checkInstance()
+
+
 
 	protected function checkInstance()
 	{
@@ -87,10 +87,10 @@ class PromoPromotionDetails extends AdminIndex
 		}
 	}
 
-	// }}}
+
 
 	// process phase
-	// {{{ protected function processActions()
+
 
 	protected function processActions(SwatView $view, SwatActions $actions)
 	{
@@ -102,10 +102,10 @@ class PromoPromotionDetails extends AdminIndex
 		}
 	}
 
-	// }}}
+
 
 	// build phase
-	// {{{ protected function buildInternal()
+
 
 	protected function buildInternal()
 	{
@@ -174,8 +174,8 @@ class PromoPromotionDetails extends AdminIndex
 		}
 	}
 
-	// }}}
-	// {{{ protected function buildToolbars()
+
+
 
 	protected function buildToolbars()
 	{
@@ -185,8 +185,8 @@ class PromoPromotionDetails extends AdminIndex
 		}
 	}
 
-	// }}}
-	// {{{ protected function getDetailsStore()
+
+
 
 	protected function getDetailsStore()
 	{
@@ -209,8 +209,8 @@ class PromoPromotionDetails extends AdminIndex
 		return $ds;
 	}
 
-	// }}}
-	// {{{ protected function getOrderSummary()
+
+
 
 	protected function getOrderSummary()
 	{
@@ -267,8 +267,8 @@ class PromoPromotionDetails extends AdminIndex
 		return $summary;
 	}
 
-	// }}}
-	// {{{ protected function getTableModel()
+
+
 
 	protected function getTableModel(SwatView $view): ?SwatTableModel
 	{
@@ -279,8 +279,8 @@ class PromoPromotionDetails extends AdminIndex
 		return null;
 	}
 
-	// }}}
-	// {{{ protected function getPromotionCodeTableModel()
+
+
 
 	protected function getPromotionCodeTableModel(SwatTableView $view): PromoPromotionCodeWrapper
 	{
@@ -323,8 +323,8 @@ class PromoPromotionDetails extends AdminIndex
 		return $promotion_codes;
 	}
 
-	// }}}
-	// {{{ protected function buildPromotionCodeText()
+
+
 
 	protected function buildPromotionCodeText()
 	{
@@ -387,8 +387,8 @@ class PromoPromotionDetails extends AdminIndex
 		}
 	}
 
-	// }}}
-	// {{{ protected function buildNavBar()
+
+
 
 	protected function buildNavBar()
 	{
@@ -397,10 +397,10 @@ class PromoPromotionDetails extends AdminIndex
 		$this->navbar->createEntry($this->promotion->title);
 	}
 
-	// }}}
+
 
 	// finalize phase
-	// {{{ public function finalize()
+
 
 	public function finalize()
 	{
@@ -415,7 +415,7 @@ class PromoPromotionDetails extends AdminIndex
 		);
 	}
 
-	// }}}
+
 }
 
 ?>
