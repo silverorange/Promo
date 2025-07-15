@@ -1,123 +1,102 @@
 <?php
 
 /**
- * Index page for Promotions
+ * Index page for Promotions.
  *
- * @package   Promo
  * @copyright 2011-2022 silverorange
  * @license   http://www.opensource.org/licenses/mit-license.html MIT License
  */
 class PromoPromotionIndex extends AdminSearch
 {
-	// {{{ protected function getUiXml()
+    protected function getUiXml()
+    {
+        return __DIR__ . '/index.xml';
+    }
 
-	protected function getUiXml()
-	{
-		return __DIR__.'/index.xml';
-	}
+    protected function getSearchXml()
+    {
+        return __DIR__ . '/search.xml';
+    }
 
-	// }}}
-	// {{{ protected function getSearchXml()
+    // init phase
 
-	protected function getSearchXml()
-	{
-		return __DIR__.'/search.xml';
-	}
+    protected function initInternal()
+    {
+        parent::initInternal();
 
-	// }}}
+        $this->ui->loadFromXML($this->getSearchXml());
+        $this->ui->loadFromXML($this->getUiXml());
 
-	// init phase
-	// {{{ protected function initInternal()
+        $this->ui->getWidget('search_status')->value = 'active';
+        $this->ui->getWidget('search_status')->addOptionsByArray([
+            'active'   => Promo::_('Active'),
+            'inactive' => Promo::_('Inactive'),
+        ]);
+    }
 
-	protected function initInternal()
-	{
-		parent::initInternal();
+    // process phase
 
-		$this->ui->loadFromXML($this->getSearchXml());
-		$this->ui->loadFromXML($this->getUiXml());
+    protected function processActions(SwatView $view, SwatActions $actions)
+    {
+        switch ($actions->selected->id) {
+            case 'delete':
+                $this->app->replacePage('Promotion/Delete');
+                $this->app->getPage()->setItems($view->getSelection());
+                break;
+        }
+    }
 
-		$this->ui->getWidget('search_status')->value = 'active';
-		$this->ui->getWidget('search_status')->addOptionsByArray([
-			'active' => Promo::_('Active'),
-			'inactive' => Promo::_('Inactive')
-		]);
-	}
+    // build phase
 
-	// }}}
+    protected function buildInternal()
+    {
+        parent::buildInternal();
 
-	// process phase
-	// {{{ protected function processActions()
+        $view = $this->ui->getWidget('index_view');
 
-	protected function processActions(SwatView $view, SwatActions $actions)
-	{
-		switch ($actions->selected->id) {
-		case 'delete':
-			$this->app->replacePage('Promotion/Delete');
-			$this->app->getPage()->setItems($view->getSelection());
-			break;
-		}
-	}
+        if ($view->hasGroup('instance_group')) {
+            $view->getGroup('instance_group')->visible =
+                $this->app->isMultipleInstanceAdmin();
+        }
+    }
 
-	// }}}
+    protected function getTableModel(SwatView $view): ?SwatTableModel
+    {
+        $sql = sprintf(
+            $this->getSQL(),
+            $this->getWhereClause(),
+            $this->getOrderByClause(
+                $view,
+                'instance_title nulls first, Promotion.instance nulls first, ' .
+                'title'
+            )
+        );
 
-	// build phase
-	// {{{ protected function buildInternal()
+        $promotions = SwatDB::query($this->app->db, $sql);
 
-	protected function buildInternal()
-	{
-		parent::buildInternal();
+        $class_name = SwatDBClassMap::get(PromoPromotion::class);
 
-		$view = $this->ui->getWidget('index_view');
+        $store = new SwatTableStore();
+        foreach ($promotions as $row) {
+            $promotion = new $class_name($row);
+            $promotion->setDatabase($this->app->db);
 
-		if ($view->hasGroup('instance_group')) {
-			$view->getGroup('instance_group')->visible =
-				$this->app->isMultipleInstanceAdmin();
-		}
-	}
+            $ds = $this->getPromotionDetailsStore(
+                $promotion,
+                $row
+            );
 
-	// }}}
-	// {{{ protected function getTableModel()
+            $store->add($ds);
+        }
 
-	protected function getTableModel(SwatView $view): ?SwatTableModel
-	{
-		$sql = sprintf(
-			$this->getSQL(),
-			$this->getWhereClause(),
-			$this->getOrderByClause(
-				$view,
-				'instance_title nulls first, Promotion.instance nulls first, '.
-				'title'
-			)
-		);
+        return $store;
+    }
 
-		$promotions = SwatDB::query($this->app->db, $sql);
-
-		$class_name = SwatDBClassMap::get('PromoPromotion');
-
-		$store = new SwatTableStore();
-		foreach ($promotions as $row) {
-			$promotion = new $class_name($row);
-			$promotion->setDatabase($this->app->db);
-
-			$ds = $this->getPromotionDetailsStore(
-				$promotion,
-				$row
-			);
-
-			$store->add($ds);
-		}
-
-		return $store;
-	}
-
-	// }}}
-	// {{{ protected function getSQL()
-
-	protected function getSQL()
-	{
-		// Need to coalesce here to handle promotions with no codes or no
-		// orders that are not reflected in the PromotionROI view.
-		$sql = 'select Promotion.*,
+    protected function getSQL()
+    {
+        // Need to coalesce here to handle promotions with no codes or no
+        // orders that are not reflected in the PromotionROI view.
+        return 'select Promotion.*,
 				coalesce(PromotionROIView.num_orders, 0) as num_orders,
 				PromotionROIView.promotion_total, PromotionROIView.total,
 				Instance.title as instance_title
@@ -127,101 +106,86 @@ class PromoPromotionIndex extends AdminSearch
 				Promotion.id = PromotionROIView.promotion
 			where %s
 			order by %s';
+    }
 
-		return $sql;
-	}
+    protected function getWhereClause()
+    {
+        $where = '1 = 1';
 
-	// }}}
-	// {{{ protected function getWhereClause()
+        $instance = $this->app->getInstance();
+        if ($instance instanceof SiteInstance) {
+            $where .= sprintf(
+                ' and Promotion.instance = %s',
+                $this->app->db->quote($instance->id, 'integer')
+            );
+        }
 
-	protected function getWhereClause()
-	{
-		$where = '1 = 1';
+        $now = new SwatDate();
+        $now->toUTC();
 
-		$instance = $this->app->getInstance();
-		if ($instance instanceof SiteInstance) {
-			$where.= sprintf(
-				' and Promotion.instance = %s',
-				$this->app->db->quote($instance->id, 'integer')
-			);
-		}
+        $status = $this->ui->getWidget('search_status')->value;
+        if ($status === 'active') {
+            $where .= sprintf(
+                ' and (Promotion.end_date is null or Promotion.end_date >= %s)',
+                $this->app->db->quote($now->getDate(), 'date')
+            );
+        } else {
+            $where .= sprintf(
+                ' and Promotion.end_date < %s',
+                $this->app->db->quote($now->getDate(), 'date')
+            );
+        }
 
-		$now = new SwatDate();
-		$now->toUTC();
+        return $where;
+    }
 
-		$status = $this->ui->getWidget('search_status')->value;
-		if ($status === 'active') {
-			$where.= sprintf(
-				' and (Promotion.end_date is null or Promotion.end_date >= %s)',
-				$this->app->db->quote($now->getDate(), 'date')
-			);
-		} else {
-			$where.= sprintf(
-				' and Promotion.end_date < %s',
-				$this->app->db->quote($now->getDate(), 'date')
-			);
-		}
+    protected function getPromotionDetailsStore(
+        PromoPromotion $promotion,
+        $row
+    ) {
+        $ds = new SwatDetailsStore($promotion);
+        $ds->show_discount_amount = $promotion->isFixedDiscount();
+        $ds->valid_dates = $promotion->getValidDates(
+            $this->app->default_time_zone,
+            SwatDate::DF_DATE_TIME_SHORT
+        );
 
-		return $where;
-	}
+        $ds->is_active = $promotion->isActive(false);
 
-	// }}}
-	// {{{ protected function getPromotionDetailsStore()
+        $ds->num_orders = ($row->num_orders === null)
+            ? 0
+            : $row->num_orders;
 
-	protected function getPromotionDetailsStore(
-		PromoPromotion $promotion,
-		$row
-	) {
-		$ds = new SwatDetailsStore($promotion);
-		$ds->show_discount_amount = $promotion->isFixedDiscount();
-		$ds->valid_dates = $promotion->getValidDates(
-			$this->app->default_time_zone,
-			SwatDate::DF_DATE_TIME_SHORT
-		);
+        $ds->promotion_total = $row->promotion_total;
+        $ds->total = $row->total;
 
-		$ds->is_active = $promotion->isActive(false);
+        if ($ds->promotion_total === null) {
+            $ds->roi_infinite = false;
+            $ds->roi = null;
+        } elseif ($ds->promotion_total == 0) {
+            $ds->roi_infinite = true;
+            $ds->roi = 0;
+        } else {
+            $ds->roi_infinite = false;
+            $ds->roi = ($ds->total - $ds->promotion_total) /
+                $ds->promotion_total;
+        }
 
-		$ds->num_orders = ($row->num_orders === null)
-			? 0
-			: $row->num_orders;
+        $ds->has_notes = ($promotion->notes != '');
+        $ds->notes = SwatString::minimizeEntities($ds->notes);
+        $ds->notes = '<span class="admin-notes">' . $ds->notes . '</span>';
 
-		$ds->promotion_total = $row->promotion_total;
-		$ds->total = $row->total;
+        return $ds;
+    }
 
-		if ($ds->promotion_total === null) {
-			$ds->roi_infinite = false;
-			$ds->roi = null;
-		} elseif ($ds->promotion_total == 0) {
-			$ds->roi_infinite = true;
-			$ds->roi = 0;
-		} else {
-			$ds->roi_infinite = false;
-			$ds->roi = ($ds->total - $ds->promotion_total) /
-				$ds->promotion_total;
-		}
+    // finalize phase
 
-		$ds->has_notes = ($promotion->notes != '');
-		$ds->notes     = SwatString::minimizeEntities($ds->notes);
-		$ds->notes     = '<span class="admin-notes">'.$ds->notes.'</span>';
+    public function finalize()
+    {
+        parent::finalize();
 
-		return $ds;
-	}
-
-	// }}}
-
-	// finalize phase
-	// {{{ public function finalize()
-
-	public function finalize()
-	{
-		parent::finalize();
-
-		$this->layout->addHtmlHeadEntry(
-			'packages/promo/admin/styles/promo-promotion-index.css'
-		);
-	}
-
-	// }}}
+        $this->layout->addHtmlHeadEntry(
+            'packages/promo/admin/styles/promo-promotion-index.css'
+        );
+    }
 }
-
-?>

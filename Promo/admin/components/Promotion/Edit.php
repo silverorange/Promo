@@ -1,271 +1,221 @@
 <?php
 
 /**
- * Edit page for promotions
+ * Edit page for promotions.
  *
- * @package   Promo
  * @copyright 2011-2021 silverorange
  * @license   http://www.opensource.org/licenses/mit-license.html MIT License
  */
 class PromoPromotionEdit extends AdminObjectEdit
 {
-	// {{{ protected function getObjectClass()
+    protected function getObjectClass()
+    {
+        return PromoPromotion::class;
+    }
 
-	protected function getObjectClass()
-	{
-		return 'PromoPromotion';
-	}
+    protected function getUiXml()
+    {
+        return __DIR__ . '/edit.xml';
+    }
 
-	// }}}
-	// {{{ protected function getUiXml()
+    protected function getObjectUiValueNames()
+    {
+        return [
+            'title',
+            'public_note',
+            'start_date',
+            'end_date',
+            'discount_amount',
+            'discount_percentage',
+            'maximum_quantity',
+            'instance',
+        ];
+    }
 
-	protected function getUiXml()
-	{
-		return __DIR__.'/edit.xml';
-	}
+    // init phase
 
-	// }}}
-	// {{{ protected function getObjectUiValueNames()
+    protected function initInternal()
+    {
+        parent::initInternal();
 
-	protected function getObjectUiValueNames()
-	{
-		return array(
-			'title',
-			'public_note',
-			'start_date',
-			'end_date',
-			'discount_amount',
-			'discount_percentage',
-			'maximum_quantity',
-			'instance',
-		);
-	}
+        $this->checkInstance();
+        $this->initFlydowns();
+    }
 
-	// }}}
+    protected function checkInstance()
+    {
+        $instance = $this->app->getInstance();
+        $promotion = $this->getObject();
 
-	// init phase
-	// {{{ protected function initInternal()
+        if (
+            $instance instanceof SiteInstance
+            && !(
+                $promotion->instance instanceof SiteInstance
+                && $promotion->instance->id === $instance->id
+            )
+        ) {
+            throw new AdminNotFoundException(
+                sprintf(
+                    'Incorrect instance for promotion ‘%s’.',
+                    $promotion->id
+                )
+            );
+        }
+    }
 
-	protected function initInternal()
-	{
-		parent::initInternal();
+    protected function initFlydowns()
+    {
+        if ($this->app->isMultipleInstanceAdmin()) {
+            $this->ui->getWidget('instance')->addOptionsByArray(
+                SwatDB::getOptionArray(
+                    $this->app->db,
+                    'Instance',
+                    'title',
+                    'id',
+                    'title'
+                )
+            );
+        } else {
+            $this->ui->getWidget('instance_field')->visible = false;
+        }
+    }
 
-		$this->checkInstance();
-		$this->initFlydowns();
-	}
+    // process phase
 
-	// }}}
-	// {{{ protected function checkInstance()
+    protected function validate(): void
+    {
+        $this->validateDates();
+        $this->validateValues();
+    }
 
-	protected function checkInstance()
-	{
-		$instance = $this->app->getInstance();
-		$promotion = $this->getObject();
+    protected function validateDates()
+    {
+        $start_date = $this->ui->getWidget('start_date')->value;
+        $end_date = $this->ui->getWidget('end_date')->value;
 
-		if (
-			$instance instanceof SiteInstance &&
-			!(
-				$promotion->instance instanceof SiteInstance &&
-				$promotion->instance->id === $instance->id
-			)
-		) {
-			throw new AdminNotFoundException(
-				sprintf(
-					'Incorrect instance for promotion ‘%s’.',
-					$promotion->id
-				)
-			);
-		}
-	}
+        if ($start_date instanceof SwatDate
+            && $end_date instanceof SwatDate
+            && SwatDate::compare($start_date, $end_date) > 0) {
+            $message = new SwatMessage(
+                sprintf(
+                    Promo::_(
+                        '%1$sStart Date%2$s must occur before ' .
+                        '%1$sEnd Date%2$s.'
+                    ),
+                    '<strong>',
+                    '</strong>'
+                ),
+                'error'
+            );
 
-	// }}}
-	// {{{ protected function initFlydowns()
+            $message->content_type = 'text/xml';
 
-	protected function initFlydowns()
-	{
-		if ($this->app->isMultipleInstanceAdmin()) {
-			$this->ui->getWidget('instance')->addOptionsByArray(
-				SwatDB::getOptionArray(
-					$this->app->db,
-					'Instance',
-					'title',
-					'id',
-					'title'
-				)
-			);
-		} else {
-			$this->ui->getWidget('instance_field')->visible = false;
-		}
-	}
+            $container = $this->ui->getWidget('active_period_container');
+            $container->display_messages = true;
+            $container->addMessage($message);
+        }
+    }
 
-	// }}}
+    protected function validateValues()
+    {
+        $amount = $this->ui->getWidget('discount_amount');
+        $percent = $this->ui->getWidget('discount_percentage');
 
-	// process phase
-	// {{{ protected function validate()
+        if (!$amount->hasMessage()
+            && !$percent->hasMessage()
+            && $amount->value === null
+            && $percent->value === null) {
+            $message = new SwatMessage(
+                sprintf(
+                    Promo::_(
+                        'Either the %1$sFixed Amount Discount%2$s or the ' .
+                        '%1$sPercentage Discount%2$s is reqired.'
+                    ),
+                    '<strong>',
+                    '</strong>'
+                ),
+                'error'
+            );
 
-	protected function validate(): void
-	{
-		$this->validateDates();
-		$this->validateValues();
-	}
+            $message->content_type = 'text/xml';
 
-	// }}}
-	// {{{ protected function validateDates()
+            $container = $this->ui->getWidget('discount_container');
+            $container->display_messages = true;
+            $container->addMessage($message);
+        }
+    }
 
-	protected function validateDates()
-	{
-		$start_date = $this->ui->getWidget('start_date')->value;
-		$end_date   = $this->ui->getWidget('end_date')->value;
+    protected function updateObject()
+    {
+        parent::updateObject();
 
-		if ($start_date instanceof SwatDate &&
-			$end_date instanceof SwatDate &&
-			SwatDate::compare($start_date, $end_date) > 0) {
+        if ($this->isNew()
+            && $this->app->getInstance() instanceof SiteInstance) {
+            $this->getObject()->instance = $this->app->getInstance();
+        }
+    }
 
-			$message = new SwatMessage(
-				sprintf(
-					Promo::_(
-						'%1$sStart Date%2$s must occur before '.
-						'%1$sEnd Date%2$s.'
-					),
-					'<strong>',
-					'</strong>'
-				),
-				'error'
-			);
+    protected function getSavedMessagePrimaryContent()
+    {
+        return sprintf(
+            Promo::_('Promotion “%s” has been saved.'),
+            $this->getObject()->title
+        );
+    }
 
-			$message->content_type = 'text/xml';
+    protected function relocate()
+    {
+        $this->app->relocate(
+            sprintf(
+                'Promotion/Details?id=%s',
+                $this->getObject()->id
+            )
+        );
+    }
 
-			$container = $this->ui->getWidget('active_period_container');
-			$container->display_messages = true;
-			$container->addMessage($message);
-		}
-	}
+    // build phase
 
-	// }}}
-	// {{{ protected function validateValues()
+    protected function buildInternal()
+    {
+        parent::buildInternal();
 
-	protected function validateValues()
-	{
-		$amount  = $this->ui->getWidget('discount_amount');
-		$percent = $this->ui->getWidget('discount_percentage');
+        $date = new SwatDate();
+        $date->setTZ($this->app->default_time_zone);
 
-		if (!$amount->hasMessage() &&
-			!$percent->hasMessage() &&
-			$amount->value === null &&
-			$percent->value === null) {
-			$message = new SwatMessage(
-				sprintf(
-					Promo::_(
-						'Either the %1$sFixed Amount Discount%2$s or the '.
-						'%1$sPercentage Discount%2$s is reqired.'
-					),
-					'<strong>',
-					'</strong>'
-				),
-				'error'
-			);
+        $this->ui->getWidget('active_period_container')->note = sprintf(
+            Promo::_('Start Date and End Date are in %s and are inclusive.'),
+            $date->formatLikeIntl('z')
+        );
+    }
 
-			$message->content_type = 'text/xml';
+    protected function buildNavBar()
+    {
+        parent::buildNavBar();
 
-			$container = $this->ui->getWidget('discount_container');
-			$container->display_messages = true;
-			$container->addMessage($message);
-		}
-	}
+        if (!$this->isNew()) {
+            $promotion = $this->getObject();
+            $last = $this->navbar->popEntry();
 
-	// }}}
-	// {{{ protected function updateObject()
+            $this->navbar->createEntry(
+                $promotion->title,
+                sprintf(
+                    'Promotion/Details?id=%s',
+                    $promotion->id
+                )
+            );
 
-	protected function updateObject()
-	{
-		parent::updateObject();
+            $this->navbar->addEntry($last);
+        }
+    }
 
-		if ($this->isNew() &&
-			$this->app->getInstance() instanceof SiteInstance) {
-			$this->getObject()->instance = $this->app->getInstance();
-		}
-	}
+    // finalize phase
 
-	// }}}
-	// {{{ protected function getSavedMessagePrimaryContent()
+    public function finalize()
+    {
+        parent::finalize();
 
-	protected function getSavedMessagePrimaryContent()
-	{
-		return sprintf(
-			Promo::_('Promotion “%s” has been saved.'),
-			$this->getObject()->title
-		);
-	}
-
-	// }}}
-	// {{{ protected function relocate()
-
-	protected function relocate()
-	{
-		$this->app->relocate(
-			sprintf(
-				'Promotion/Details?id=%s',
-				$this->getObject()->id
-			)
-		);
-	}
-
-	// }}}
-
-	// build phase
-	// {{{ protected function buildInternal()
-
-	protected function buildInternal()
-	{
-		parent::buildInternal();
-
-		$date = new SwatDate();
-		$date->setTZ($this->app->default_time_zone);
-
-		$this->ui->getWidget('active_period_container')->note = sprintf(
-			Promo::_('Start Date and End Date are in %s and are inclusive.'),
-			$date->formatLikeIntl('z')
-		);
-	}
-
-	// }}}
-	// {{{ protected function buildNavBar()
-
-	protected function buildNavBar()
-	{
-		parent::buildNavBar();
-
-		if (!$this->isNew()) {
-			$promotion = $this->getObject();
-			$last = $this->navbar->popEntry();
-
-			$this->navbar->createEntry(
-				$promotion->title,
-				sprintf(
-					'Promotion/Details?id=%s',
-					$promotion->id
-				)
-			);
-
-			$this->navbar->addEntry($last);
-		}
-	}
-
-	// }}}
-
-	// finalize phase
-	// {{{ public function finalize()
-
-	public function finalize()
-	{
-		parent::finalize();
-
-		$this->layout->addHtmlHeadEntry(
-			'packages/promo/admin/styles/promo-promotion-edit.css'
-		);
-	}
-
-	// }}}
+        $this->layout->addHtmlHeadEntry(
+            'packages/promo/admin/styles/promo-promotion-edit.css'
+        );
+    }
 }
-
-?>

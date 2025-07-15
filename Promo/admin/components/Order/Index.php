@@ -1,57 +1,44 @@
 <?php
 
 /**
- * @package   Promo
  * @copyright 2011-2016 silverorange
  * @license   http://www.opensource.org/licenses/mit-license.html MIT License
  */
 class PromoOrderIndex extends StoreOrderIndex
 {
-	// {{{ protected function getAdditionalSearchFieldsUiXmlFiles()
+    protected function getAdditionalSearchFieldsUiXmlFiles()
+    {
+        return [
+            __DIR__ . '/search-promotion-fields.xml',
+        ];
+    }
 
-	protected function getAdditionalSearchFieldsUiXmlFiles()
-	{
-		return array(
-			__DIR__.'/search-promotion-fields.xml',
-		);
-	}
+    // build phase
 
-	// }}}
+    protected function getWhereClause()
+    {
+        $where = parent::getWhereClause();
 
-	// build phase
-	// {{{ protected function getWhereClause()
+        $promotion_code = $this->ui->getWidget('search_promotion_code')->value;
+        if (trim($promotion_code) != '') {
+            $clause = new AdminSearchClause('text:promotion_code');
+            $clause->table = 'Orders';
+            $clause->value = $promotion_code;
+            $clause->operator = AdminSearchClause::OP_CONTAINS;
+            $where .= $clause->getClause($this->app->db);
+        }
 
-	protected function getWhereClause()
-	{
-		$where = parent::getWhereClause();
+        return $where;
+    }
 
-		$promotion_code = $this->ui->getWidget('search_promotion_code')->value;
-		if (trim($promotion_code) != '') {
-			$clause = new AdminSearchClause('text:promotion_code');
-			$clause->table = 'Orders';
-			$clause->value = $promotion_code;
-			$clause->operator = AdminSearchClause::OP_CONTAINS;
-			$where.= $clause->getClause($this->app->db);
-		}
+    // finalize phase
 
-		return $where;
-	}
+    public function finalize()
+    {
+        parent::finalize();
 
-	// }}}
-
-	// finalize phase
-	// {{{ public function finalize()
-
-	public function finalize()
-	{
-		parent::finalize();
-
-		$this->layout->addHtmlHeadEntry(
-			'packages/promo/admin/styles/promo-order-index.css'
-		);
-	}
-
-	// }}}
+        $this->layout->addHtmlHeadEntry(
+            'packages/promo/admin/styles/promo-order-index.css'
+        );
+    }
 }
-
-?>

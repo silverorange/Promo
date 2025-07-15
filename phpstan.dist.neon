@@ -1,0 +1,10 @@
+includes:
+  - phpstan-baseline.neon
+
+parameters:
+  phpVersion: 80200
+  level: 0
+  paths:
+    - Promo
+  editorUrl: '%%file%%:%%line%%'
+  editorUrlTitle: '%%file%%:%%line%%'

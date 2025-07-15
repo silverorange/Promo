@@ -1,399 +1,372 @@
 <?php
 
 /**
- * Displays sales summaries for a promotion by month
+ * Displays sales summaries for a promotion by month.
  *
- * @package   Promo
  * @copyright 2011-2016 silverorange
  * @license   http://www.opensource.org/licenses/mit-license.html MIT License
  */
 class PromoPromotionReport extends AdminIndex
 {
-	// {{{ protected properties
+    /**
+     * Cache of regions used by getRegions().
+     *
+     * @var StoreRegionWrapper
+     */
+    protected $regions;
 
-	/**
-	 * Cache of regions used by getRegions()
-	 *
-	 * @var StoreRegionWrapper
-	 */
-	protected $regions = null;
+    /**
+     * @var PromoPromotion
+     */
+    protected $promotion;
 
-	/**
-	 * @var PromoPromotion
-	 */
-	protected $promotion;
+    /**
+     * @var SwatDate
+     */
+    protected $start_date;
 
-	/**
-	 * @var SwatDate
-	 */
-	protected $start_date;
+    /**
+     * @var SwatDate
+     */
+    protected $end_date;
 
-	/**
-	 * @var SwatDate
-	 */
-	protected $end_date;
+    protected int $id;
 
-	protected int $id;
+    protected function getUiXml()
+    {
+        return __DIR__ . '/report.xml';
+    }
 
-	// }}}
-	// {{{ protected function getUiXml()
-
-	protected function getUiXml()
-	{
-		return __DIR__.'/report.xml';
-	}
-
-	// }}}
-	// {{{ protected function getRegions()
-
-	protected function getRegions()
-	{
-		if (!$this->regions instanceof StoreRegionWrapper) {
-			$sql = 'select Region.id, Region.title
+    protected function getRegions()
+    {
+        if (!$this->regions instanceof StoreRegionWrapper) {
+            $sql = 'select Region.id, Region.title
 				from Region
 				order by Region.id';
 
-			$this->regions = SwatDB::query(
-				$this->app->db,
-				$sql,
-				SwatDBClassMap::get('StoreRegionWrapper')
-			);
-		}
+            $this->regions = SwatDB::query(
+                $this->app->db,
+                $sql,
+                SwatDBClassMap::get(StoreRegionWrapper::class)
+            );
+        }
 
-		return $this->regions;
-	}
+        return $this->regions;
+    }
 
-	// }}}
+    // init phase
 
-	// init phase
-	// {{{ protected function initInternal()
+    protected function initInternal()
+    {
+        parent::initInternal();
 
-	protected function initInternal()
-	{
-		parent::initInternal();
+        $this->ui->loadFromXML($this->getUiXml());
 
-		$this->ui->loadFromXML($this->getUiXml());
+        $this->initPromotion();
+        $this->checkInstance();
 
-		$this->initPromotion();
-		$this->checkInstance();
+        $regions = $this->getRegions();
+        $view = $this->ui->getWidget('index_view');
 
-		$regions = $this->getRegions();
-		$view = $this->ui->getWidget('index_view');
+        // add dynamic columns to items view
+        $this->appendRegionColumns($view, $regions);
 
-		// add dynamic columns to items view
-		$this->appendRegionColumns($view, $regions);
-
-		$row = SwatDB::queryRow(
-			$this->app->db,
-			sprintf(
-				'select
+        $row = SwatDB::queryRow(
+            $this->app->db,
+            sprintf(
+                'select
 						min(createdate) as start_date,
 						max(createdate) as end_date
 					from Orders
 				where promotion_code in
 					(select code from PromotionCode where promotion = %s)',
-				$this->app->db->quote($this->promotion->id, 'integer')
-			)
-		);
+                $this->app->db->quote($this->promotion->id, 'integer')
+            )
+        );
 
-		$this->start_date = new SwatDate($row->start_date);
-		$this->start_date->setTimezone($this->app->default_time_zone);
-		$this->start_date->setDay(1);
-		$this->start_date->setTime(0, 0, 0);
+        $this->start_date = new SwatDate($row->start_date);
+        $this->start_date->setTimezone($this->app->default_time_zone);
+        $this->start_date->setDay(1);
+        $this->start_date->setTime(0, 0, 0);
 
-		$this->end_date = new SwatDate($row->end_date);
-		$this->end_date->setTimezone($this->app->default_time_zone);
-		$this->end_date->setDay(1);
-	}
+        $this->end_date = new SwatDate($row->end_date);
+        $this->end_date->setTimezone($this->app->default_time_zone);
+        $this->end_date->setDay(1);
+    }
 
-	// }}}
-	// {{{ protected function initPromotion()
+    protected function initPromotion()
+    {
+        $this->id = (int) SiteApplication::initVar('id');
+        $promotion_class = SwatDBClassMap::get(PromoPromotion::class);
 
-	protected function initPromotion()
-	{
-		$this->id = (int)SiteApplication::initVar('id');
-		$promotion_class = SwatDBClassMap::get('PromoPromotion');
+        $this->promotion = new $promotion_class();
+        $this->promotion->setDatabase($this->app->db);
 
-		$this->promotion = new $promotion_class();
-		$this->promotion->setDatabase($this->app->db);
+        if (!$this->promotion->load($this->id)) {
+            throw new AdminNotFoundException(
+                sprintf(
+                    'A promotion with an id of ‘%d’ does not exist.',
+                    $this->id
+                )
+            );
+        }
+    }
 
-		if (!$this->promotion->load($this->id)) {
-			throw new AdminNotFoundException(
-				sprintf(
-					'A promotion with an id of ‘%d’ does not exist.',
-					$this->id
-				)
-			);
-		}
-	}
+    protected function checkInstance()
+    {
+        $instance = $this->app->getInstance();
+        if (
+            $instance instanceof SiteInstance
+            && !(
+                $this->promotion->instance instanceof SiteInstance
+                && $this->promotion->instance->id === $instance->id
+            )
+        ) {
+            throw new AdminNotFoundException(
+                sprintf(
+                    'Incorrect instance for promotion ‘%s’.',
+                    $this->promotion->id
+                )
+            );
+        }
+    }
 
-	// }}}
-	// {{{ protected function checkInstance()
+    protected function appendRegionColumns(
+        SwatTableView $view,
+        StoreRegionWrapper $regions
+    ) {
+        foreach ($regions as $region) {
+            $created_column = new SwatTableViewColumn('created_' . $region->id);
 
-	protected function checkInstance()
-	{
-		$instance = $this->app->getInstance();
-		if (
-			$instance instanceof SiteInstance &&
-			!(
-				$this->promotion->instance instanceof SiteInstance &&
-				$this->promotion->instance->id === $instance->id
-			)
-		) {
-			throw new AdminNotFoundException(
-				sprintf(
-					'Incorrect instance for promotion ‘%s’.',
-					$this->promotion->id
-				)
-			);
-		}
-	}
+            if (count($regions) === 1) {
+                $created_column->title = Promo::_('Orders');
+            } else {
+                $created_column->title = sprintf(
+                    Promo::_('%s Orders'),
+                    $region->title
+                );
+            }
 
-	// }}}
-	// {{{ protected function appendRegionColumns()
+            $created_renderer = new SwatNumericCellRenderer();
 
-	protected function appendRegionColumns(
-		SwatTableView $view,
-		StoreRegionWrapper $regions
-	) {
-		foreach ($regions as $region) {
-			$created_column = new SwatTableViewColumn('created_'.$region->id);
+            $created_column->addRenderer($created_renderer);
+            $created_column->addMappingToRenderer(
+                $created_renderer,
+                'created_' . $region->id,
+                'value'
+            );
 
-			if (count($regions) === 1) {
-				$created_column->title = Promo::_('Orders');
-			} else {
-				$created_column->title = sprintf(
-					Promo::_('%s Orders'),
-					$region->title
-				);
-			}
+            // promotion total
+            $promotion_total_column = new SwatTableViewColumn(
+                'promotion_total_' . $region->id
+            );
 
-			$created_renderer = new SwatNumericCellRenderer();
+            if (count($regions) === 1) {
+                $promotion_total_column->title = Promo::_('Promotion Cost');
+            } else {
+                $promotion_total_column->title = sprintf(
+                    Promo::_('%s Promotion Cost'),
+                    $region->title
+                );
+            }
 
-			$created_column->addRenderer($created_renderer);
-			$created_column->addMappingToRenderer(
-				$created_renderer,
-				'created_'.$region->id,
-				'value'
-			);
+            $promotion_total_renderer = new SwatMoneyCellRenderer();
+            $promotion_total_renderer->locale = $region->getFirstLocale()->id;
 
-			// promotion total
-			$promotion_total_column = new SwatTableViewColumn(
-				'promotion_total_'.$region->id
-			);
+            $promotion_total_column->addRenderer($promotion_total_renderer);
+            $promotion_total_column->addMappingToRenderer(
+                $promotion_total_renderer,
+                'promotion_total_' . $region->id,
+                'value'
+            );
 
-			if (count($regions) === 1) {
-				$promotion_total_column->title = Promo::_('Promotion Cost');
-			} else {
-				$promotion_total_column->title = sprintf(
-					Promo::_('%s Promotion Cost'),
-					$region->title
-				);
-			}
+            $promotion_total_column->addMappingToRenderer(
+                $promotion_total_renderer,
+                'locale_id',
+                'locale'
+            );
 
-			$promotion_total_renderer = new SwatMoneyCellRenderer();
-			$promotion_total_renderer->locale = $region->getFirstLocale()->id;
+            // order total
+            $total_column = new SwatTableViewColumn(
+                'total_' . $region->id
+            );
 
-			$promotion_total_column->addRenderer($promotion_total_renderer);
-			$promotion_total_column->addMappingToRenderer(
-				$promotion_total_renderer,
-				'promotion_total_'.$region->id,
-				'value'
-			);
+            if (count($regions) === 1) {
+                $total_column->title = Promo::_('Total');
+            } else {
+                $total_column->title = sprintf(
+                    Promo::_('%s Total'),
+                    $region->title
+                );
+            }
 
-			$promotion_total_column->addMappingToRenderer(
-				$promotion_total_renderer,
-				'locale_id',
-				'locale'
-			);
+            $total_renderer = new SwatMoneyCellRenderer();
+            $total_renderer->locale = $region->getFirstLocale()->id;
 
-			// order total
-			$total_column = new SwatTableViewColumn(
-				'total_'.$region->id
-			);
+            $total_column->addRenderer($total_renderer);
+            $total_column->addMappingToRenderer(
+                $total_renderer,
+                'total_' . $region->id,
+                'value'
+            );
 
-			if (count($regions) === 1) {
-				$total_column->title = Promo::_('Total');
-			} else {
-				$total_column->title = sprintf(
-					Promo::_('%s Total'),
-					$region->title
-				);
-			}
+            $total_column->addMappingToRenderer(
+                $total_renderer,
+                'locale_id',
+                'locale'
+            );
 
-			$total_renderer = new SwatMoneyCellRenderer();
-			$total_renderer->locale = $region->getFirstLocale()->id;
+            // return on investment
+            $roi_column = new SwatTableViewColumn('roi_' . $region->id);
 
-			$total_column->addRenderer($total_renderer);
-			$total_column->addMappingToRenderer(
-				$total_renderer,
-				'total_'.$region->id,
-				'value'
-			);
+            if (count($regions) === 1) {
+                $roi_column->title = Promo::_('Return on Investment');
+            } else {
+                $roi_column->title = sprintf(
+                    Promo::_('%s Return on Investment'),
+                    $region->title
+                );
+            }
 
-			$total_column->addMappingToRenderer(
-				$total_renderer,
-				'locale_id',
-				'locale'
-			);
+            $roi_renderer = new SwatPercentageCellRenderer();
+            $roi_renderer->precision = 2;
+            $roi_renderer->locale = $region->getFirstLocale()->id;
 
-			// return on investment
-			$roi_column = new SwatTableViewColumn('roi_'.$region->id);
+            $roi_infinite_renderer = new SwatTextCellRenderer();
+            $roi_infinite_renderer->text = Promo::_('∞');
 
-			if (count($regions) === 1) {
-				$roi_column->title = Promo::_('Return on Investment');
-			} else {
-				$roi_column->title = sprintf(
-					Promo::_('%s Return on Investment'),
-					$region->title
-				);
-			}
+            $roi_column->addRenderer($roi_renderer);
+            $roi_column->addMappingToRenderer(
+                $roi_renderer,
+                'roi_' . $region->id,
+                'value'
+            );
+            $roi_column->addMappingToRenderer(
+                $roi_renderer,
+                '!roi_infinite_' . $region->id,
+                'visible'
+            );
 
-			$roi_renderer = new SwatPercentageCellRenderer();
-			$roi_renderer->precision = 2;
-			$roi_renderer->locale = $region->getFirstLocale()->id;
+            $roi_column->addRenderer($roi_infinite_renderer);
+            $roi_column->addMappingToRenderer(
+                $roi_infinite_renderer,
+                'roi_infinite_' . $region->id,
+                'visible'
+            );
 
-			$roi_infinite_renderer = new SwatTextCellRenderer();
-			$roi_infinite_renderer->text = Promo::_('∞');
+            $view->appendColumn($created_column);
+            $view->appendColumn($promotion_total_column);
+            $view->appendColumn($total_column);
+            $view->appendColumn($roi_column);
+        }
+    }
 
-			$roi_column->addRenderer($roi_renderer);
-			$roi_column->addMappingToRenderer(
-				$roi_renderer,
-				'roi_'.$region->id,
-				'value'
-			);
-			$roi_column->addMappingToRenderer(
-				$roi_renderer,
-				'!roi_infinite_'.$region->id,
-				'visible'
-			);
+    // build phase
 
-			$roi_column->addRenderer($roi_infinite_renderer);
-			$roi_column->addMappingToRenderer(
-				$roi_infinite_renderer,
-				'roi_infinite_'.$region->id,
-				'visible'
-			);
+    protected function getTableModel(SwatView $view): ?SwatTableModel
+    {
+        $date = clone $this->start_date;
 
-			$view->appendColumn($created_column);
-			$view->appendColumn($promotion_total_column);
-			$view->appendColumn($total_column);
-			$view->appendColumn($roi_column);
-		}
-	}
+        $regions = $this->getRegions();
+        $locale_id = $regions->getFirst()->getFirstLocale()->id;
 
-	// }}}
+        // create an array of months with default values
+        $months = [];
 
-	// build phase
-	// {{{ protected function getTableModel()
+        do {
+            $key = $date->format('Y-n');
 
-	protected function getTableModel(SwatView $view): ?SwatTableModel
-	{
-		$date = clone $this->start_date;
+            $month = new SwatDetailsStore();
 
-		$regions = $this->getRegions();
-		$locale_id = $regions->getFirst()->getFirstLocale()->id;
+            foreach ($regions as $region) {
+                $month->{'created_' . $region->id} = 0;
+                $month->{'promotion_total_' . $region->id} = 0;
+                $month->{'total_' . $region->id} = 0;
+                $month->{'roi_' . $region->id} = 0;
+                $month->{'roi_infinite_' . $region->id} = 0;
+            }
 
-		// create an array of months with default values
-		$months = array();
+            $month->date = clone $date;
+            $month->locale_id = $locale_id;
 
-		do {
-			$key = $date->format('Y-n');
+            $months[$key] = $month;
 
-			$month = new SwatDetailsStore();
+            $date->addMonths(1);
+        } while ($date->before($this->end_date));
 
-			foreach ($regions as $region) {
-				$month->{'created_'.$region->id}         = 0;
-				$month->{'promotion_total_'.$region->id} = 0;
-				$month->{'total_'.$region->id}           = 0;
-				$month->{'roi_'.$region->id}             = 0;
-				$month->{'roi_infinite_'.$region->id}    = 0;
-			}
+        // totl row
+        $total = new SwatDetailsStore();
 
-			$month->date      = clone $date;
-			$month->locale_id = $locale_id;
+        $total->date = null;
+        $total->locale_id = $locale_id;
+        foreach ($regions as $region) {
+            $total->{'created_' . $region->id} = 0;
+            $total->{'promotion_total_' . $region->id} = 0;
+            $total->{'total_' . $region->id} = 0;
+            $total->{'roi_' . $region->id} = 0;
+            $total->{'roi_infinite_' . $region->id} = false;
+        }
 
-			$months[$key] = $month;
+        $months['total'] = $total;
 
-			$date->addMonths(1);
-		} while ($date->before($this->end_date));
+        // fill our array with values from the database if the values exist
+        $rs = $this->queryOrderStats();
+        foreach ($rs as $row) {
+            $key = $row->year . '-' . $row->month;
 
-		// totl row
-		$total = new SwatDetailsStore();
+            $months[$key]->{'created_' . $row->region} = $row->num_orders;
+            $months[$key]->{'total_' . $row->region} = $row->total;
+            $months[$key]->{'promotion_total_' . $row->region} =
+                $row->promotion_total;
 
-		$total->date      = null;
-		$total->locale_id = $locale_id;
-		foreach ($regions as $region) {
-			$total->{'created_'.$region->id}         = 0;
-			$total->{'promotion_total_'.$region->id} = 0;
-			$total->{'total_'.$region->id}           = 0;
-			$total->{'roi_'.$region->id}             = 0;
-			$total->{'roi_infinite_'.$region->id}    = false;
-		}
+            if ($row->promotion_total == 0) {
+                $months[$key]->{'roi_infinite_' . $row->region} = true;
+            } else {
+                $months[$key]->{'roi_' . $row->region} =
+                    ($row->total - $row->promotion_total) /
+                    $row->promotion_total;
+            }
 
-		$months['total'] = $total;
+            $total->{'created_' . $region->id} += $row->num_orders;
+            $total->{'promotion_total_' . $region->id} += $row->promotion_total;
+            $total->{'total_' . $region->id} += $row->total;
+        }
 
-		// fill our array with values from the database if the values exist
-		$rs = $this->queryOrderStats();
-		foreach ($rs as $row) {
-			$key = $row->year.'-'.$row->month;
+        // calculate total ROI per region
+        foreach ($regions as $region) {
+            if ($total->{'promotion_total_' . $region->id} == 0) {
+                $total->{'roi_infinite_' . $region->id} = true;
+            } else {
+                $total->{'roi_' . $region->id} =
+                    ($total->{'total_' . $region->id} -
+                    $total->{'promotion_total_' . $region->id}) /
+                    $total->{'promotion_total_' . $region->id};
+            }
+        }
 
-			$months[$key]->{'created_'.$row->region} = $row->num_orders;
-			$months[$key]->{'total_'.$row->region} = $row->total;
-			$months[$key]->{'promotion_total_'.$row->region} =
-				$row->promotion_total;
+        // turn the array into a table model
+        $store = new SwatTableStore();
+        foreach ($months as $month) {
+            $store->add($month);
+        }
 
-			if ($row->promotion_total == 0) {
-				$months[$key]->{'roi_infinite_'.$row->region} = true;
-			} else {
-				$months[$key]->{'roi_'.$row->region} =
-					($row->total - $row->promotion_total) /
-					$row->promotion_total;
-			}
+        return $store;
+    }
 
-			$total->{'created_'.$region->id}         += $row->num_orders;
-			$total->{'promotion_total_'.$region->id} += $row->promotion_total;
-			$total->{'total_'.$region->id}           += $row->total;
-		}
+    protected function queryOrderStats()
+    {
+        $where_clause = '1 = 1';
 
-		// calculate total ROI per region
-		foreach ($regions as $region) {
-			if ($total->{'promotion_total_'.$region->id} == 0) {
-				$total->{'roi_infinite_'.$region->id} = true;
-			} else {
-				$total->{'roi_'.$region->id} =
-					($total->{'total_'.$region->id} -
-					$total->{'promotion_total_'.$region->id}) /
-					$total->{'promotion_total_'.$region->id};
-			}
-		}
+        $instance = $this->app->getInstance();
+        if ($instance instanceof SiteInstance) {
+            $where_clause .= sprintf(
+                ' and Orders.instance %s %s',
+                SwatDB::equalityOperator($instance->id),
+                $this->app->db->quote($instance->id, 'integer')
+            );
+        }
 
-		// turn the array into a table model
-		$store = new SwatTableStore();
-		foreach ($months as $month) {
-			$store->add($month);
-		}
-
-		return $store;
-	}
-
-	// }}}
-	// {{{ protected function queryOrderStats()
-
-	protected function queryOrderStats()
-	{
-		$where_clause = '1 = 1';
-
-		$instance = $this->app->getInstance();
-		if ($instance instanceof SiteInstance) {
-			$where_clause.= sprintf(
-				' and Orders.instance %s %s',
-				SwatDB::equalityOperator($instance->id),
-				$this->app->db->quote($instance->id, 'integer')
-			);
-		}
-
-		$sql = 'select count(Orders.id) as num_orders, Locale.region,
+        $sql = 'select count(Orders.id) as num_orders, Locale.region,
 				sum(promotion_total) as promotion_total, sum(total) as total,
 				extract(month from convertTZ(createdate, %1$s)) as month,
 				extract(year from convertTZ(createdate, %1$s)) as year
@@ -406,51 +379,41 @@ class PromoPromotionReport extends AdminIndex
 			group by Locale.region, year, month
 			order by year, month';
 
-		$sql = sprintf(
-			$sql,
-			$this->app->db->quote($this->app->config->date->time_zone, 'text'),
-			$where_clause,
-			$this->app->db->quote($this->promotion->id, 'integer')
-		);
+        $sql = sprintf(
+            $sql,
+            $this->app->db->quote($this->app->config->date->time_zone, 'text'),
+            $where_clause,
+            $this->app->db->quote($this->promotion->id, 'integer')
+        );
 
-		return SwatDB::query($this->app->db, $sql);
-	}
+        return SwatDB::query($this->app->db, $sql);
+    }
 
-	// }}}
-	// {{{ protected function buildNavBar()
+    protected function buildNavBar()
+    {
+        parent::buildNavBar();
 
-	protected function buildNavBar()
-	{
-		parent::buildNavBar();
+        $this->navbar->createEntry(
+            $this->promotion->title,
+            sprintf(
+                'Promotion/Details?id=%s',
+                $this->promotion->id
+            )
+        );
 
-		$this->navbar->createEntry(
-			$this->promotion->title,
-			sprintf(
-				'Promotion/Details?id=%s',
-				$this->promotion->id
-			)
-		);
+        $this->navbar->createEntry(
+            Promo::_('Promotion Use Details')
+        );
+    }
 
-		$this->navbar->createEntry(
-			Promo::_('Promotion Use Details')
-		);
-	}
+    // finalize phase
 
-	// }}}
+    public function finalize()
+    {
+        parent::finalize();
 
-	// finalize phase
-	// {{{ public function finalize()
-
-	public function finalize()
-	{
-		parent::finalize();
-
-		$this->layout->addHtmlHeadEntry(
-			'packages/promo/admin/styles/promo-promotion-report.css'
-		);
-	}
-
-	// }}}
+        $this->layout->addHtmlHeadEntry(
+            'packages/promo/admin/styles/promo-promotion-report.css'
+        );
+    }
 }
-
-?>
