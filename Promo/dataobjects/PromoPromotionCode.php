@@ -3,6 +3,13 @@
 /**
  * @copyright 2011-2016 silverorange
  * @license   http://www.opensource.org/licenses/mit-license.html MIT License
+ *
+ * @property int            $id
+ * @property ?string        $code
+ * @property ?SwatDate      $createdate
+ * @property ?SwatDate      $used_date
+ * @property ?bool          $limited_use
+ * @property PromoPromotion $promotion
  */
 class PromoPromotionCode extends SwatDBDataObject
 {
@@ -23,7 +30,7 @@ class PromoPromotionCode extends SwatDBDataObject
     /**
      * Date the code was created.
      *
-     * @var SwtaDate
+     * @var SwatDate
      */
     public $createdate;
 
