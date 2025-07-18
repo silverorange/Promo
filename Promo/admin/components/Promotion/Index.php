@@ -74,11 +74,9 @@ class PromoPromotionIndex extends AdminSearch
 
         $promotions = SwatDB::query($this->app->db, $sql);
 
-        $class_name = SwatDBClassMap::get(PromoPromotion::class);
-
         $store = new SwatTableStore();
         foreach ($promotions as $row) {
-            $promotion = new $class_name($row);
+            $promotion = SwatDBClassMap::new(PromoPromotion::class, $row);
             $promotion->setDatabase($this->app->db);
 
             $ds = $this->getPromotionDetailsStore(

@@ -5,6 +5,10 @@
  *
  * @copyright 2011-2016 silverorange
  * @license   http://www.opensource.org/licenses/mit-license.html MIT License
+ *
+ * @property ?string $promotion_code
+ * @property ?string $promotion_title
+ * @property ?float  $promotion_total
  */
 class PromoOrder extends StoreOrder
 {

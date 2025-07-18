@@ -3,6 +3,19 @@
 /**
  * @copyright 2011-2016 silverorange
  * @license   http://www.opensource.org/licenses/mit-license.html MIT License
+ *
+ * @property int                       $id
+ * @property ?string                   $title
+ * @property ?SwatDate                 $start_date
+ * @property ?SwatDate                 $end_date
+ * @property ?float                    $discount_amount
+ * @property ?float                    $discount_percentage
+ * @property ?string                   $notes
+ * @property ?string                   $public_note;
+ * @property ?int                      $maximum_quantity;
+ * @property ?PromoPromotionCode       $code
+ * @property ?SiteInstance             $instance
+ * @property PromoPromotionCodeWrapper $codes
  */
 class PromoPromotion extends SwatDBDataObject
 {
@@ -72,7 +85,7 @@ class PromoPromotion extends SwatDBDataObject
     /**
      * Code used to look up the promotion.
      *
-     * @var PromotionCode
+     * @var PromoPromotionCode
      */
     protected $code;
 

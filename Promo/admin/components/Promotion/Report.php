@@ -97,9 +97,8 @@ class PromoPromotionReport extends AdminIndex
     protected function initPromotion()
     {
         $this->id = (int) SiteApplication::initVar('id');
-        $promotion_class = SwatDBClassMap::get(PromoPromotion::class);
 
-        $this->promotion = new $promotion_class();
+        $this->promotion = SwatDBClassMap::new(PromoPromotion::class);
         $this->promotion->setDatabase($this->app->db);
 
         if (!$this->promotion->load($this->id)) {

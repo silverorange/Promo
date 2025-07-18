@@ -48,8 +48,7 @@ class PromoPromotionPromotionCodeEdit extends AdminObjectEdit
         } else {
             $promotion_id = SiteApplication::initVar('promotion');
 
-            $class_name = SwatDBClassMap::get(PromoPromotion::class);
-            $this->promotion = new $class_name();
+            $this->promotion = SwatDBClassMap::new(PromoPromotion::class);
             $this->promotion->setDatabase($this->app->db);
 
             if (!$this->promotion->load($promotion_id)) {
