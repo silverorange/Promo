@@ -237,12 +237,10 @@ class PromoPromotionDetails extends AdminIndex
 
     protected function getTableModel(SwatView $view): ?SwatTableModel
     {
-        switch ($view->id) {
-            case 'promotion_code_view':
-                return $this->getPromotionCodeTableModel($view);
-        }
-
-        return null;
+        return match ($view->id) {
+            'promotion_code_view' => $this->getPromotionCodeTableModel($view),
+            default               => null,
+        };
     }
 
     protected function getPromotionCodeTableModel(SwatTableView $view): PromoPromotionCodeWrapper

@@ -150,9 +150,7 @@ class PromoPromotionIndex extends AdminSearch
 
         $ds->is_active = $promotion->isActive(false);
 
-        $ds->num_orders = ($row->num_orders === null)
-            ? 0
-            : $row->num_orders;
+        $ds->num_orders = $row->num_orders ?? 0;
 
         $ds->promotion_total = $row->promotion_total;
         $ds->total = $row->total;
