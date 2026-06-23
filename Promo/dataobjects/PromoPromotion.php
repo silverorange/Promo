@@ -163,8 +163,8 @@ class PromoPromotion extends SwatDBDataObject
                 ? 0
                 : ($this->discount_percentage * 100);
 
-            $formatted_amount = $locale->formatNumber($displayed_percentage) .
-                '%';
+            $formatted_amount = $locale->formatNumber($displayed_percentage)
+                . '%';
         }
 
         return $formatted_amount;

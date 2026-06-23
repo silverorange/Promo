@@ -99,8 +99,8 @@ class PromoPromotionEdit extends AdminObjectEdit
             $message = new SwatMessage(
                 sprintf(
                     Promo::_(
-                        '%1$sStart Date%2$s must occur before ' .
-                        '%1$sEnd Date%2$s.'
+                        '%1$sStart Date%2$s must occur before '
+                        . '%1$sEnd Date%2$s.'
                     ),
                     '<strong>',
                     '</strong>'
@@ -128,8 +128,8 @@ class PromoPromotionEdit extends AdminObjectEdit
             $message = new SwatMessage(
                 sprintf(
                     Promo::_(
-                        'Either the %1$sFixed Amount Discount%2$s or the ' .
-                        '%1$sPercentage Discount%2$s is reqired.'
+                        'Either the %1$sFixed Amount Discount%2$s or the '
+                        . '%1$sPercentage Discount%2$s is reqired.'
                     ),
                     '<strong>',
                     '</strong>'

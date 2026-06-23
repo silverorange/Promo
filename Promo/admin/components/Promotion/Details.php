@@ -111,8 +111,8 @@ class PromoPromotionDetails extends AdminIndex
         }
 
         // set the timezone on the used date column;
-        $used_column =
-            $this->ui->getWidget('promotion_code_view')->getColumn('used_date');
+        $used_column
+            = $this->ui->getWidget('promotion_code_view')->getColumn('used_date');
 
         $used_renderer = $used_column->getRendererByPosition();
         $used_renderer->display_time_zone = $this->app->default_time_zone;
@@ -127,9 +127,9 @@ class PromoPromotionDetails extends AdminIndex
 
             $message->secondary_content = sprintf(
                 Promo::_(
-                    'This promotion doesn’t have any available promotion ' .
-                    'codes. %sAdd%s or %sgenerate%s promotion codes so this ' .
-                    'promotion can be entered by customers.'
+                    'This promotion doesn’t have any available promotion '
+                    . 'codes. %sAdd%s or %sgenerate%s promotion codes so this '
+                    . 'promotion can be entered by customers.'
                 ),
                 sprintf(
                     '<a href="Promotion/PromotionCodeEdit?promotion=%s">',
@@ -211,8 +211,8 @@ class PromoPromotionDetails extends AdminIndex
                     $locale->formatNumber(
                         SwatNumber::roundToEven(
                             (
-                                ($row->total - $row->promotion_total) /
-                                $row->promotion_total
+                                ($row->total - $row->promotion_total)
+                                / $row->promotion_total
                             ) * 100,
                             2
                         ),

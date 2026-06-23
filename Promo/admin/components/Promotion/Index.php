@@ -55,8 +55,8 @@ class PromoPromotionIndex extends AdminSearch
         $view = $this->ui->getWidget('index_view');
 
         if ($view->hasGroup('instance_group')) {
-            $view->getGroup('instance_group')->visible =
-                $this->app->isMultipleInstanceAdmin();
+            $view->getGroup('instance_group')->visible
+                = $this->app->isMultipleInstanceAdmin();
         }
     }
 
@@ -67,8 +67,8 @@ class PromoPromotionIndex extends AdminSearch
             $this->getWhereClause(),
             $this->getOrderByClause(
                 $view,
-                'instance_title nulls first, Promotion.instance nulls first, ' .
-                'title'
+                'instance_title nulls first, Promotion.instance nulls first, '
+                . 'title'
             )
         );
 
@@ -165,8 +165,8 @@ class PromoPromotionIndex extends AdminSearch
             $ds->roi = 0;
         } else {
             $ds->roi_infinite = false;
-            $ds->roi = ($ds->total - $ds->promotion_total) /
-                $ds->promotion_total;
+            $ds->roi = ($ds->total - $ds->promotion_total)
+                / $ds->promotion_total;
         }
 
         $ds->has_notes = ($promotion->notes != '');
