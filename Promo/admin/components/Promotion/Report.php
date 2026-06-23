@@ -315,15 +315,15 @@ class PromoPromotionReport extends AdminIndex
 
             $months[$key]->{'created_' . $row->region} = $row->num_orders;
             $months[$key]->{'total_' . $row->region} = $row->total;
-            $months[$key]->{'promotion_total_' . $row->region} =
-                $row->promotion_total;
+            $months[$key]->{'promotion_total_' . $row->region}
+                = $row->promotion_total;
 
             if ($row->promotion_total == 0) {
                 $months[$key]->{'roi_infinite_' . $row->region} = true;
             } else {
-                $months[$key]->{'roi_' . $row->region} =
-                    ($row->total - $row->promotion_total) /
-                    $row->promotion_total;
+                $months[$key]->{'roi_' . $row->region}
+                    = ($row->total - $row->promotion_total)
+                    / $row->promotion_total;
             }
 
             $total->{'created_' . $region->id} += $row->num_orders;
@@ -336,10 +336,10 @@ class PromoPromotionReport extends AdminIndex
             if ($total->{'promotion_total_' . $region->id} == 0) {
                 $total->{'roi_infinite_' . $region->id} = true;
             } else {
-                $total->{'roi_' . $region->id} =
-                    ($total->{'total_' . $region->id} -
-                    $total->{'promotion_total_' . $region->id}) /
-                    $total->{'promotion_total_' . $region->id};
+                $total->{'roi_' . $region->id}
+                    = ($total->{'total_' . $region->id}
+                    - $total->{'promotion_total_' . $region->id})
+                    / $total->{'promotion_total_' . $region->id};
             }
         }
 

@@ -29,13 +29,11 @@ class PromoPromotionCodeGenerator
 
         if ($prefix != '') {
             $codes = array_map(
-                function ($code) use ($prefix) {
-                    return sprintf(
-                        '%s-%s',
-                        $prefix,
-                        $code
-                    );
-                },
+                fn ($code) => sprintf(
+                    '%s-%s',
+                    $prefix,
+                    $code
+                ),
                 $codes
             );
         }

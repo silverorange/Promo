@@ -139,8 +139,8 @@ class PromoPromotionGenerateCodes extends AdminDBEdit
     {
         parent::buildInternal();
 
-        $this->ui->getWidget('edit_frame')->title =
-            Promo::_('Generate Promotion Codes');
+        $this->ui->getWidget('edit_frame')->title
+            = Promo::_('Generate Promotion Codes');
     }
 
     protected function buildForm()

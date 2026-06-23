@@ -132,17 +132,17 @@ abstract class PromoCheckoutCart extends StoreCheckoutCart
                 // allowed by the promotion, only discount for quantity
                 // less than the maximum promotion quantity
                 if ($promotion->maximum_quantity !== null
-                    && $discount_quantity + $entry->getQuantity() >
-                        $promotion->maximum_quantity) {
-                    $discountable_item_total +=
-                        $this->getPromotionDiscountableAmount(
+                    && $discount_quantity + $entry->getQuantity()
+                        > $promotion->maximum_quantity) {
+                    $discountable_item_total
+                        += $this->getPromotionDiscountableAmount(
                             $promotion,
                             $entry,
                             $promotion->maximum_quantity - $discount_quantity
                         );
                 } else {
-                    $discountable_item_total +=
-                        $this->getPromotionDiscountableAmount(
+                    $discountable_item_total
+                        += $this->getPromotionDiscountableAmount(
                             $promotion,
                             $entry
                         );
@@ -175,8 +175,8 @@ abstract class PromoCheckoutCart extends StoreCheckoutCart
                 );
 
                 foreach ($discountable_entries as $entry) {
-                    $entry->promotion_discount =
-                        ($entry->getExtension() * $per_dollar_discount);
+                    $entry->promotion_discount
+                        = ($entry->getExtension() * $per_dollar_discount);
                 }
             }
         } else {
@@ -186,8 +186,8 @@ abstract class PromoCheckoutCart extends StoreCheckoutCart
                 // allowed by the promotion, only discount for quantity
                 // less than the maximum promotion quantity
                 if ($promotion->maximum_quantity !== null
-                    && $discount_quantity + $entry->getQuantity() >
-                        $promotion->maximum_quantity) {
+                    && $discount_quantity + $entry->getQuantity()
+                        > $promotion->maximum_quantity) {
                     $amount = $this->getPromotionDiscountableAmount(
                         $promotion,
                         $entry,
