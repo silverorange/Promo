@@ -1,10 +1,16 @@
-includes:
-  - phpstan-baseline.neon
-
 parameters:
   phpVersion: 80200
-  level: 0
+  level: 1
   paths:
     - Promo
   editorUrl: '%%file%%:%%line%%'
   editorUrlTitle: '%%file%%:%%line%%'
+  errorFormat: table
+
+  # @todo these should be fixed
+  ignoreErrors:
+    -
+      message: '#^Variable \$region might not be defined\.$#'
+      identifier: variable.undefined
+      count: 3
+      path: Promo/admin/components/Promotion/Report.php
