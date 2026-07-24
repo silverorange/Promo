@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "798a46cfe650a455e0ff54ea66e2dac6",
+    "content-hash": "d2c2576d0c8e88afcea748560a6edcc4",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -2143,16 +2143,16 @@
         },
         {
             "name": "silverorange/store",
-            "version": "10.2.5",
+            "version": "10.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/silverorange/store.git",
-                "reference": "e22868b374bcf82bb6b387e09841199a8138b699"
+                "reference": "998e938813c6ff607c900e0cc8aed0e9aadc00ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/silverorange/store/zipball/e22868b374bcf82bb6b387e09841199a8138b699",
-                "reference": "e22868b374bcf82bb6b387e09841199a8138b699",
+                "url": "https://api.github.com/repos/silverorange/store/zipball/998e938813c6ff607c900e0cc8aed0e9aadc00ce",
+                "reference": "998e938813c6ff607c900e0cc8aed0e9aadc00ce",
                 "shasum": ""
             },
             "require": {
@@ -2160,15 +2160,16 @@
                 "pear/text_password": "^1.1.1",
                 "pear/validate_finance_creditcard": ">=0.5.2",
                 "php": ">=8.2",
-                "silverorange/admin": "^7.0.3",
-                "silverorange/site": "^15.3.2 || ^16.0.0",
-                "silverorange/swat": "^7.9.2",
-                "silverorange/xml_rpc_ajax": "^3.1.0",
-                "silverorange/yui": "^1.0.11"
+                "silverorange/admin": "^7.1.0",
+                "silverorange/site": "^15.3.2 || ^16.1.0",
+                "silverorange/swat": "^7.10.0",
+                "silverorange/xml_rpc_ajax": "^3.2.0",
+                "silverorange/yui": "^1.0.13"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "3.64.0",
-                "phpstan/phpstan": "^1.12"
+                "friendsofphp/php-cs-fixer": "3.88.2",
+                "phpstan/phpstan": "^2.2",
+                "rector/rector": "^2.4"
             },
             "suggest": {
                 "authorizenet/authorizenet": "Payments with Authorize.net.",
@@ -2225,9 +2226,9 @@
             ],
             "support": {
                 "issues": "https://github.com/silverorange/store/issues",
-                "source": "https://github.com/silverorange/store/tree/10.2.5"
+                "source": "https://github.com/silverorange/store/tree/10.3.0"
             },
-            "time": "2026-03-17T19:52:28+00:00"
+            "time": "2026-07-23T17:16:22+00:00"
         },
         {
             "name": "silverorange/swat",
