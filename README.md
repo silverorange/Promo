@@ -16,9 +16,6 @@ Store objects are extended to provide promotion code support:
 
 ## Installation
 
-Make sure the silverorange composer repository is added to the `composer.json`
-for the project and then run:
-
 ```sh
 composer require silverorange/promo
 ```

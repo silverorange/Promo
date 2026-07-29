@@ -293,7 +293,7 @@ class PromoPromotionReport extends AdminIndex
             $date->addMonths(1);
         } while ($date->before($this->end_date));
 
-        // totl row
+        // total row
         $total = new SwatDetailsStore();
 
         $total->date = null;
